@@ -28,5 +28,6 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"prettier.configPath": "./.prettierrc",
+	"stylelint.configFile": "./.stylelintrc.json",
 	"stylelint.validate": ["css", "postcss", "html", "scss"]
 }
