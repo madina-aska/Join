@@ -1,0 +1,21 @@
+{
+	"htmlWhitespaceSensitivity": "css",
+	"semi": true,
+	"tabWidth": 2,
+	"printWidth": 100,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"jsxSingleQuote": false,
+	"bracketSpacing": true,
+	"useTabs": true,
+	"proseWrap": "always",
+	"quoteProps": "as-needed",
+	"overrides": [
+		{
+			"files": "*.html",
+			"options": {
+				"parser": "angular"
+			}
+		}
+	]
+}
