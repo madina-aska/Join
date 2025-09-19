@@ -1,7 +1,75 @@
 /* You can add global styles to this file, and also import other style files */
+@use "styles/variables";
+@use "styles/mixins";
+@use "styles/fonts";
+
 * {
-	font-size: 10px;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
+
+h1 {
+	font-family: Inter;
+	font-weight: var(--fw-bold);
+	font-size: var(--fs-h1);
+}
+
+h2 {
+	font-family: Inter;
+	font-weight: var(--fw-regular);
+	font-size: var(--fs-h2);
+}
+
+h3 {
+	font-family: Inter;
+	font-weight: var(--fw-medium);
+	font-size: var(--fs-h3);
+}
+
+h4 {
+	font-family: Inter;
+	font-weight: var(--fw-bold);
+	font-size: var(--fs-h4);
+}
+
 body {
-	color: blue;
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-text);
+	font-weight: var(--fw-regular);
 }
+
+// text elements
+p,
+span,
+div {
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-text);
+	font-weight: var(--fw-regular);
+}
+
+// small text
+small,
+.small-text {
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-small);
+	font-weight: var(--fw-regular);
+}
+
+// input fields
+input,
+textarea,
+select {
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-input);
+	font-weight: var(--fw-regular);
+}
+
+// buttons
+button,
+.btn {
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-button);
+	font-weight: var(--fw-regular);
+}
+

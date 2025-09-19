@@ -1,0 +1,36 @@
+// Global Font Configuration - Mobile First Approach
+// Inter Font Family with optimized sizing and weights
+
+// Local Inter Font Definitions
+
+@font-face {
+	font-family: Inter;
+	font-style: normal;
+	src: url("/fonts/Inter/inter-v20-latin-regular.woff2") format("woff2");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 500;
+	src: url("/fonts/Inter/inter-v20-latin-500.woff2") format("woff2");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	src: url("/fonts/Inter/inter-v20-latin-600.woff2") format("woff2");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 700;
+	src: url("/fonts/Inter/inter-v20-latin-700.woff2") format("woff2");
+	font-display: swap;
+}
+

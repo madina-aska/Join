@@ -1,0 +1,42 @@
+html {
+	--bg-color-blue-lighter: #29abe2;
+	--bg-color-blue-darker: #2a3647;
+	--bg-color-white: #fff;
+	--bg-color-gray: #f6f7f8;
+	--bg-color-gray-darker: #d1d1d1;
+	--color-link: #007cee;
+	--text-color-blue: #2a3647;
+	--text-color-black: #000;
+
+	/* Typography Sizes - Mobile First */
+	/* headings */
+	--fs-h1: clamp(2.938rem, 2.657rem + 1.284vw, 3.813rem);
+	--fs-h2: clamp(1.25rem, 1.181rem + 0.222vw, 1.688rem);
+	--fs-h3: clamp(1.75rem, 1.471rem + 0.868vw, 2.938rem);
+	--fs-h4: clamp(1.5rem, 0.791rem + 2.026vw, 4rem);
+
+	/* text */
+	--fs-text: clamp(1rem, 0.977rem + 0.074vw, 1.25rem);
+  	--fs-small: clamp(0.875rem, 0.852rem + 0.074vw, 1rem);
+
+	/* for inputs text */
+	--fs-input: clamp(1rem, 0.977rem + 0.074vw, 1.25rem);
+	/* for button text */
+  	--fs-button: clamp(1rem, 0.953rem + 0.148vw, 1.313rem);
+
+	/* Font Weights */
+	--fw-regular: 400;
+	--fw-medium: 500;
+	--fw-semibold: 600;
+	--fw-bold: 700;
+
+	/* Legacy font sizes for backward compatibility */
+	/* do not use */
+	--fs-extraSmall: 14px;
+	--fs-small: 16px;
+	--fs-medium: 18px;
+	--fs-big: 20px;
+	--fs-h1: 47px;
+	--fs-input: 20px;
+	--fs-button: 21px;
+}
