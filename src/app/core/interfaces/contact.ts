@@ -4,5 +4,5 @@ export interface Contact {
 	email: string;
 	telephone: string;
 	color?: number;
-	intials?: string;
+	initials?: string;
 }
