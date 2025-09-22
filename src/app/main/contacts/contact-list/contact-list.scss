@@ -1,0 +1,133 @@
+@use "../../../../styles/mixins";
+
+:host {
+	display: block;
+	height: 100%;
+	width: 100%;
+	grid-column: 1;
+	grid-row: 1;
+
+	@include mixins.desktop {
+		grid-column: revert;
+		grid-row: revert;
+	}
+}
+
+:host.mobile-d-none {
+	display: none;
+
+	@include mixins.desktop {
+		display: revert;
+	}
+}
+
+.list {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.all-contacts {
+	--padding: 2rem;
+
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	background-color: var(--bg-color-white);
+	padding: var(--padding);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: start;
+	padding-bottom: calc(var(--padding) * 2 + 56px);
+}
+
+.letter-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.letter-contacts {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: start;
+	border-top: 1px solid var(--bg-color-gray-darker);
+	row-gap: 1rem;
+	padding-block: 1rem;
+	border-radius: 3px;
+}
+
+.letter-padding {
+	width: 100%;
+	padding: 2rem;
+}
+
+.letter-headline {
+	display: inline-flex;
+	width: 42px;
+	align-items: center;
+	justify-content: center;
+	text-align: start;
+	font-size: var(--fs-big);
+}
+
+.contact {
+	padding: 2rem;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	column-gap: 2rem;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 175ms;
+}
+
+.profile-picture {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	aspect-ratio: 1;
+	background-color: red;
+	border: 2px solid white;
+	border-radius: 50%;
+}
+
+.profile-picture > span {
+	color: white;
+	font-size: 12px;
+}
+
+.contact-info {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	row-gap: 0.5rem;
+}
+
+.name {
+	color: var(--text-color-black);
+	transition: color 175ms;
+}
+
+.email {
+	color: var(--color-link);
+	font-size: var(--fs-small);
+}
+
+.contact:hover {
+	background-color: var(--bg-color-blue-darker);
+
+	& .name {
+		color: white;
+	}
+}

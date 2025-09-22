@@ -1,1 +1,33 @@
-<p>contact-list works!</p>
+<div class="list">
+	<button>Add Contact</button>
+	<div class="all-contacts">
+		@for (item of contactService.contactsObject | keyvalue; track $index) {
+			@let letter = item.key;
+			@let contactsForLetter = item.value;
+			<div class="letter-container">
+				<div class="letter-padding">
+					<span class="letter-headline">{{ letter }}</span>
+				</div>
+				<div class="letter-contacts">
+					@for (contact of contactsForLetter; track contact.id) {
+						<div
+							class="contact"
+							(click)="onContactSelect(contact.id)"
+							tabindex="0"
+							(keydown.enter)="onContactSelect(contact.id)"
+							(keydown.space)="onContactSelect(contact.id)"
+						>
+							<div class="profile-picture">
+								<span>{{ contact.initials }}</span>
+							</div>
+							<div class="contact-info">
+								<span class="name">{{ contact.name }}</span>
+								<span class="email">{{ contact.email }}</span>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		}
+	</div>
+</div>

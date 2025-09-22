@@ -1,0 +1,85 @@
+@use "../../../../styles/mixins";
+
+:host {
+	grid-column: 1;
+	grid-row: 1;
+
+	@include mixins.desktop {
+		grid-column: revert;
+		grid-row: revert;
+	}
+}
+
+:host.mobile-d-none {
+	display: none;
+
+	@include mixins.desktop {
+		display: revert;
+	}
+}
+
+.title-section {
+	padding-top: 3rem;
+	padding-left: 1rem;
+}
+
+.contact-card {
+	background-color: #fff;
+	padding: 1rem;
+	max-width: 400px;
+}
+
+.contact-header {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.title-underline {
+	width: 80px;
+	height: 3px;
+	background-color: #3f8efc;
+	border: none;
+	margin-bottom: 1rem;
+}
+
+.initials {
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: var(--fs-h3);
+	font-weight: var(--fw-bold);
+	color: #fff;
+	background-color: var(--color-primary, #3f8efc);
+}
+
+.contact-name {
+	font-size: var(--fs-h2);
+	font-weight: var(--fw-bold);
+	color: var(--color-dark, #222);
+}
+
+.contact-details {
+	padding-top: 1rem;
+}
+
+.contact-details h3 {
+	font-size: var(--fs-text);
+	font-weight: var(--fw-medium);
+	margin-bottom: 0.75rem;
+}
+
+.contact-details p {
+	margin: 0.5rem 0;
+	font-size: var(--fs-text);
+	font-weight: var(--fw-regular);
+}
+
+.contact-details a {
+	color: var(--color-primary, #3f8efc);
+	text-decoration: none;
+}

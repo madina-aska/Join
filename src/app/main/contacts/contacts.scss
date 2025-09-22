@@ -1,0 +1,12 @@
+@use "../../../styles/mixins";
+
+section {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 100%;
+
+	@include mixins.desktop {
+		grid-template-columns: 1fr 2fr;
+		grid-template-rows: 100%;
+	}
+}
