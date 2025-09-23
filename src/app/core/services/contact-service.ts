@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy } from "@angular/core";
+import { inject, Injectable, Injector, OnDestroy, runInInjectionContext } from "@angular/core";
 import { DocumentData } from "@angular/fire/compat/firestore";
 import {
 	collection,
@@ -17,6 +17,7 @@ type ContactDictionary = Record<string, Contact[]>;
 })
 export class ContactService implements OnDestroy {
 	firestore = inject(Firestore);
+	injector = inject(Injector);
 
 	contactForView: Contact | undefined;
 	contactsObject: ContactDictionary = {};
@@ -28,35 +29,38 @@ export class ContactService implements OnDestroy {
 	}
 
 	getContactsAsObject() {
-		const contactsCol = collection(this.firestore, "contacts");
+		let data;
+		runInInjectionContext(this.injector, () => {
+			const contactsCol = collection(this.firestore, "contacts");
 
-		this.unsubscribeContactsObject = onSnapshot(
-			contactsCol,
-			(snapshot: QuerySnapshot<DocumentData>) => {
-				this.contactsObject = {};
+			this.unsubscribeContactsObject = onSnapshot(
+				contactsCol,
+				(snapshot: QuerySnapshot<DocumentData>) => {
+					this.contactsObject = {};
 
-				const contacts: Contact[] = [];
+					const contacts: Contact[] = [];
 
-				snapshot.forEach((doc) => {
-					contacts.push(this.buildDocument(doc.id, doc.data()));
-				});
-				console.log(contacts);
-				this.createLexObject(contacts);
-				console.log(this.contactsObject);
-			},
-		);
-
-		return collectionData(contactsCol, { idField: "id" });
+					snapshot.forEach((doc) => {
+						contacts.push(this.buildDocument(doc.id, doc.data()));
+					});
+					this.createLexObject(contacts);
+				},
+			);
+			data = collectionData(contactsCol, { idField: "id" });
+		});
+		return data;
 	}
 
 	getDocumentById(contactId: string) {
-		const contact = doc(this.firestore, "contacts", contactId);
-		this.unsubscribeContactForView = onSnapshot(contact, (snapshot) => {
-			if (snapshot.exists()) {
-				this.contactForView = this.buildDocument(snapshot.id, snapshot.data());
-			} else {
-				this.contactForView = undefined;
-			}
+		runInInjectionContext(this.injector, () => {
+			const contact = doc(this.firestore, "contacts", contactId);
+			this.unsubscribeContactForView = onSnapshot(contact, (snapshot) => {
+				if (snapshot.exists()) {
+					this.contactForView = this.buildDocument(snapshot.id, snapshot.data());
+				} else {
+					this.contactForView = undefined;
+				}
+			});
 		});
 	}
 

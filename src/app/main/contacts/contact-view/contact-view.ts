@@ -18,6 +18,8 @@ export class ContactView implements OnChanges {
 	ngOnChanges() {
 		if (this.id()) {
 			this.contactService.getDocumentById(this.id());
+		} else {
+			this.contactService.contactForView = undefined;
 		}
 	}
 

@@ -40,7 +40,7 @@ html {
 	--fs-input: 20px;
 	--fs-button: 21px;
 
-	--footer-width-desktop: 232px;
+	--footer-width-desktop: min(22vw, 232px);
 	--header-height: 8vh;
-	--padding-left-desktop: calc(var(--footer-width-desktop) + 2rem);
+	--padding-left-desktop: calc(var(--footer-width-desktop) + 1rem);
 }
