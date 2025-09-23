@@ -1,28 +1,31 @@
 <div class="title-section">
-	<h1>Contact</h1>
+	<button class="back-arrow" (click)="goBack()">
+		<img src="images/assets/arrow_left_line.svg" alt="back arrow">
+	</button>
+	<h1>Contacts</h1>
 	<p>Better with a team</p>
 	<hr class="title-underline" />
 </div>
 
 @if (contactService.contactForView; as contact) {
-	<div class="contact-card">
-		<div class="contact-header">
-			<div class="initials" [style.background-color]="contact.color">
-				{{ contact.initials }}
-			</div>
-			<h2 class="contact-name">{{ contact.name }}</h2>
+<div class="contact-card">
+	<div class="contact-header">
+		<div class="initials" [style.background-color]="contact.color">
+			{{ contact.initials }}
 		</div>
-
-		<div class="contact-details">
-			<h3>Contact Information</h3>
-			<p>
-				<strong>Email</strong><br />
-				<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-			</p>
-			<p>
-				<strong>Phone</strong><br />
-				{{ contact.telephone }}
-			</p>
-		</div>
+		<h2 class="contact-name">{{ contact.name }}</h2>
 	</div>
+
+	<div class="contact-details">
+		<h3>Contact Information</h3>
+		<p>
+			<strong>Email</strong><br />
+			<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+		</p>
+		<p>
+			<strong>Phone</strong><br />
+			{{ contact.telephone }}
+		</p>
+	</div>
+</div>
 }

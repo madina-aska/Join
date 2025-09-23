@@ -18,9 +18,26 @@
 	}
 }
 
+@include mixins.desktop {
+	.back-arrow {
+		display: none;
+	}
+}
+
 .title-section {
 	padding-top: 3rem;
 	padding-left: 1rem;
+	position: relative;
+
+	.back-arrow {
+		background: none;
+		border: none;
+		padding: 0;
+		position: absolute;
+		right: 15px;
+		top: 50%;
+		cursor: pointer;
+	}
 }
 
 .contact-card {
@@ -42,23 +59,27 @@
 	background-color: #3f8efc;
 	border: none;
 	margin-bottom: 1rem;
+	margin-top: 1rem;
 }
 
 .initials {
-	width: 4rem;
-	height: 4rem;
+	width: 7rem;
+	height: 7rem;
+	aspect-ratio: 1;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-size: var(--fs-h3);
-	font-weight: var(--fw-bold);
+	font-weight: var(--fw-regular);
 	color: #fff;
-	background-color: var(--color-primary, #3f8efc);
+	background-color: var(--color-primary, #f0a309);
+	border: 3px solid #fff;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 }
 
 .contact-name {
-	font-size: var(--fs-h2);
+	font-size: var(--fs-h3);
 	font-weight: var(--fw-bold);
 	color: var(--color-dark, #222);
 }
@@ -68,13 +89,14 @@
 }
 
 .contact-details h3 {
-	font-size: var(--fs-text);
+	font-size: var(--fs-h2);
 	font-weight: var(--fw-medium);
-	margin-bottom: 0.75rem;
+	margin-bottom: 2rem;
 }
 
 .contact-details p {
-	margin: 0.5rem 0;
+	margin: 1rem 0;
+	line-height: 2;
 	font-size: var(--fs-text);
 	font-weight: var(--fw-regular);
 }
