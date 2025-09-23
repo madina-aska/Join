@@ -1,3 +1,5 @@
+@use "../../../styles/mixins.scss";
+
 img {
 	height: 20px;
 }
@@ -46,13 +48,12 @@ span {
 	display: none;
 }
 
-/* stylelint-disable-next-line media-feature-range-notation */
-@media (min-width: 768px) {
+@include mixins.desktop {
 	.footer-menu {
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 232px;
+		width: var(--footer-width-desktop);
 		height: 100vh;
 		flex-direction: column;
 		justify-content: flex-start;
