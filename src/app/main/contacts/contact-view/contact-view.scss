@@ -28,7 +28,14 @@
 	padding-top: 3rem;
 	padding-left: 1rem;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 
+	h1,
+	p {
+		margin: 0;
+	}
+  
 	.back-arrow {
 		background: none;
 		border: none;
@@ -37,6 +44,37 @@
 		right: 15px;
 		top: 50%;
 		cursor: pointer;
+	}
+
+	@media (min-width: 1050px) {
+		flex-direction: row;
+		align-items: center;
+
+		h1 {
+			font-size: var(--fs-h1);
+			font-weight: var(--fw-bold);
+			display: inline-block;
+		}
+
+		p {
+			font-size: var(--fs-h2);
+			font-weight: var(--fw-regular);
+			display: inline-block;
+		}
+
+		h1::after {
+			content: "";
+			display: inline-block;
+			width: 3px;
+			height: 3.6rem;
+			background-color: #3f8efc;
+			margin: 0 1rem;
+			vertical-align: middle;
+		}
+
+		.title-underline {
+			display: none;
+		}
 	}
 }
 
@@ -59,7 +97,7 @@
 	background-color: #3f8efc;
 	border: none;
 	margin-bottom: 1rem;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 }
 
 .initials {
