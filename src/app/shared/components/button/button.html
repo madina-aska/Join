@@ -1,1 +1,21 @@
-<p>button works!</p>
+<button
+	[class]="buttonClasses()"
+	[disabled]="disabled || loading"
+	[type]="type"
+	(click)="handleClick($event)"
+	(dblclick)="handleDoubleClick($event)"
+	(mouseenter)="handleMouseEnter($event)"
+	(mouseleave)="handleMouseLeave($event)"
+>
+	@if (loading) {
+		<div class="btn__loading-spinner"></div>
+	} @else {
+		@if (icon) {
+			<img class="btn__icon" [src]="icon" [alt]="iconAlt || 'Icon'" />
+		}
+	}
+
+	<span class="btn__text" [class.sr-only]="loading">
+		<ng-content></ng-content>
+	</span>
+</button>

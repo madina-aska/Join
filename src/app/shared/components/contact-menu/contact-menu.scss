@@ -1,0 +1,38 @@
+.contact-menu-dropdown {
+  position: fixed;
+  bottom: 80px; // Above the menu button
+  right: 20px;
+  background-color: var(--bg-color-white);
+  border: 1px solid var(--bg-color-gray-darker);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  z-index: 1000;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  // Edit and Delete buttons styling within dropdown
+  .btn {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    min-height: auto;
+    font-size: var(--fs-small);
+    border-radius: 6px;
+
+    .btn__icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+    }
+  }
+}
+
+// Mobile-only visibility
+@media (min-width: 769px) {
+  :host {
+    display: none;
+  }
+}

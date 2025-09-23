@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import {
 	FormBuilder,
 	FormGroup,
-	Validators,
-	ReactiveFormsModule,
 	FormsModule,
+	ReactiveFormsModule,
+	Validators,
 } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
@@ -21,6 +21,7 @@ export class AddContact {
 	isOverlayOpen = false;
 
 	@Output() closed = new EventEmitter<void>();
+	@Output() open = new EventEmitter<void>();
 
 	constructor(private fb: FormBuilder) {
 		this.contactForm = this.fb.group({
@@ -51,5 +52,40 @@ export class AddContact {
 
 	closeOverlay() {
 		this.closed.emit();
+	}
+
+	openOverlay() {
+		this.open.emit();
+	}
+
+	onAddContact(): void {
+		console.log("Add contact clicked!");
+		// This can open the form or do other actions
+		this.openOverlay();
+	}
+
+	onEditContact(): void {
+		console.log("Edit contact clicked!");
+		// This can open edit mode or navigate to edit
+	}
+
+	onNameChange(value: string) {
+		this.contactForm.patchValue({ name: value });
+	}
+
+	onEmailChange(value: string) {
+		this.contactForm.patchValue({ email: value });
+	}
+
+	onPhoneChange(value: string) {
+		this.contactForm.patchValue({ phone: value });
+	}
+
+	onCreateContactClick() {
+		this.onSubmit();
+	}
+
+	onCancelClick() {
+		this.closeOverlay();
 	}
 }

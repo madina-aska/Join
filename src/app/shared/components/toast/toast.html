@@ -1,0 +1,33 @@
+@if (visible()) {
+	<div [class]="toastClasses()" [@slideIn]>
+		<div class="toast__content">
+			@if (icon) {
+				<img class="toast__icon" [src]="icon" [alt]="type + ' icon'" />
+			}
+
+			<div class="toast__body">
+				@if (title) {
+					<div class="toast__title">{{ title }}</div>
+				}
+				<span class="toast__message">{{ message }}</span>
+			</div>
+
+			@if (showCloseButton) {
+				<app-button
+					variant="ghost"
+					size="small"
+					icon="/images/assets/close_cross.svg"
+					(clickEvent)="close()"
+					aria-label="Close notification"
+				>
+				</app-button>
+			}
+
+			@if (action) {
+				<app-button variant="primary" size="small" (clickEvent)="handleAction()">
+					{{ action.label }}
+				</app-button>
+			}
+		</div>
+	</div>
+}

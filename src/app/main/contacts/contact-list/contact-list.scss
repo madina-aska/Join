@@ -32,6 +32,59 @@ span {
 	flex-direction: column;
 	align-items: center;
 	padding-block: 3vh;
+
+	// desktop Add new contact button styling
+	.desktop-add-button {
+		// hide on mobile, show on desktop
+		display: none;
+
+		@include mixins.desktop {
+			display: block;
+			margin: 1.5rem;
+			width: calc(100% - 3rem);
+
+			// nake sure button keeps its full width
+			.btn {
+				width: 100%;
+			}
+		}
+	}
+
+	// mobile FAB button styling
+	.mobile-fab-button {
+		// Show on mobile, hide on desktop
+		display: block;
+		position: fixed;
+		bottom: 80px;
+		right: 20px;
+		width: 56px;
+		height: 56px;
+		z-index: 1000;
+		margin: 0;
+		border-radius: 50%;
+
+		.btn {
+			width: 56px;
+			height: 56px;
+			min-height: 56px;
+			border-radius: 50%;
+			padding: 0;
+			box-shadow: 0 4px 12px rgba(42, 54, 71, 0.3);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.btn__icon {
+				margin: 0;
+				width: 24px;
+				height: 24px;
+			}
+		}
+
+		@include mixins.desktop {
+			display: none;
+		}
+	}
 }
 
 .all-contacts {

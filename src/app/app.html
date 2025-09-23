@@ -3,3 +3,17 @@
 	<router-outlet />
 </main>
 <app-footer />
+
+<!-- Global Toast -->
+@if (currentToast()) {
+	<app-toast
+		[type]="currentToast()!.type"
+		[title]="currentToast()!.title"
+		[message]="currentToast()!.message"
+		[duration]="currentToast()!.duration || 1500"
+		[showCloseButton]="false"
+		[icon]="currentToast()!.icon"
+		(closeEvent)="toastService.hide()"
+	>
+	</app-toast>
+}

@@ -1,5 +1,24 @@
 <div class="list">
-	<button (click)="openAddContact()">Add Contact</button>
+	<!-- desktop add_contactsbtn -->
+	<app-button
+		class="desktop-add-button"
+		variant="primary"
+		icon="/images/contacs_section/person_add.svg"
+		[fullWidth]="true"
+		(clickEvent)="openAddContact()"
+	>
+		Add new contact
+	</app-button>
+
+	<!-- mobile add_contactsbtn FAB = floating action button!!! -->
+	<app-button
+		class="mobile-fab-button"
+		variant="primary"
+		icon="/images/contacs_section/person_add.svg"
+		(clickEvent)="openAddContact()"
+	>
+	</app-button>
+
 	<div class="all-contacts">
 		@for (item of contactService.contactsObject | keyvalue; track $index) {
 			@let letter = item.key;
@@ -31,5 +50,3 @@
 		}
 	</div>
 </div>
-
-
