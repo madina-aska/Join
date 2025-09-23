@@ -2,8 +2,8 @@
 	<div class="content_mobile">
 		<div class="up">
 			<div class="close" (click)="closeOverlay()">
-        <img src="./images/assets/close_mobile.svg" alt="">
-      </div>
+				<img src="./images/assets/close_mobile.svg" alt="" />
+			</div>
 			<div class="head">
 				<h2>Add contact</h2>
 				<span>Tasks are better with a team!</span>
@@ -16,10 +16,7 @@
 		<div class="down">
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
 				<input id="name" placeholder="Name" type="text" formControlName="name" />
-				<div
-					class="error"
-					*ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid"
-				>
+				<div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
 					<span *ngIf="contactForm.get('name')?.errors?.['required']">
 						First & last name is required.
 					</span>
@@ -29,10 +26,7 @@
 				</div>
 
 				<input id="email" placeholder="Email" type="email" formControlName="email" />
-				<div
-					class="error"
-					*ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid"
-				>
+				<div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
 					<span *ngIf="contactForm.get('email')?.errors?.['required']"> Email is required. </span>
 					<span *ngIf="contactForm.get('email')?.errors?.['email']">
 						Please enter a valid Email.
@@ -40,10 +34,7 @@
 				</div>
 
 				<input id="phone" placeholder="Phone" type="tel" formControlName="phone" />
-				<div
-					class="error"
-					*ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid"
-				>
+				<div class="error" *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid">
 					<span *ngIf="contactForm.get('phone')?.errors?.['required']">
 						Phone number is required.
 					</span>
@@ -53,78 +44,72 @@
 				</div>
 
 				<button type="submit" [disabled]="contactForm.invalid">
-          Create contact
-          <img src="./images/assets/check.svg" alt="">
-        </button>
+					Create contact
+					<img src="./images/assets/check.svg" alt="" />
+				</button>
 			</form>
 		</div>
 	</div>
 </div>
 
+
 <div class="main_desktop">
 	<div class="content_desktop">
+		<div class="left">
+			<div class="head">
+				<img class="logo" src="./images/join_logo/join_logo.svg" alt="" />
+				<h2>Add contact</h2>
+				<span>Tasks are better with a team!</span>
+				<div class="blueline"></div>
+			</div>
+		</div>
 
-      <div class="left">
-        <div class="head">
-          <img class="logo" src="./images/join_logo/join_logo.svg" alt="">
-          <h2>Add contact</h2>
-          <span>Tasks are better with a team!</span>
-          <div class="blueline"></div>
-        </div>
-      </div>
+		<div class="middle_desktop"></div>
 
+		<div class="right_desktop">
+			<div class="close_desktop" (click)="closeOverlay()">
+				<img src="./images/assets/close_cross.svg" alt="" />
+			</div>
+			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+				<input id="name" placeholder="Name" type="text" formControlName="name" />
+				<div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+					<span *ngIf="contactForm.get('name')?.errors?.['required']">
+						First & last name is required.
+					</span>
+					<span *ngIf="contactForm.get('name')?.errors?.['pattern']">
+						Please enter first and last name.
+					</span>
+				</div>
 
-    <div class="middle_desktop"></div>
+				<input id="email" placeholder="Email" type="email" formControlName="email" />
+				<div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+					<span *ngIf="contactForm.get('email')?.errors?.['required']"> Email is required. </span>
+					<span *ngIf="contactForm.get('email')?.errors?.['email']">
+						Please enter a valid Email.
+					</span>
+				</div>
 
-    <div class="right_desktop">
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <input id="name" placeholder="Name" type="text" formControlName="name" />
-        <div
-          class="error"
-          *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid"
-        >
-          <span *ngIf="contactForm.get('name')?.errors?.['required']">
-            First & last name is required.
-          </span>
-          <span *ngIf="contactForm.get('name')?.errors?.['pattern']">
-            Please enter first and last name.
-          </span>
-        </div>
+				<input id="phone" placeholder="Phone" type="tel" formControlName="phone" />
+				<div class="error" *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid">
+					<span *ngIf="contactForm.get('phone')?.errors?.['required']">
+						Phone number is required.
+					</span>
+					<span *ngIf="contactForm.get('phone')?.errors?.['pattern']">
+						Please enter a valid phonenumber.
+					</span>
+				</div>
 
-        <input id="email" placeholder="Email" type="email" formControlName="email" />
-        <div
-          class="error"
-          *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid"
-        >
-          <span *ngIf="contactForm.get('email')?.errors?.['required']"> Email is required. </span>
-          <span *ngIf="contactForm.get('email')?.errors?.['email']">
-            Please enter a valid Email.
-          </span>
-        </div>
-
-        <input id="phone" placeholder="Phone" type="tel" formControlName="phone" />
-        <div
-          class="error"
-          *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid"
-        >
-          <span *ngIf="contactForm.get('phone')?.errors?.['required']">
-            Phone number is required.
-          </span>
-          <span *ngIf="contactForm.get('phone')?.errors?.['pattern']">
-            Please enter a valid phonenumber.
-          </span>
-        </div>
-
-        <button type="submit" [disabled]="contactForm.invalid">
-          Create contact
-          <img src="./images/assets/check.svg" alt="">
-        </button>
-        <button class="close_overlay" type="button" (click)="closeOverlay()">
-          Cancel
-          <img src="./images/assets/close_cross.svg" alt="x">
-        </button>
-
-      </form>
-    </div>
-  </div>
+				<div class="buttons">
+					<button type="submit" [disabled]="contactForm.invalid">
+						Create contact
+						<img src="./images/assets/check.svg" alt="" />
+					</button>
+					<button class="cancel" type="button" (click)="closeOverlay()">
+						Cancel
+						<img src="./images/assets/close_cross.svg" alt="x" />
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>

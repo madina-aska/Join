@@ -1,5 +1,5 @@
 <div class="list">
-	<button>Add Contact</button>
+	<button (click)="openAddContact()">Add Contact</button>
 	<div class="all-contacts">
 		@for (item of contactService.contactsObject | keyvalue; track $index) {
 			@let letter = item.key;
@@ -31,3 +31,5 @@
 		}
 	</div>
 </div>
+
+

@@ -1,5 +1,5 @@
 import { KeyValuePipe } from "@angular/common";
-import { Component, inject, output } from "@angular/core";
+import { Component, EventEmitter, inject, Output, output } from "@angular/core";
 import { Router } from "@angular/router";
 import { ContactService } from "app/core/services/contact-service";
 
@@ -12,6 +12,12 @@ import { ContactService } from "app/core/services/contact-service";
 export class ContactList {
 	contactService = inject(ContactService);
 	router = inject(Router);
+
+	@Output() addContactClicked = new EventEmitter<void>();
+
+	openAddContact() {
+		this.addContactClicked.emit();
+	}
 
 	contactSelected = output<string>();
 
