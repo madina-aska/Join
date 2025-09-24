@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output, inject } from "@angular/core";
 import {
 	FormBuilder,
 	FormGroup,
@@ -8,6 +8,8 @@ import {
 	Validators,
 } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { Contact } from "app/core/interfaces/contact";
+import { ContactService } from "app/core/services/contact-service";
 
 @Component({
 	selector: "app-add-contact",
@@ -17,37 +19,65 @@ import { RouterModule } from "@angular/router";
 	styleUrl: "./add-contact.scss",
 })
 export class AddContact {
-	contactForm: FormGroup;
 	isOverlayOpen = false;
+	contactService = inject(ContactService);
+
+	private fb = inject(FormBuilder);
+
+	contactForm: FormGroup = this.fb.group({
+		name: [
+			"",
+			[Validators.required, Validators.pattern(/^[A-ZÄÖÜa-zäöüß]+(?:\s[A-ZÄÖÜa-zäöüß]+)+$/)],
+		],
+		email: [
+			"",
+			[
+				Validators.required,
+				Validators.email,
+				Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+			],
+		],
+		phone: ["", [Validators.required, Validators.pattern(/^\+?[0-9\s\-]{7,15}$/)]],
+	});
 
 	@Output() closed = new EventEmitter<void>();
 	@Output() open = new EventEmitter<void>();
 
-	constructor(private fb: FormBuilder) {
-		this.contactForm = this.fb.group({
-			name: [
-				"",
-				[Validators.required, Validators.pattern(/^[A-ZÄÖÜa-zäöüß]+(?:\s[A-ZÄÖÜa-zäöüß]+)+$/)],
-			],
-			email: [
-				"",
-				[
-					Validators.required,
-					Validators.email,
-					Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
-				],
-			],
-			phone: ["", [Validators.required, Validators.pattern(/^\+?[0-9\s\-]{7,15}$/)]],
-		});
-	}
-
 	onSubmit() {
 		if (this.contactForm.valid) {
-			console.log(this.contactForm.value);
-			alert("Kontakt erfolgreich erstellt!");
-			this.contactForm.reset();
-			this.closeOverlay();
+			const formValue = this.contactForm.value;
+
+			const newContact: Contact = {
+				name: formValue.name,
+				email: formValue.email,
+				telephone: formValue.phone,
+				initials: this.generateInitials(formValue.name),
+				color: this.getRandomColor(),
+			};
+
+			this.contactService
+				.addContact(newContact)
+				.then(() => {
+					alert("Save contact!");
+					this.contactForm.reset();
+					this.closeOverlay();
+				})
+				.catch((error) => {
+					alert("Save contact error");
+					console.error(error);
+				});
 		}
+	}
+
+	generateInitials(name: string): string {
+		return name
+			.split(" ")
+			.map((n) => n.charAt(0).toUpperCase())
+			.join("");
+	}
+
+	getRandomColor(): number {
+		return Math.floor(Math.random() * 10) + 1;
 	}
 
 	closeOverlay() {
