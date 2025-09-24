@@ -13,7 +13,9 @@
 		[duration]="currentToast()!.duration || 1500"
 		[showCloseButton]="false"
 		[icon]="currentToast()!.icon"
+		[action]="currentToast()!.action"
 		(closeEvent)="toastService.hide()"
+		(actionEvent)="handleToastAction()"
 	>
 	</app-toast>
 }

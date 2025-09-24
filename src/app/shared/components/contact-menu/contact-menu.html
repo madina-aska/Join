@@ -1,24 +1,28 @@
 <!-- Contact Menu Button -->
 <app-button
-	variant="contact-menu"
+	class="contact-menu-fab"
+	variant="fab"
 	icon="/images/contacs_section/contact_mobile_btn.svg"
 	(clickEvent)="toggleMenu()"
 >
 </app-button>
 
-<!-- Menu Dropdown -->
-@if (isMenuOpen()) {
-	<div class="contact-menu-dropdown">
-		<app-button variant="edit" icon="/images/contacs_section/edit.svg" (clickEvent)="onEdit()">
-			Edit
-		</app-button>
+<!-- Menu Dropdown - Always in DOM for smooth animations -->
+<div
+	class="contact-menu-dropdown"
+	[class.menu-visible]="isMenuVisible()"
+	[class.menu-hiding]="isMenuHiding()"
+	#dropdown
+>
+	<app-button variant="edit" icon="/images/contacs_section/edit.svg" (clickEvent)="onEdit()">
+		Edit
+	</app-button>
 
-		<app-button
-			variant="delete"
-			icon="/images/contacs_section/trash_icon.svg"
-			(clickEvent)="onDelete()"
-		>
-			Delete
-		</app-button>
-	</div>
-}
+	<app-button
+		variant="delete"
+		icon="/images/contacs_section/trash_icon.svg"
+		(clickEvent)="onDelete()"
+	>
+		Delete
+	</app-button>
+</div>

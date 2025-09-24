@@ -15,7 +15,7 @@
 
 		<div class="down">
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-				<input id="name" placeholder="Name" type="text" formControlName="name" />
+				<input id="name" placeholder="Name" type="text" formControlName="name" (input)="onNameInput($event)" />
 				<div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
 					<span *ngIf="contactForm.get('name')?.errors?.['required']">
 						First & last name is required.
@@ -71,7 +71,7 @@
 				<img src="./images/assets/close_cross.svg" alt="" />
 			</div>
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-				<input id="name" placeholder="Name" type="text" formControlName="name" />
+				<input id="name" placeholder="Name" type="text" formControlName="name" (input)="onNameInput($event)" />
 				<div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
 					<span *ngIf="contactForm.get('name')?.errors?.['required']">
 						First & last name is required.

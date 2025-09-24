@@ -13,9 +13,9 @@
 		@if (icon) {
 			<img class="btn__icon" [src]="icon" [alt]="iconAlt || 'Icon'" />
 		}
-	}
 
-	<span class="btn__text" [class.sr-only]="loading">
-		<ng-content></ng-content>
-	</span>
+		<span class="btn__text" [class.sr-only]="loading">
+			<ng-content></ng-content>
+		</span>
+	}
 </button>

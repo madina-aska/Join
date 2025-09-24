@@ -1,5 +1,5 @@
 @if (visible()) {
-	<div [class]="toastClasses()" [@slideIn]>
+	<div [class]="toastClasses()">
 		<div class="toast__content">
 			@if (icon) {
 				<img class="toast__icon" [src]="icon" [alt]="type + ' icon'" />

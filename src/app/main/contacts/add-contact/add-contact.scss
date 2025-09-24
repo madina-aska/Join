@@ -1,4 +1,4 @@
-@use "../../../.././/styles/mixins.scss";
+@use "../../../../styles/mixins";
 
 
 * {
@@ -441,6 +441,7 @@
 
 							&:hover {
 								background: #007cee;
+								box-shadow: 1px 1px 1px 1px grey;
 							}
 						}
 

@@ -13,16 +13,36 @@
 		<div class="initials" [style.background-color]="contactService.getAvatarColor(contact)">
 			{{ contact.initials }}
 		</div>
-		<h2 class="contact-name">{{ contact.name }}</h2>
 
-			<!-- Contact Menu Button (Mobile Only) -->
-			<app-contact-menu
-				[contactId]="contact.id"
-				(editClicked)="onEditContact($event)"
-				(deleteClicked)="onDeleteContact($event)"
-			>
-			</app-contact-menu>
+		<div class="contact-info">
+			<h2 class="contact-name">{{ contact.name }}</h2>
+
+			<!-- Desktop Edit/Delete Buttons (Desktop Only) -->
+			<div class="desktop-action-buttons">
+				<app-button
+					variant="edit"
+					icon="/images/contacs_section/edit.svg"
+					(clickEvent)="contact.id && onEditContact(contact.id)">
+					Edit
+				</app-button>
+				<app-button
+					variant="delete"
+					icon="/images/contacs_section/trash_icon.svg"
+					(clickEvent)="contact.id && onDeleteContact(contact.id)">
+					Delete
+				</app-button>
+			</div>
 		</div>
+
+		<!-- Contact Menu Button (Mobile Only) -->
+		<app-contact-menu
+			class="mobile-only"
+			[contactId]="contact.id"
+			(editClicked)="onEditContact($event)"
+			(deleteClicked)="onDeleteContact($event)"
+		>
+		</app-contact-menu>
+	</div>
 		<div class="contact-details">
 			<h3>Contact Information</h3>
 			<p>
@@ -41,7 +61,7 @@
 		<app-edit-contact
 			[contactId]="onEditContactId()"
 			(closed)="onCloseEditOverlay()"
-			(saved)="goBack()"
+			(saved)="onEditContactSaved()"
 		>
 		</app-edit-contact>
 	}

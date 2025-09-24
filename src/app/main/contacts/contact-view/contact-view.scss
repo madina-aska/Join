@@ -103,6 +103,31 @@
 	}
 }
 
+.contact-info {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+// Desktop action buttons - only visible on desktop
+.desktop-action-buttons {
+	display: none;
+	gap: 0.5rem;
+
+	@include mixins.desktop {
+		display: flex;
+	}
+}
+
+// Mobile FAB menu - only visible on mobile
+.mobile-only {
+	display: block;
+
+	@include mixins.desktop {
+		display: none;
+	}
+}
+
 .title-underline {
 	width: 80px;
 	height: 3px;

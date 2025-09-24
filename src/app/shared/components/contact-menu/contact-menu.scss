@@ -1,17 +1,37 @@
 .contact-menu-dropdown {
   position: fixed;
   bottom: 80px; // Above the menu button
-  right: 20px;
+  right: 8px;
   background-color: var(--bg-color-white);
   border: 1px solid var(--bg-color-gray-darker);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px 12px 0 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
   padding: 8px;
   z-index: 1000;
   min-width: 120px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+
+  // Default state: hidden off-screen to the right
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none; // Prevent interaction when hidden
+
+  // Visible state: slide in from right to left
+  &.menu-visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto; // Enable interaction when visible
+  }
+
+  // Hiding state: slide out from left to right
+  &.menu-hiding {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
 
   // Edit and Delete buttons styling within dropdown
   .btn {
@@ -21,13 +41,42 @@
     min-height: auto;
     font-size: var(--fs-small);
     border-radius: 6px;
+    transition: all 0.2s ease;
 
     .btn__icon {
       width: 16px;
       height: 16px;
       margin-right: 8px;
+      order: -1;
     }
   }
+
+  // Specific styling for edit and delete buttons - higher specificity than base .btn--edit/.btn--delete
+  .btn.btn--edit {
+    background-color: #fff;
+    color: var(--bg-color-blue-darker);
+
+    &:hover {
+      background-color: rgba(42, 54, 71, 0.1);
+    }
+  }
+
+  .btn.btn--delete {
+    background-color: #fff;
+    color: #dc3545;
+
+    &:hover {
+      background-color: rgba(220, 53, 69, 0.1);
+    }
+  }
+}
+
+// Contact Menu FAB positioning
+.contact-menu-fab {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
 }
 
 // Mobile-only visibility

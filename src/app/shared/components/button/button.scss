@@ -38,6 +38,42 @@
 		}
 	}
 
+	// FAB button - Floating Action Button for mobile
+	&--fab {
+		background-color: var(--bg-color-blue-darker);
+		color: var(--bg-color-white);
+		border: none;
+		border-radius: 50%;
+		width: 56px;
+		height: 56px;
+		min-height: 56px;
+		padding: 0;
+		box-shadow: 0 4px 12px rgba(42, 54, 71, 0.3);
+
+		&:hover:not(:disabled) {
+			background-color: #1e2832;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 16px rgba(42, 54, 71, 0.4);
+		}
+
+		&:active {
+			transform: translateY(0);
+			box-shadow: 0 2px 8px rgba(42, 54, 71, 0.2);
+		}
+
+		// Hide text for FAB buttons
+		.btn__text {
+			display: none;
+		}
+
+		// Center icon perfectly
+		.btn__icon {
+			margin: 0;
+			width: 24px;
+			height: 24px;
+		}
+	}
+
 	&--success {
 		background: #2a3647;
 		color: #fff;
@@ -151,80 +187,8 @@
 			transform: translateY(-1px);
 		}
 
-		// Loading button - Shows spinner during async operations
-		&--loading {
-			position: relative;
-			pointer-events: none;
-
-			&::after {
-				content: "";
-				position: absolute;
-				width: 1rem;
-				height: 1rem;
-				border: 2px solid transparent;
-				border-top: 2px solid currentColor;
-				border-radius: 50%;
-				animation: spin 1s linear infinite;
-			}
-
-			.btn__icon,
-			.btn__text {
-				opacity: 0;
-			}
-		}
-
-		// Ghost button - Transparent background with subtle hover effects
-		&--ghost {
-			background-color: transparent;
-			color: var(--text-color-black);
-			border: none;
-
-			&:hover:not(:disabled) {
-				background-color: var(--bg-color-gray);
-				transform: translateY(-1px);
-			}
-
-			&:active {
-				transform: translateY(0);
-			}
-		}
-
-		// Contact menu button - Round button for contact actions
-		&--contact-menu {
-			background-color: var(--bg-color-blue-darker);
-			color: var(--bg-color-white);
-			border: none;
-			border-radius: 50%;
-			width: 48px;
-			height: 48px;
-			min-height: 48px;
-			padding: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: fixed;
-			bottom: 24px;
-			right: 24px;
-			z-index: 999;
-
-			// Click animation like cancel button
-			&:active {
-				background-color: #1e2832;
-				transform: scale(0.95);
-				box-shadow: 0 2px 8px rgba(42, 54, 71, 0.2);
-			}
-
-			// Hide text for contact menu buttons
-			.btn__text {
-				display: none;
-			}
-
-			// Center icon perfectly
-			.btn__icon {
-				margin: 0;
-				width: 20px;
-				height: 20px;
-			}
+		&:active {
+			transform: translateY(0);
 		}
 	}
 
@@ -235,38 +199,74 @@
 	}
 
 	// Edit button - Icon-only button for editing contact entries
-	.btn--edit {
+	&--edit {
 		background-color: transparent;
 		color: var(--bg-color-blue-darker);
 		padding: 0.5rem;
 		border-radius: 0.5rem;
 		min-height: auto;
 
-		&:hover {
-			background-color: var(--bg-color-gray);
+		&:hover:not(:disabled) {
+			background-color: transparent;
+			color: #29ABE2;
+
+			.btn__icon {
+				filter: brightness(0) saturate(100%) invert(53%) sepia(94%) saturate(1158%) hue-rotate(174deg) brightness(101%) contrast(101%);
+			}
+		}
+
+		// Disable hover effects on touch devices
+		@media (hover: none) {
+			&:hover:not(:disabled) {
+				background-color: transparent;
+				color: var(--bg-color-blue-darker);
+
+				.btn__icon {
+					filter: none;
+				}
+			}
 		}
 
 		.btn__icon {
 			width: 1rem;
 			height: 1rem;
+			transition: filter 0.2s ease;
 		}
 	}
 
 	// Delete button - Icon-only button for deleting contact entries
-	.btn--delete {
+	&--delete {
 		background-color: transparent;
-		color: #dc3545;
+		color: var(--bg-color-blue-darker);
 		padding: 0.5rem;
 		border-radius: 0.5rem;
 		min-height: auto;
 
-		&:hover {
-			background-color: rgba(220, 53, 69, 0.1);
+		&:hover:not(:disabled) {
+			background-color: transparent;
+			color: #29ABE2;
+
+			.btn__icon {
+				filter: brightness(0) saturate(100%) invert(53%) sepia(94%) saturate(1158%) hue-rotate(174deg) brightness(101%) contrast(101%);
+			}
+		}
+
+		// Disable hover effects on touch devices
+		@media (hover: none) {
+			&:hover:not(:disabled) {
+				background-color: transparent;
+				color: var(--bg-color-blue-darker);
+
+				.btn__icon {
+					filter: none;
+				}
+			}
 		}
 
 		.btn__icon {
 			width: 1rem;
 			height: 1rem;
+			transition: filter 0.2s ease;
 		}
 	}
 

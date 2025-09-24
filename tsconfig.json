@@ -16,9 +16,11 @@
 		"target": "ES2022",
 		"module": "preserve",
     "paths": {
-      "@shared/*": [
-        "app/shared/*",
-      ]
+      "@shared/*": ["app/shared/*"],
+      "@core/*": ["app/core/*"],
+      "@main/*": ["app/main/*"],
+      "@styles/*": ["styles/*"],
+      "@app/*": ["app/*"]
     }
 	},
 	"angularCompilerOptions": {
