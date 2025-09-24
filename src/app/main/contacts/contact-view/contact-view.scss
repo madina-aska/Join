@@ -1,8 +1,28 @@
 @use "../../../../styles/mixins";
 
+.enter-animation {
+	@include mixins.desktop {
+		animation: slide-fade 1s;
+	}
+}
+
+@keyframes slide-fade {
+	from {
+		opacity: 0;
+		transform: translateX(220px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
 :host {
 	grid-column: 1;
 	grid-row: 1;
+	box-shadow: 4px 4px 4px #0000001a inset;
+	background-color: var(--bg-color-gray);
 
 	@include mixins.desktop {
 		grid-column: revert;
@@ -83,7 +103,6 @@
 }
 
 .contact-card {
-	background-color: #fff;
 	padding: 1rem;
 	max-width: 500px;
 

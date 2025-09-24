@@ -8,11 +8,11 @@
 </div>
 
 @if (contactService.contactForView; as contact) {
-<div class="contact-card">
-	<div class="contact-header">
-		<div class="initials" [style.background-color]="contactService.getAvatarColor(contact)">
-			{{ contact.initials }}
-		</div>
+	<div class="contact-card" animate.enter="enter-animation">
+		<div class="contact-header">
+			<div class="initials" [style.background-color]="contactService.getAvatarColor(contact)">
+				{{ contact.initials }}
+			</div>
 
 		<div class="contact-info">
 			<h2 class="contact-name">{{ contact.name }}</h2>
