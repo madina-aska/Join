@@ -1,6 +1,5 @@
 @use "../../../.././/styles/mixins.scss";
 
-
 * {
 	font-family: Inter, sans-serif;
 }
@@ -63,22 +62,23 @@
 			width: 100%;
 			display: flex;
 			justify-content: center;
-			margin-top: -40px;
+			margin-top: -56px;
+		}
 
-			&::before {
-				content: "";
-				display: block;
-				width: 90px;
-				height: 90px;
-				z-index: 1;
-				border-radius: 50%;
-				background: #e5e7eb;
-				background-image: url("../../../../../public/images/add_contacts_section/person_icon.svg");
-				background-repeat: no-repeat;
-				background-position: center;
-				background-size: 45px;
-				border: 4px solid #fff;
-			}
+		.initials {
+			width: 7rem;
+			height: 7rem;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: var(--fs-h3);
+			font-weight: var(--fw-regular);
+			color: #fff;
+			background-color: var(--color-primary, #f0a309);
+			border: 3px solid #fff;
+			box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 		}
 
 		.down {
@@ -216,15 +216,7 @@
 				width: 100%;
 				display: flex;
 				justify-content: center;
-				margin-top: -40px;
-
-				&::before {
-					content: "";
-					display: block;
-					width: 90px;
-					height: 90px;
-					z-index: 1;
-				}
+				margin-top: -56px;
 			}
 
 			.down {
@@ -328,21 +320,22 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+			}
 
-				&::before {
-					content: "";
-					display: block;
-					width: 100px;
-					height: 100px;
-					z-index: 1;
-					border-radius: 50%;
-					background: #e5e7eb;
-					background-image: url("../../../../../public/images/add_contacts_section/person_icon.svg");
-					background-repeat: no-repeat;
-					background-position: center;
-					background-size: 70px;
-					border: 4px solid #fff;
-				}
+			.initials {
+				width: 7rem;
+				height: 7rem;
+				aspect-ratio: 1;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: var(--fs-h3);
+				font-weight: var(--fw-regular);
+				color: #fff;
+				background-color: var(--color-primary, #f0a309);
+				border: 3px solid #fff;
+				box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 			}
 
 			.right_desktop {

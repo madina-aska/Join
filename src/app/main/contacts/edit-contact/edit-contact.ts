@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output, OnInit, inject } from "@angular
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { doc, Firestore, updateDoc, addDoc, collection, getDoc } from "@angular/fire/firestore";
 import { Contact } from "app/core/interfaces/contact";
+import { ContactService } from "app/core/services/contact-service";
 
 @Component({
   selector: "app-edit-contact",
@@ -20,6 +21,8 @@ export class EditContact implements OnInit {
 
   contactForm: FormGroup;
   isEdit = false;
+  contactService = inject(ContactService);
+  contact!: Contact;
 
   constructor() {
     this.contactForm = this.fb.group({
@@ -54,10 +57,12 @@ export class EditContact implements OnInit {
 
     if (snapshot.exists()) {
       const data = snapshot.data() as Contact;
+      this.contact = data;
       this.contactForm.patchValue({
         name: data.name,
         email: data.email,
         phone: data.telephone,
+
       });
     } else {
       console.error("No contact found for ID:", this.contactId);
@@ -82,17 +87,6 @@ export class EditContact implements OnInit {
           initials: initials,
         });
         console.log("Kontakt aktualisiert:", values);
-      } else {
-        // Neuer Kontakt erstellen
-        const colRef = collection(this.firestore, "contacts");
-        await addDoc(colRef, {
-          name: values.name,
-          email: values.email,
-          telephone: values.phone,
-          initials: initials,
-          color: this.getRandomColor(),
-        });
-        console.log("Neuer Kontakt erstellt:", values);
       }
 
       this.closeOverlay();
@@ -108,10 +102,5 @@ export class EditContact implements OnInit {
   private getInitials(name: string): string {
     const parts = name.trim().split(" ");
     return parts.map(p => p[0].toUpperCase()).join("").substring(0, 2);
-  }
-
-  private getRandomColor(): string {
-    const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A8", "#FFC300"];
-    return colors[Math.floor(Math.random() * colors.length)];
   }
 }
