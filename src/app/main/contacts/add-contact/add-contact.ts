@@ -51,7 +51,7 @@ export class AddContact {
 				name: formValue.name,
 				email: formValue.email,
 				telephone: formValue.phone,
-				initials: this.generateInitials(formValue.name),
+				initials: this.contactService.generateInitials(formValue.name),
 				color: this.getRandomColor(),
 			};
 
@@ -67,13 +67,6 @@ export class AddContact {
 					console.error(error);
 				});
 		}
-	}
-
-	generateInitials(name: string): string {
-		return name
-			.split(" ")
-			.map((n) => n.charAt(0).toUpperCase())
-			.join("");
 	}
 
 	getRandomColor(): number {

@@ -114,4 +114,10 @@ export class ContactService implements OnDestroy {
     }
 	}
 
+  generateInitials(name: string): string {
+		return name
+			.split(" ")
+			.map((n) => n.charAt(0).toUpperCase())
+			.join("");
+	}
 }
