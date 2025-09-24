@@ -13,8 +13,6 @@ import { EditContact } from "../edit-contact/edit-contact";
 	standalone: true,
 })
 export class ContactView implements OnChanges {
-
-
 	firestore = inject(Firestore);
 	contactService = inject(ContactService);
 	route = inject(ActivatedRoute);
@@ -44,18 +42,15 @@ export class ContactView implements OnChanges {
 	async onDeleteContact(contactId: string) {
 		if (!contactId) return;
 
-		const confirmed = confirm("Are you sure you want to delete this contact?");
-		if (!confirmed) return;
-
 		try {
 			await this.contactService.deleteContact(contactId);
 			this.goBack();
 		} catch {
 			alert("Failed to delete contact. Please try again.");
-    }
-  }
-  
-  onCloseEditOverlay() {
-    this.isEditOverlayOpen.set(false);
-  }
+		}
+	}
+
+	onCloseEditOverlay() {
+		this.isEditOverlayOpen.set(false);
+	}
 }
