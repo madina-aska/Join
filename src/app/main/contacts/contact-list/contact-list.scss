@@ -201,6 +201,10 @@ span {
 }
 
 .contact:hover {
+	background-color: var(--hover-gray);
+}
+
+.contact.active {
 	background-color: var(--bg-color-blue-darker);
 
 	& .name {
