@@ -1,52 +1,38 @@
 <div class="list">
 	<!-- desktop add_contactsbtn -->
-	<app-button
-		class="desktop-add-button"
-		variant="primary"
-		icon="/images/contacs_section/person_add.svg"
-		[fullWidth]="true"
-		(clickEvent)="openAddContact()"
-	>
+	<app-button class="desktop-add-button" variant="primary" icon="/images/contacs_section/person_add.svg"
+		[fullWidth]="true" (clickEvent)="openAddContact()">
 		Add new contact
 	</app-button>
 
 	<!-- mobile add_contactsbtn FAB = floating action button!!! -->
-	<app-button
-		class="mobile-fab-button"
-		variant="primary"
-		icon="/images/contacs_section/person_add.svg"
-		(clickEvent)="openAddContact()"
-	>
+	<app-button class="mobile-fab-button" variant="primary" icon="/images/contacs_section/person_add.svg"
+		(clickEvent)="openAddContact()">
 	</app-button>
 
 	<div class="all-contacts">
 		@for (item of contactService.contactsObject | keyvalue; track $index) {
-			@let letter = item.key;
-			@let contactsForLetter = item.value;
-			<div class="letter-container">
-				<div class="letter-padding">
-					<span class="letter-headline">{{ letter }}</span>
-				</div>
-				<div class="letter-contacts">
-					@for (contact of contactsForLetter; track contact.id) {
-						<div
-							class="contact"
-							(click)="onContactSelect(contact.id)"
-							tabindex="0"
-							(keydown.enter)="onContactSelect(contact.id)"
-							(keydown.space)="onContactSelect(contact.id)"
-						>
-							<div class="profile-picture">
-								<span>{{ contact.initials }}</span>
-							</div>
-							<div class="contact-info">
-								<span class="name">{{ contact.name }}</span>
-								<span class="email">{{ contact.email }}</span>
-							</div>
-						</div>
-					}
-				</div>
+		@let letter = item.key;
+		@let contactsForLetter = item.value;
+		<div class="letter-container">
+			<div class="letter-padding">
+				<span class="letter-headline">{{ letter }}</span>
 			</div>
+			<div class="letter-contacts">
+				@for (contact of contactsForLetter; track contact.id) {
+				<div class="contact" (click)="onContactSelect(contact.id)" tabindex="0"
+					(keydown.enter)="onContactSelect(contact.id)" (keydown.space)="onContactSelect(contact.id)">
+					<div class="profile-picture" [style.background-color]="getAvatarColor(contact)">
+						<span>{{ contact.initials }}</span>
+					</div>
+					<div class="contact-info">
+						<span class="name">{{ contact.name }}</span>
+						<span class="email">{{ contact.email }}</span>
+					</div>
+				</div>
+				}
+			</div>
+		</div>
 		}
 	</div>
 </div>

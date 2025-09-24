@@ -26,4 +26,11 @@ export class ContactList {
 		if (!id) return;
 		this.router.navigate(["/contacts", id]);
 	}
+
+	getAvatarColor(contact: any): string {
+		if (contact?.color != null) {
+			return `var(--avatar-color-${contact.color})`;
+		}
+		return "var(--avatar-color-1)";
+	}
 }

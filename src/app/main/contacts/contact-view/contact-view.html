@@ -8,32 +8,29 @@
 </div>
 
 @if (contactService.contactForView; as contact) {
-	<div class="contact-card">
-		<div class="contact-header">
-			<div class="initials" [style.background-color]="contact.color">
-				{{ contact.initials }}
-			</div>
-			<h2 class="contact-name">{{ contact.name }}</h2>
-
-			<!-- Contact Menu Button (Mobile Only) -->
-			<app-contact-menu
-				[contactId]="contact.id"
-				(editClicked)="onEditContact($event)"
-				(deleteClicked)="onDeleteContact($event)"
-			>
-			</app-contact-menu>
+<div class="contact-card">
+	<div class="contact-header">
+		<div class="initials" [style.background-color]="getAvatarColor(contact)">
+			{{ contact.initials }}
 		</div>
+		<h2 class="contact-name">{{ contact.name }}</h2>
 
-		<div class="contact-details">
-			<h3>Contact Information</h3>
-			<p>
-				<strong>Email</strong><br />
-				<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-			</p>
-			<p>
-				<strong>Phone</strong><br />
-				{{ contact.telephone }}
-			</p>
-		</div>
+		<!-- Contact Menu Button (Mobile Only) -->
+		<app-contact-menu [contactId]="contact.id" (editClicked)="onEditContact($event)"
+			(deleteClicked)="onDeleteContact($event)">
+		</app-contact-menu>
 	</div>
+
+	<div class="contact-details">
+		<h3>Contact Information</h3>
+		<p>
+			<strong>Email</strong><br />
+			<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+		</p>
+		<p>
+			<strong>Phone</strong><br />
+			{{ contact.telephone }}
+		</p>
+	</div>
+</div>
 }
