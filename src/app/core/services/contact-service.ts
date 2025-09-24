@@ -8,6 +8,7 @@ import {
 	Firestore,
 	onSnapshot,
 	QuerySnapshot,
+	deleteDoc,
 } from "@angular/fire/firestore";
 import { Contact } from "../interfaces/contact";
 
@@ -87,7 +88,7 @@ export class ContactService implements OnDestroy {
 			email: data["email"] || "",
 			telephone: data["telephone"] || "",
 			initials: data["initials"] || "",
-			color: data["color"] || 1,
+			color: data["color"],
 		};
 	}
 
@@ -111,6 +112,28 @@ export class ContactService implements OnDestroy {
 		} catch (error) {
 			console.error("Save contact error:", error); //delete later
 			throw error;
+		}
+	}
+
+	getAvatarColor(contact: Contact): string {
+		if (contact.color) {
+			return `var(--avatar-color-${contact.color})`;
+		}
+
+		const safeId = contact.id || contact.initials || "X";
+		const fallbackIndex = (safeId.charCodeAt(0) % 10) + 1;
+
+		return `var(--avatar-color-${fallbackIndex})`;
+	}
+
+	async deleteContact(contactId: string) {
+		if (!contactId) return;
+
+		const contactDoc = doc(this.firestore, "contacts", contactId);
+		try {
+			await deleteDoc(contactDoc);
+		} catch {
+			throw new Error("Failed to delete contact");
 		}
 	}
 

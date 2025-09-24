@@ -22,7 +22,7 @@
 				@for (contact of contactsForLetter; track contact.id) {
 				<div class="contact" (click)="onContactSelect(contact.id)" tabindex="0"
 					(keydown.enter)="onContactSelect(contact.id)" (keydown.space)="onContactSelect(contact.id)">
-					<div class="profile-picture" [style.background-color]="getAvatarColor(contact)">
+					<div class="profile-picture" [style.background-color]="contactService.getAvatarColor(contact)">
 						<span>{{ contact.initials }}</span>
 					</div>
 					<div class="contact-info">

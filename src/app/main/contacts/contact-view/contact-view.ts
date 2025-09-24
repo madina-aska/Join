@@ -41,20 +41,21 @@ export class ContactView implements OnChanges {
 		this.isEditOverlayOpen.set(true);
 	}
 
-	onDeleteContact(contactId: string): void {
-		console.log("Delete contact:", contactId);
-		// TODO: Implement delete functionality
-	}
+	async onDeleteContact(contactId: string) {
+		if (!contactId) return;
 
+		const confirmed = confirm("Are you sure you want to delete this contact?");
+		if (!confirmed) return;
 
+		try {
+			await this.contactService.deleteContact(contactId);
+			this.goBack();
+		} catch {
+			alert("Failed to delete contact. Please try again.");
+    }
+  }
+  
   onCloseEditOverlay() {
     this.isEditOverlayOpen.set(false);
   }
-
-	getAvatarColor(contact: any): string {
-		if (contact?.color != null) {
-			return `var(--avatar-color-${contact.color})`;
-		}
-		return "var(--avatar-color-1)";
-	}
 }
