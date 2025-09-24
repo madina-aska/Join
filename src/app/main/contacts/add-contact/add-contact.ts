@@ -10,6 +10,7 @@ import {
 import { RouterModule } from "@angular/router";
 import { Contact } from "app/core/interfaces/contact";
 import { ContactService } from "app/core/services/contact-service";
+import { ToastService } from "@shared/services/toast.service";
 
 @Component({
 	selector: "app-add-contact",
@@ -23,11 +24,12 @@ export class AddContact {
 	contactService = inject(ContactService);
 
 	private fb = inject(FormBuilder);
+  private ts = inject(ToastService);
 
 	contactForm: FormGroup = this.fb.group({
 		name: [
 			"",
-			[Validators.required, Validators.pattern(/^[A-ZÄÖÜa-zäöüß]+(?:\s[A-ZÄÖÜa-zäöüß]+)+$/)],
+			[Validators.required, Validators.pattern(/^[A-ZÄÖÜ][a-zäöüß]+ [A-ZÄÖÜ][a-zäöüß]+$/)],
 		],
 		email: [
 			"",
@@ -58,12 +60,12 @@ export class AddContact {
 			this.contactService
 				.addContact(newContact)
 				.then(() => {
-					alert("Save contact!");
+          this.ts.showSuccess("Contact added");
 					this.contactForm.reset();
 					this.closeOverlay();
 				})
 				.catch((error) => {
-					alert("Save contact error");
+					this.ts.showError("Save error");
 					console.error(error);
 				});
 		}
