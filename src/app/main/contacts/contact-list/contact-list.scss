@@ -106,14 +106,14 @@ span {
 }
 
 .letter-container {
-	--padding-block: clamp(0.75rem, -0.588rem + 2.784vw, 1.5rem);
+	--padding: clamp(0.75rem, 0.679rem + 0.357vw, 1rem);
 
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: clamp(0.75rem, -0.588rem + 2.784vw, 1.5rem);
+	padding-right: var(--padding);
 }
 
 .letter-contacts {
@@ -130,7 +130,7 @@ span {
 
 .letter-padding {
 	width: 100%;
-	padding-block: var(--padding-block);
+	padding: var(--padding);
 }
 
 .letter-headline {
@@ -143,7 +143,7 @@ span {
 }
 
 .contact {
-	padding-block: var(--padding-block);
+	padding: var(--padding);
 	width: 100%;
 	display: flex;
 	justify-content: start;
