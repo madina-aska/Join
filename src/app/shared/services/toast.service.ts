@@ -38,6 +38,9 @@ export interface ToastConfig {
 
   /** Optional action button with label and click handler */
   action?: ToastAction;
+
+  /** Optional multiple action buttons with labels and click handlers */
+  actions?: ToastAction[];
 }
 
 /**
@@ -194,6 +197,36 @@ export class ToastService {
       message,
       title,
       action,
+      duration: 5000
+    });
+  }
+
+  /**
+   * Displays a warning toast with multiple interactive action buttons.
+   * Commonly used for confirmation dialogs with cancel/confirm options.
+   * Uses longer duration to allow user interaction.
+   *
+   * @param message - Warning message to display
+   * @param actions - Array of action buttons with labels and handlers
+   * @param title - Optional title for the warning toast
+   *
+   * @example
+   * ```typescript
+   * this.toastService.showWarningWithActions(
+   *   'Delete this contact?',
+   *   [
+   *     { label: 'Cancel', handler: () => this.cancelAction() },
+   *     { label: 'Delete', handler: () => this.performDelete(contactId) }
+   *   ]
+   * );
+   * ```
+   */
+  showWarningWithActions(message: string, actions: ToastAction[], title?: string): void {
+    this.show({
+      type: 'warning',
+      message,
+      title,
+      actions,
       duration: 5000
     });
   }

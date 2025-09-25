@@ -14,6 +14,7 @@
 		[showCloseButton]="false"
 		[icon]="currentToast()!.icon"
 		[action]="currentToast()!.action"
+		[actions]="currentToast()!.actions"
 		(closeEvent)="toastService.hide()"
 		(actionEvent)="handleToastAction()"
 	>

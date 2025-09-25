@@ -24,9 +24,21 @@
 			}
 
 			@if (action) {
-				<app-button variant="primary" size="small" (clickEvent)="handleAction()">
+				<app-button variant="primary" size="xsmall" (clickEvent)="handleAction()">
 					{{ action.label }}
 				</app-button>
+			}
+
+			@if (actions) {
+				@for (actionItem of actions; track actionItem.label) {
+					<app-button
+						variant="primary"
+						size="xsmall"
+						(clickEvent)="handleMultipleAction(actionItem)"
+					>
+						{{ actionItem.label }}
+					</app-button>
+				}
 			}
 		</div>
 	</div>

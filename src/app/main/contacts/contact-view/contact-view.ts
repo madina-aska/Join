@@ -173,12 +173,24 @@ export class ContactView implements OnChanges {
 			// First delete tap - show clickable confirmation toast
 			this.deleteConfirmationContactId = contactId;
 
+			const cancelAction: ToastAction = {
+				label: "Cancel",
+				handler: () => {
+					this.resetDeleteConfirmation();
+				}
+			};
+
 			const confirmAction: ToastAction = {
 				label: "Delete",
 				handler: () => this.performDelete(contactId),
 			};
 
-			this.toastService.showWarningWithAction("Delete this contact?", confirmAction);
+
+			this.toastService.showWarningWithActions(
+				"Delete this contact?",
+				[cancelAction, confirmAction]
+			);
+
 
 			this.deleteConfirmationTimeout = setTimeout(() => {
 				this.resetDeleteConfirmation();

@@ -128,6 +128,13 @@
 		}
 	}
 
+	// XSmall button - Extra compact for toast actions
+	&--xsmall {
+		padding: 0.26rem 0.525rem;
+		font-size: var(--fs-small);
+		min-height: 28px;
+	}
+
 	// Small button - Compact size for tight spaces
 	&--small {
 		padding: 0.5rem 1rem;

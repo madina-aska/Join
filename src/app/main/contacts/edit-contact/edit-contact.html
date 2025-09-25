@@ -2,7 +2,7 @@
 	<div class="content_mobile">
 		<div class="up">
 			<div class="close" (click)="closeOverlay()">
-				<img src="./images/assets/close_mobile.svg" alt="close" />
+				<img src="/images/assets/close_mobile.svg" alt="close" />
 			</div>
 			<div class="head">
 				<h2>{{ isEdit ? "Edit contact" : "Add contact" }}</h2>
@@ -70,7 +70,7 @@
 
           <button type="submit" [disabled]="contactForm.invalid">
             {{ isEdit ? 'Save' : 'Create contact' }}
-            <img src="./images/assets/check.svg" alt="check" />
+            <img src="/images/assets/check.svg" alt="check" />
           </button>
         </div>
       </form>
@@ -82,7 +82,7 @@
 	<div class="content_desktop">
 		<div class="left">
 			<div class="head">
-				<img class="logo" src="./images/join_logo/join_logo.svg" alt="Join Logo" />
+				<img class="logo" src="/images/join_logo/join_logo.svg" alt="Join Logo" />
 				<h2>{{ isEdit ? "Edit contact" : "Add contact" }}</h2>
 				<span>Tasks are better with a team!</span>
 				<div class="blueline"></div>
@@ -102,7 +102,7 @@
 
 		<div class="right_desktop">
 			<div class="close_desktop" (click)="closeOverlay()">
-				<img src="./images/assets/close_cross.svg" alt="close" />
+				<img src="/images/assets/close_cross.svg" alt="close" />
 			</div>
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
 				<input id="name" placeholder="Name" type="text" formControlName="name" />
@@ -145,7 +145,7 @@
         <div class="buttons">
           <button type="submit" [disabled]="contactForm.invalid">
             {{ isEdit ? 'Save' : 'Create contact' }}
-            <img src="./images/assets/check.svg" alt="check" />
+            <img src="/images/assets/check.svg" alt="check" />
           </button>
 
           <button class="cancel" type="button" (click)="isEdit ? deleteContact() : closeOverlay()">

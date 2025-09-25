@@ -102,6 +102,9 @@ export class Toast implements OnInit, OnDestroy {
 	/** Optional action button configuration for interactive toasts */
 	@Input() action?: ToastAction;
 
+	/** Optional multiple action buttons for interactive toasts */
+	@Input() actions?: ToastAction[];
+
 	/** Emitted when toast is closed (either manually or auto-dismiss) */
 	@Output() closeEvent = new EventEmitter<void>();
 
@@ -231,6 +234,23 @@ export class Toast implements OnInit, OnDestroy {
 		if (this.action) {
 			this.action.handler();
 			this.actionEvent.emit();
+		}
+	}
+
+	/**
+	 * Handles multiple action button clicks in interactive toasts.
+	 * Calls the specific action handler and emits actionEvent.
+	 * For "Cancel" actions, also triggers the closing animation.
+	 *
+	 * @param actionToHandle - The specific action to execute
+	 */
+	handleMultipleAction(actionToHandle: ToastAction): void {
+		actionToHandle.handler();
+		this.actionEvent.emit();
+
+		// If this is a cancel action, trigger the closing animation
+		if (actionToHandle.label.toLowerCase() === 'cancel') {
+			this.close();
 		}
 	}
 

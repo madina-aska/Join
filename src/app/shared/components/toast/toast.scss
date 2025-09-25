@@ -3,8 +3,8 @@
   top: 70%; // 70% von oben = 20% unterhalb der Mitte (Desktop)
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 250px;
-  max-width: 350px;
+  min-width: 285px;
+  max-width: 405px;
   padding: 1rem 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -21,8 +21,8 @@
     bottom: 100px; // Above mobile navigation
     left: 50%;
     transform: translateX(-50%);
-    min-width: 200px;
-    max-width: 280px;
+    min-width: 230px;
+    max-width: 325px;
     padding: 0.75rem 1rem;
     font-size: var(--fs-small);
     animation: slideInFromBottom 0.5s ease-out;

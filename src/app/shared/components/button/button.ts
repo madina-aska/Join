@@ -67,7 +67,7 @@ export class Button {
 		| "ghost" = "primary";
 
 	/** Button size affecting padding and typography scale */
-	@Input() size: "small" | "medium" | "large" = "medium";
+	@Input() size: "xsmall" | "small" | "medium" | "large" = "medium";
 
 	/** Optional icon name to display inside the button */
 	@Input() icon?: string;
