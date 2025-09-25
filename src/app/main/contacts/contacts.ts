@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, ViewportScroller } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AddContact } from "./add-contact/add-contact";
@@ -12,6 +12,7 @@ import { ContactView } from "./contact-view/contact-view";
 	styleUrl: "./contacts.scss",
 })
 export class Contacts {
+	vps = inject(ViewportScroller);
 	route = inject(ActivatedRoute);
 	router = inject(Router);
 	id = this.route.snapshot.paramMap.get("id") || "";
@@ -30,6 +31,7 @@ export class Contacts {
 	onContactCreated(id: string) {
 		if (!id) return;
 		this.router.navigate(["/contacts", id]);
+		this.vps.scrollToAnchor(id, { behavior: "smooth" });
 	}
 
 	constructor() {

@@ -3,6 +3,10 @@
 @use "styles/mixins";
 @use "styles/fonts";
 
+html {
+	scroll-behavior: smooth;
+}
+
 *,
 *::before,
 *::after {

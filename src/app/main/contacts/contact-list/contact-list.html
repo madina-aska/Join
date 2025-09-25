@@ -31,6 +31,7 @@
 					@for (contact of contactsForLetter; track contact.id) {
 						<div
 							class="contact"
+							[id]="contact.id"
 							[class.active]="contact.id === activeId()"
 							(click)="onContactSelect(contact.id)"
 							tabindex="0"
