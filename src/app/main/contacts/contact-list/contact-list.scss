@@ -2,7 +2,7 @@
 
 :host {
 	display: block;
-	height: calc(100vh - var(--header-height));
+	height: 100%;
 	width: 100%;
 	grid-column: 1;
 	grid-row: 1;
@@ -31,8 +31,6 @@ span {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-block: 3vh;
-	padding-bottom: 59px;
 	padding-left: 1rem;
 
 	@include mixins.desktop {
@@ -83,7 +81,6 @@ span {
 	flex-direction: column;
 	align-items: center;
 	justify-content: start;
-	padding-bottom: calc(var(--padding) * 2 + 56px);
 
 	@include mixins.desktop {
 		padding-block: revert;
