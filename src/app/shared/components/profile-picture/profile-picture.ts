@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-profile-picture',
-  imports: [],
-  templateUrl: './profile-picture.html',
-  styleUrl: './profile-picture.scss'
+	selector: "app-profile-picture",
+	imports: [],
+	templateUrl: "./profile-picture.html",
+	styleUrl: "./profile-picture.scss",
 })
-export class ProfilePicture {
-
-}
+export class ProfilePicture {}

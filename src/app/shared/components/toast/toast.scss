@@ -1,143 +1,143 @@
 .toast {
-  position: fixed;
-  top: 70%; // 70% von oben = 20% unterhalb der Mitte (Desktop)
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 285px;
-  max-width: 405px;
-  padding: 1rem 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-family: Inter, sans-serif;
-  font-size: var(--fs-text);
-  font-weight: var(--fw-medium);
-  color: var(--bg-color-white);
-  z-index: 1000;
-  animation: slideInFromRight 0.6s ease-out;
+	position: fixed;
+	top: 70%; // 70% von oben = 20% unterhalb der Mitte (Desktop)
+	left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 285px;
+	max-width: 405px;
+	padding: 1rem 1.5rem;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-text);
+	font-weight: var(--fw-medium);
+	color: var(--bg-color-white);
+	z-index: 1000;
+	animation: slideInFromRight 0.6s ease-out;
 
-  // Mobile: bottom-to-top animation and compact design
-  @media (max-width: 768px) {
-    top: auto;
-    bottom: 100px; // Above mobile navigation
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 230px;
-    max-width: 325px;
-    padding: 0.75rem 1rem;
-    font-size: var(--fs-small);
-    animation: slideInFromBottom 0.5s ease-out;
-  }
+	// Mobile: bottom-to-top animation and compact design
+	@media (max-width: 768px) {
+		top: auto;
+		bottom: 100px; // Above mobile navigation
+		left: 50%;
+		transform: translateX(-50%);
+		min-width: 230px;
+		max-width: 325px;
+		padding: 0.75rem 1rem;
+		font-size: var(--fs-small);
+		animation: slideInFromBottom 0.5s ease-out;
+	}
 
-  &--success {
-    background-color: var(--bg-color-blue-darker);
-  }
+	&--success {
+		background-color: var(--bg-color-blue-darker);
+	}
 
-  &--error {
-    background-color: #dc3545;
-  }
+	&--error {
+		background-color: #dc3545;
+	}
 
-  &--warning {
-    background-color: #fd7e14;
-  }
+	&--warning {
+		background-color: #fd7e14;
+	}
 
-  &--info {
-    background-color: var(--bg-color-blue-lighter);
-  }
+	&--info {
+		background-color: var(--bg-color-blue-lighter);
+	}
 
-  &__content {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
+	&__content {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
 
-  &__message {
-    flex: 1;
-  }
+	&__message {
+		flex: 1;
+	}
 
-  &__close {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    transition: opacity 0.2s ease;
+	&__close {
+		background: none;
+		border: none;
+		color: inherit;
+		cursor: pointer;
+		padding: 0.25rem;
+		border-radius: 0.25rem;
+		transition: opacity 0.2s ease;
 
-    &:hover {
-      opacity: 0.8;
-    }
-  }
+		&:hover {
+			opacity: 0.8;
+		}
+	}
 }
 
 // Desktop animations (right to left)
 @keyframes slideInFromRight {
-  0% {
-    transform: translate(100vw, -50%);
-    opacity: 0;
-  }
-  70% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
+	0% {
+		transform: translate(100vw, -50%);
+		opacity: 0;
+	}
+	70% {
+		transform: translate(-50%, -50%);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, -50%);
+		opacity: 1;
+	}
 }
 
 @keyframes slideOutToRight {
-  0% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-  30% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(100vw, -50%);
-    opacity: 0;
-  }
+	0% {
+		transform: translate(-50%, -50%);
+		opacity: 1;
+	}
+	30% {
+		transform: translate(-50%, -50%);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(100vw, -50%);
+		opacity: 0;
+	}
 }
 
 // Mobile animations (bottom to top)
 @keyframes slideInFromBottom {
-  0% {
-    transform: translate(-50%, 100vh);
-    opacity: 0;
-  }
-  70% {
-    transform: translateX(-50%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%);
-    opacity: 1;
-  }
+	0% {
+		transform: translate(-50%, 100vh);
+		opacity: 0;
+	}
+	70% {
+		transform: translateX(-50%);
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(-50%);
+		opacity: 1;
+	}
 }
 
 @keyframes slideOutToBottom {
-  0% {
-    transform: translateX(-50%);
-    opacity: 1;
-  }
-  30% {
-    transform: translateX(-50%);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, 100vh);
-    opacity: 0;
-  }
+	0% {
+		transform: translateX(-50%);
+		opacity: 1;
+	}
+	30% {
+		transform: translateX(-50%);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, 100vh);
+		opacity: 0;
+	}
 }
 
 .toast.toast--leaving {
-  animation: slideOutToRight 0.6s ease-in forwards;
+	animation: slideOutToRight 0.6s ease-in forwards;
 
-  // Mobile: slide out to bottom
-  @media (max-width: 768px) {
-    animation: slideOutToBottom 0.5s ease-in forwards;
-  }
+	// Mobile: slide out to bottom
+	@media (max-width: 768px) {
+		animation: slideOutToBottom 0.5s ease-in forwards;
+	}
 }
 
 // Responsive adjustments handled above in main .toast class

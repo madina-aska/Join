@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-add-task',
-  imports: [],
-  templateUrl: './add-task.html',
-  styleUrl: './add-task.scss'
+	selector: "app-add-task",
+	imports: [],
+	templateUrl: "./add-task.html",
+	styleUrl: "./add-task.scss",
 })
-export class AddTask {
-
-}
+export class AddTask {}

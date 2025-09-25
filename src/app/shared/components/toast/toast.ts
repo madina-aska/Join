@@ -249,7 +249,7 @@ export class Toast implements OnInit, OnDestroy {
 		this.actionEvent.emit();
 
 		// If this is a cancel action, trigger the closing animation
-		if (actionToHandle.label.toLowerCase() === 'cancel') {
+		if (actionToHandle.label.toLowerCase() === "cancel") {
 			this.close();
 		}
 	}

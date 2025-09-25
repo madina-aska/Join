@@ -36,69 +36,69 @@ import { CommonModule } from "@angular/common";
  * ```
  */
 @Component({
-  selector: "app-footer",
-  templateUrl: "./footer.html",
-  styleUrls: ["./footer.scss"],
-  standalone: true,
-  imports: [CommonModule, RouterModule]
+	selector: "app-footer",
+	templateUrl: "./footer.html",
+	styleUrls: ["./footer.scss"],
+	standalone: true,
+	imports: [CommonModule, RouterModule],
 })
 export class Footer implements OnInit {
-  /** Current active page name for state management and UI highlighting */
-  activePage = "summary";
+	/** Current active page name for state management and UI highlighting */
+	activePage = "summary";
 
-  /** Injected Angular router for navigation and event monitoring */
-  private router = inject(Router);
+	/** Injected Angular router for navigation and event monitoring */
+	private router = inject(Router);
 
-  /**
-   * Angular lifecycle hook that initializes navigation state management.
-   *
-   * Initialization Flow:
-   * 1. **Restore State**: Loads last active page from localStorage
-   * 2. **Auto-navigate**: Navigates to restored page if available
-   * 3. **Monitor Routes**: Subscribes to router events for real-time updates
-   * 4. **State Sync**: Updates internal state and localStorage on navigation
-   *
-   * @example
-   * ```typescript
-   * // Called automatically by Angular
-   * // User returns to app -> navigates to last visited page
-   * // Router events -> automatically update active page state
-   * ```
-   */
-  ngOnInit(): void {
-    const savedPage = localStorage.getItem("activePage");
-    if (savedPage) {
-      this.activePage = savedPage;
-      this.router.navigate([savedPage]);
-    }
+	/**
+	 * Angular lifecycle hook that initializes navigation state management.
+	 *
+	 * Initialization Flow:
+	 * 1. **Restore State**: Loads last active page from localStorage
+	 * 2. **Auto-navigate**: Navigates to restored page if available
+	 * 3. **Monitor Routes**: Subscribes to router events for real-time updates
+	 * 4. **State Sync**: Updates internal state and localStorage on navigation
+	 *
+	 * @example
+	 * ```typescript
+	 * // Called automatically by Angular
+	 * // User returns to app -> navigates to last visited page
+	 * // Router events -> automatically update active page state
+	 * ```
+	 */
+	ngOnInit(): void {
+		const savedPage = localStorage.getItem("activePage");
+		if (savedPage) {
+			this.activePage = savedPage;
+			this.router.navigate([savedPage]);
+		}
 
-    // Router-Events überwachen -> aktive Seite automatisch setzen
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        const current = event.urlAfterRedirects.replace("/", "");
-        this.activePage = current || "summary";
-        localStorage.setItem("activePage", this.activePage);
-      }
-    });
-  }
+		// Router-Events überwachen -> aktive Seite automatisch setzen
+		this.router.events.subscribe((event) => {
+			if (event instanceof NavigationEnd) {
+				const current = event.urlAfterRedirects.replace("/", "");
+				this.activePage = current || "summary";
+				localStorage.setItem("activePage", this.activePage);
+			}
+		});
+	}
 
-  /**
-   * Determines if a given page is currently active.
-   * Used for applying active state styling in the template.
-   *
-   * @param page - Page name to check against current active page
-   * @returns True if the specified page is currently active
-   *
-   * @example
-   * ```html
-   * <!-- Template usage for active state styling -->
-   * <a routerLink="/summary" [class.active]="isActive('summary')">
-   * <a routerLink="/contacts" [class.active]="isActive('contacts')">
-   *
-   * <!-- Results in active class when on respective pages -->
-   * ```
-   */
-  isActive(page: string): boolean {
-    return this.activePage === page;
-  }
+	/**
+	 * Determines if a given page is currently active.
+	 * Used for applying active state styling in the template.
+	 *
+	 * @param page - Page name to check against current active page
+	 * @returns True if the specified page is currently active
+	 *
+	 * @example
+	 * ```html
+	 * <!-- Template usage for active state styling -->
+	 * <a routerLink="/summary" [class.active]="isActive('summary')">
+	 * <a routerLink="/contacts" [class.active]="isActive('contacts')">
+	 *
+	 * <!-- Results in active class when on respective pages -->
+	 * ```
+	 */
+	isActive(page: string): boolean {
+		return this.activePage === page;
+	}
 }

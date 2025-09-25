@@ -215,10 +215,11 @@
 
 		&:hover:not(:disabled) {
 			background-color: transparent;
-			color: #29ABE2;
+			color: #29abe2;
 
 			.btn__icon {
-				filter: brightness(0) saturate(100%) invert(53%) sepia(94%) saturate(1158%) hue-rotate(174deg) brightness(101%) contrast(101%);
+				filter: brightness(0) saturate(100%) invert(53%) sepia(94%) saturate(1158%)
+					hue-rotate(174deg) brightness(101%) contrast(101%);
 			}
 		}
 
@@ -251,10 +252,11 @@
 
 		&:hover:not(:disabled) {
 			background-color: transparent;
-			color: #29ABE2;
+			color: #29abe2;
 
 			.btn__icon {
-				filter: brightness(0) saturate(100%) invert(53%) sepia(94%) saturate(1158%) hue-rotate(174deg) brightness(101%) contrast(101%);
+				filter: brightness(0) saturate(100%) invert(53%) sepia(94%) saturate(1158%)
+					hue-rotate(174deg) brightness(101%) contrast(101%);
 			}
 		}
 

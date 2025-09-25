@@ -15,8 +15,17 @@
 
 		<div class="down">
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-				<input id="name" placeholder="Name" type="text" formControlName="name" (input)="onNameInput($event)" />
-				<div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+				<input
+					id="name"
+					placeholder="Name"
+					type="text"
+					formControlName="name"
+					(input)="onNameInput($event)"
+				/>
+				<div
+					class="error"
+					*ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid"
+				>
 					<span *ngIf="contactForm.get('name')?.errors?.['required']">
 						First & last name is required.
 					</span>
@@ -26,7 +35,10 @@
 				</div>
 
 				<input id="email" placeholder="Email" type="email" formControlName="email" />
-				<div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+				<div
+					class="error"
+					*ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid"
+				>
 					<span *ngIf="contactForm.get('email')?.errors?.['required']"> Email is required. </span>
 					<span *ngIf="contactForm.get('email')?.errors?.['email']">
 						Please enter a valid Email.
@@ -34,7 +46,10 @@
 				</div>
 
 				<input id="phone" placeholder="Phone" type="tel" formControlName="phone" />
-				<div class="error" *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid">
+				<div
+					class="error"
+					*ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid"
+				>
 					<span *ngIf="contactForm.get('phone')?.errors?.['required']">
 						Phone number is required.
 					</span>
@@ -51,7 +66,6 @@
 		</div>
 	</div>
 </div>
-
 
 <div class="main_desktop">
 	<div class="content_desktop">
@@ -71,8 +85,17 @@
 				<img src="/images/assets/close_cross.svg" alt="" />
 			</div>
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-				<input id="name" placeholder="Name" type="text" formControlName="name" (input)="onNameInput($event)" />
-				<div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+				<input
+					id="name"
+					placeholder="Name"
+					type="text"
+					formControlName="name"
+					(input)="onNameInput($event)"
+				/>
+				<div
+					class="error"
+					*ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid"
+				>
 					<span *ngIf="contactForm.get('name')?.errors?.['required']">
 						First & last name is required.
 					</span>
@@ -82,7 +105,10 @@
 				</div>
 
 				<input id="email" placeholder="Email" type="email" formControlName="email" />
-				<div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+				<div
+					class="error"
+					*ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid"
+				>
 					<span *ngIf="contactForm.get('email')?.errors?.['required']"> Email is required. </span>
 					<span *ngIf="contactForm.get('email')?.errors?.['email']">
 						Please enter a valid Email.
@@ -90,7 +116,10 @@
 				</div>
 
 				<input id="phone" placeholder="Phone" type="tel" formControlName="phone" />
-				<div class="error" *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid">
+				<div
+					class="error"
+					*ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid"
+				>
 					<span *ngIf="contactForm.get('phone')?.errors?.['required']">
 						Phone number is required.
 					</span>

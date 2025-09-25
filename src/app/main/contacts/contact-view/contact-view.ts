@@ -177,7 +177,7 @@ export class ContactView implements OnChanges {
 				label: "Cancel",
 				handler: () => {
 					this.resetDeleteConfirmation();
-				}
+				},
 			};
 
 			const confirmAction: ToastAction = {
@@ -185,12 +185,10 @@ export class ContactView implements OnChanges {
 				handler: () => this.performDelete(contactId),
 			};
 
-
-			this.toastService.showWarningWithActions(
-				"Delete this contact?",
-				[cancelAction, confirmAction]
-			);
-
+			this.toastService.showWarningWithActions("Delete this contact?", [
+				cancelAction,
+				confirmAction,
+			]);
 
 			this.deleteConfirmationTimeout = setTimeout(() => {
 				this.resetDeleteConfirmation();

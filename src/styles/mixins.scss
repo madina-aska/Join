@@ -1,5 +1,5 @@
 @mixin desktop {
-    @media (width >= 769px) {
-        @content;
-    }
+	@media (width >= 769px) {
+		@content;
+	}
 }
