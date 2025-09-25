@@ -1,8 +1,8 @@
 import { KeyValuePipe } from "@angular/common";
 import { Component, EventEmitter, inject, input, Output, output } from "@angular/core";
 import { Router } from "@angular/router";
-import { Button } from "@shared/components/button/button";
 import { ContactService } from "@core/services/contact-service";
+import { Button } from "@shared/components/button/button";
 
 /**
  * Component for displaying a list of contacts organized alphabetically.

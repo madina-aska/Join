@@ -1,12 +1,12 @@
 import { Component, inject, input, OnChanges, signal } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Button } from "@shared/components/button/button";
-import { ContactMenu } from "@shared/components/contact-menu/contact-menu";
-import { ToastService } from "@shared/services/toast.service";
-import { ToastAction } from "@shared/components/toast/toast";
 import { ContactService } from "@core/services/contact-service";
 import { EditContact } from "@main/contacts/edit-contact/edit-contact";
+import { Button } from "@shared/components/button/button";
+import { ContactMenu } from "@shared/components/contact-menu/contact-menu";
+import { ToastAction } from "@shared/components/toast/toast";
+import { ToastService } from "@shared/services/toast.service";
 
 /**
  * Component for displaying detailed contact information and managing contact operations.
@@ -175,13 +175,10 @@ export class ContactView implements OnChanges {
 
 			const confirmAction: ToastAction = {
 				label: "Delete",
-				handler: () => this.performDelete(contactId)
+				handler: () => this.performDelete(contactId),
 			};
 
-			this.toastService.showWarningWithAction(
-				"Delete this contact?",
-				confirmAction
-			);
+			this.toastService.showWarningWithAction("Delete this contact?", confirmAction);
 
 			this.deleteConfirmationTimeout = setTimeout(() => {
 				this.resetDeleteConfirmation();
@@ -246,7 +243,7 @@ export class ContactView implements OnChanges {
 			this.deleteConfirmationTimeout = undefined;
 		}
 	}
-  
+
 	/**
 	 * Closes the edit contact overlay.
 	 * Hides the edit overlay by setting the signal to false.
