@@ -8,7 +8,10 @@
 	@if (isAddContactOpen) {
 		<div class="overlay-wrapper">
 			<div class="overlay-backdrop"></div>
-			<app-add-contact (closed)="onAddContactClosed()" />
+			<app-add-contact
+				(closed)="onAddContactClosed()"
+				(contactCreated)="onContactCreated($event)"
+			/>
 		</div>
 	}
 </section>

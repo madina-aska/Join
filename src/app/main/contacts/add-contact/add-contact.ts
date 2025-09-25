@@ -65,10 +65,7 @@ export class AddContact {
 	 * - phone: International phone number format
 	 */
 	contactForm: FormGroup = this.fb.group({
-		name: [
-			"",
-			[Validators.required, Validators.pattern(/^[a-zA-ZäöüÄÖÜß]+ [a-zA-ZäöüÄÖÜß]+$/)],
-		],
+		name: ["", [Validators.required, Validators.pattern(/^[a-zA-ZäöüÄÖÜß]+ [a-zA-ZäöüÄÖÜß]+$/)]],
 		email: [
 			"",
 			[
@@ -86,6 +83,8 @@ export class AddContact {
 	/** Emitted when the add contact overlay is opened */
 	@Output() open = new EventEmitter<void>();
 
+	@Output() contactCreated = new EventEmitter<string>();
+
 	/**
 	 * Capitalizes the first letter of each word in a name string.
 	 * Used for automatic name formatting during input.
@@ -101,9 +100,9 @@ export class AddContact {
 	 */
 	private capitalizeNames(name: string): string {
 		return name
-			.split(' ')
-			.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-			.join(' ');
+			.split(" ")
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+			.join(" ");
 	}
 
 	/**
@@ -122,9 +121,9 @@ export class AddContact {
 		const capitalizedValue = this.capitalizeNames(input.value);
 
 		// Nur aktualisieren wenn es mindestens 2 Wörter mit Leerzeichen gibt
-		if (input.value.includes(' ') && input.value.split(' ').length >= 2) {
+		if (input.value.includes(" ") && input.value.split(" ").length >= 2) {
 			this.contactForm.patchValue({
-				name: capitalizedValue
+				name: capitalizedValue,
 			});
 		}
 	}
@@ -154,14 +153,15 @@ export class AddContact {
 
 			this.contactService
 				.addContact(newContact)
-				.then(() => {
+				.then((newId: string) => {
 					this.ts.showSuccess("Contact successfully created");
+					this.contactCreated.emit(newId);
 					this.contactForm.reset();
 					this.closeOverlay();
 				})
 				.catch((error) => {
 					this.ts.showError("Save error");
-					});
+				});
 		}
 	}
 
@@ -189,14 +189,14 @@ export class AddContact {
 	}
 
 	onAddContact(): void {
-			// Opens the add contact form overlay
+		// Opens the add contact form overlay
 		this.openOverlay();
 	}
 
 	onEditContact(): void {
 		// Opens edit mode for existing contact
 	}
-  
+
 	onCreateContactClick() {
 		this.onSubmit();
 	}

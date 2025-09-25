@@ -1,9 +1,9 @@
+import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AddContact } from "./add-contact/add-contact";
 import { ContactList } from "./contact-list/contact-list";
 import { ContactView } from "./contact-view/contact-view";
-import { AddContact } from "./add-contact/add-contact";
-import { CommonModule } from "@angular/common";
 
 @Component({
 	selector: "app-contacts",
@@ -13,6 +13,7 @@ import { CommonModule } from "@angular/common";
 })
 export class Contacts {
 	route = inject(ActivatedRoute);
+	router = inject(Router);
 	id = this.route.snapshot.paramMap.get("id") || "";
 	showList = true;
 
@@ -24,6 +25,11 @@ export class Contacts {
 
 	onAddContactClosed() {
 		this.isAddContactOpen = false;
+	}
+
+	onContactCreated(id: string) {
+		if (!id) return;
+		this.router.navigate(["/contacts", id]);
 	}
 
 	constructor() {

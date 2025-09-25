@@ -169,18 +169,19 @@ export class ContactService implements OnDestroy {
 	 * await this.contactService.addContact(newContact);
 	 * ```
 	 */
-	async addContact(contact: Contact): Promise<void> {
-		await runInInjectionContext(this.injector, async () => {
+	async addContact(contact: Contact): Promise<string> {
+		return await runInInjectionContext(this.injector, async () => {
 			const contactsCol = collection(this.firestore, "contacts");
 
 			try {
-				await addDoc(contactsCol, {
+				const docRef = await addDoc(contactsCol, {
 					name: contact.name,
 					email: contact.email,
 					telephone: contact.telephone,
 					initials: contact.initials,
 					color: contact.color,
 				});
+				return docRef.id;
 			} catch (error) {
 				throw error;
 			}
