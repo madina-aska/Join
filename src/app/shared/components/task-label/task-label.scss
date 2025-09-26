@@ -1,0 +1,32 @@
+:host {
+	--fs-label: 16px;
+
+	transition: translate 125ms;
+}
+
+.label {
+	align-self: center;
+	font-size: var(--fs-label);
+	color: var(--bg-color-white);
+	padding: 0.25em 1em;
+	background-color: black;
+	border-radius: 0.5em;
+
+	&.user-story {
+		background-color: var(--task-category-color-blue);
+	}
+
+	&.technical-task {
+		background-color: var(--task-category-color-teal);
+	}
+}
+
+:host.hovered {
+	& .label.user-story {
+		background-color: var(--task-category-color-blue-hovered);
+	}
+
+	& .technical-task {
+		background-color: var(--task-category-color-teal-hovered);
+	}
+}

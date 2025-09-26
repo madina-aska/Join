@@ -1,0 +1,11 @@
+<span
+	class="label"
+	[class.user-story]="categoryClean() === 'userstory'"
+	[class.technical-task]="categoryClean() === 'technicaltask'"
+>
+	@for (cat of categories; track $index) {
+		@if (cat.name === categoryClean()) {
+			{{ cat.value }}
+		}
+	}
+</span>
