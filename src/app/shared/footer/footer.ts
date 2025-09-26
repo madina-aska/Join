@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from "@angular/core";
-import { Router, NavigationEnd, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { Component, OnInit, inject } from "@angular/core";
+import { NavigationEnd, Router, RouterModule } from "@angular/router";
 
 /**
  * Footer navigation component with persistent page state management.
@@ -69,7 +69,13 @@ export class Footer implements OnInit {
 		const savedPage = localStorage.getItem("activePage");
 		if (savedPage) {
 			this.activePage = savedPage;
-			this.router.navigate([savedPage]);
+			const url = this.router.parseUrl(savedPage);
+			this.router.navigate(
+				url.root.children["primary"].segments.map((segment) => segment.path),
+				{
+					queryParams: url.queryParams,
+				},
+			);
 		}
 
 		// Router-Events überwachen -> aktive Seite automatisch setzen
@@ -99,6 +105,13 @@ export class Footer implements OnInit {
 	 * ```
 	 */
 	isActive(page: string): boolean {
-		return this.activePage === page;
+		const cleanPath = this.getCleanPath(this.activePage);
+		return cleanPath === page;
+	}
+
+	// returns the path without queryParams
+	getCleanPath(page: string): string {
+		const urlTree = this.router.parseUrl(page);
+		return urlTree.root.children["primary"].segments.map((segment) => segment.path).join("/");
 	}
 }

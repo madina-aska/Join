@@ -40,9 +40,9 @@ import { Button } from "@shared/components/button/button";
 export class ContactList {
 	/** Injected contact service for accessing organized contact data */
 	contactService = inject(ContactService);
+	router = inject(Router);
 
 	/** Injected router for contact navigation */
-	router = inject(Router);
 	activeId = input<string>();
 
 	/** Emitted when the add contact button is clicked */
@@ -79,6 +79,8 @@ export class ContactList {
 	 */
 	onContactSelect(id: string | undefined) {
 		if (!id) return;
-		this.router.navigate(["/contacts", id]);
+		this.router.navigate(["/contacts"], {
+			queryParams: { id },
+		});
 	}
 }

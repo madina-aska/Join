@@ -4,11 +4,11 @@ import {
 	addDoc,
 	collection,
 	collectionData,
+	deleteDoc,
 	doc,
 	Firestore,
 	onSnapshot,
 	QuerySnapshot,
-	deleteDoc,
 } from "@angular/fire/firestore";
 import { Contact } from "@core/interfaces/contact";
 
@@ -110,10 +110,11 @@ export class ContactService implements OnDestroy {
 		runInInjectionContext(this.injector, () => {
 			const contact = doc(this.firestore, "contacts", contactId);
 			this.unsubscribeContactForView = onSnapshot(contact, (snapshot) => {
+				this.contactForView = undefined;
 				if (snapshot.exists()) {
-					this.contactForView = this.buildDocument(snapshot.id, snapshot.data());
-				} else {
-					this.contactForView = undefined;
+					setTimeout(() => {
+						this.contactForView = this.buildDocument(snapshot.id, snapshot.data());
+					}, 0);
 				}
 			});
 		});

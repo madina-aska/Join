@@ -15,7 +15,7 @@ export class Contacts {
 	vps = inject(ViewportScroller);
 	route = inject(ActivatedRoute);
 	router = inject(Router);
-	id = this.route.snapshot.paramMap.get("id") || "";
+	id = this.route.snapshot.queryParams["id"] || "";
 	showList = true;
 
 	isAddContactOpen = false;
@@ -30,18 +30,19 @@ export class Contacts {
 
 	onContactCreated(id: string) {
 		if (!id) return;
-		this.router.navigate(["/contacts", id]);
+		this.router.navigate(["/contacts"], {
+			queryParams: { id },
+		});
 		this.vps.scrollToAnchor(id, { behavior: "smooth" });
 	}
 
 	constructor() {
-		this.route.params.subscribe((params) => {
-			if (!params["id"]) {
-				this.showList = true;
-			} else {
+		this.route.queryParams.subscribe((params) => {
+			if (params["id"]) {
 				this.showList = false;
+			} else {
+				this.showList = true;
 			}
-
 			this.id = params["id"];
 		});
 	}
