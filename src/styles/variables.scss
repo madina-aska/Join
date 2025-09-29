@@ -8,6 +8,7 @@ html {
 	--text-color-blue: #2a3647;
 	--text-color-black: #000;
 	--hover-gray: #f4f4f4;
+	--input-gray: #a8a8a8;
 
 	/* Typography Sizes - Mobile First */
 	/* headings */
@@ -53,7 +54,7 @@ html {
 	--avatar-color-4: #f30b0b;
 	--avatar-color-5: #8e44ad;
 	--avatar-color-6: #16a085;
-	--avatar-color-7: #faf60a;
+	--avatar-color-7: #ffbb2b;
 	--avatar-color-8: #2c3e50;
 	--avatar-color-9: #3505b7;
 	--avatar-color-10: #dda27a;
@@ -61,4 +62,6 @@ html {
 	--task-category-color-blue-hovered: hsl(227deg 100% 60%);
 	--task-category-color-teal: #1fd7c1;
 	--task-category-color-teal-hovered: hsl(173deg 75% 58%);
+	--input-focus-color: #6dbfe9;
+	--input-hint-color-blue: #0af;
 }

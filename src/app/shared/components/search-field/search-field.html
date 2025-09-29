@@ -1,0 +1,28 @@
+<div class="search">
+	<input
+		type="text"
+		placeholder="Find Task"
+		[(ngModel)]="textValue"
+		required
+		[minlength]="minlength()"
+		#input="ngModel"
+		enterkeyhint="search"
+		(keyup.enter)="onSearch(input)"
+	/>
+	<div class="icon-container">
+		<button type="button" (click)="onSearch(input)">
+			<img class="icon" src="images/board_section/search_icon.svg" alt="Search Icon" />
+		</button>
+	</div>
+
+	@if (input.hasError("required") && showError.required) {
+		<span class="alert-text" animate.enter="enter-animation" animate.leave="leave-animation"
+			>A search text is required.</span
+		>
+	}
+	@if (input.hasError("minlength") && showError.minLength) {
+		<span class="alert-text" animate.enter="enter-animation" animate.leave="leave-animation"
+			>Text must be at least {{ minlength() }} characters long.</span
+		>
+	}
+</div>

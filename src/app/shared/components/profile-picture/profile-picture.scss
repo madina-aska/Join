@@ -1,0 +1,28 @@
+.profile-picture {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	aspect-ratio: 1;
+	background-color: var(--avatar-color-1);
+	border: 2px solid white;
+	border-radius: 50%;
+
+	&.big {
+		font-size: 47px;
+	}
+
+	&.medium {
+		font-size: var(--fs-h3);
+	}
+
+	&.small {
+		font-size: 12px;
+		border-width: 1px;
+	}
+
+	> span {
+		color: white;
+		font-size: inherit;
+	}
+}
