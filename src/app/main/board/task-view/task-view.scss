@@ -1,0 +1,331 @@
+@use "../../../../styles/mixins";
+
+.main {
+	width: 300px;
+	height: 650px;
+	border-radius: 20px;
+	background: #fff;
+	box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 12px;
+
+	header {
+		height: 5%;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.type {
+			border: none;
+			background-color: rgb(255, 147, 47);
+			padding: 2px 6px 2px 6px;
+			border-radius: 6px;
+		}
+
+		.close {
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.2);
+				border-radius: 100%;
+			}
+		}
+	}
+
+	.content {
+		height: 90%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+
+		.headline {
+			margin-top: 8px;
+			margin-bottom: 8px;
+
+			h1 {
+				font-size: 36px;
+				font-weight: 700;
+				margin-bottom: 8px;
+			}
+
+			.task-description {
+				font-size: 16px;
+			}
+		}
+
+		h3 {
+			font-size: 16px;
+			font-weight: 700;
+			color: #42526e;
+		}
+
+		.task-conditions {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+
+			.task-due-date {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				margin-top: 4px;
+				margin-bottom: 4px;
+
+				.date-headline {
+					width: 50%;
+				}
+
+				.date {
+					width: 50%;
+				}
+			}
+
+			.task-priority {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				margin-top: 4px;
+				margin-bottom: 8px;
+			}
+
+			.priority-headline {
+				width: 50%;
+			}
+
+			.priority {
+				width: 50%;
+			}
+		}
+
+		.task-assignees {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 8px;
+			width: 100%;
+			height: 180px;
+			overflow-y: auto;
+		}
+
+		.assignee-headline {
+			margin-bottom: 8px;
+		}
+
+		.assignees {
+			padding-left: 12px;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+
+			.assignee {
+				width: 100%;
+				height: 50px;
+				display: flex;
+				align-items: center;
+
+				.initial {
+					width: 15%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					.bubble {
+						background-color: #3b7cee;
+						border-radius: 50%;
+						width: 30px;
+						height: 30px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						font-size: 12px;
+						color: whitesmoke;
+					}
+				}
+
+				.contact {
+					width: 85%;
+					display: flex;
+					align-items: center;
+				}
+			}
+		}
+
+		.task-subtasks {
+			display: flex;
+			flex-direction: column;
+			overflow-y: auto;
+			height: 90px;
+
+			.subtask-headline {
+				margin-bottom: 12px;
+			}
+
+			.subtasks {
+				display: flex;
+				flex-direction: column;
+				padding-left: 12px;
+
+				.subtask {
+					display: flex;
+					gap: 12px;
+					margin-bottom: 8px;
+				}
+			}
+		}
+	}
+
+	footer {
+		height: 5%;
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+}
+
+@include mixins.desktop {
+	.main {
+		width: 70vw;
+		height: 80vh;
+		padding: 24px;
+    overflow-y: auto;
+
+		header {
+			.type {
+				border: none;
+				background-color: rgb(255, 147, 47);
+				padding: 6px 12px 6px 12px;
+				border-radius: 6px;
+				font-size: 24px;
+			}
+		}
+
+		.content {
+			height: 90%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+
+			.headline {
+				margin-top: 12px;
+				margin-bottom: 12px;
+
+				h1 {
+					font-size: 61px;
+					margin-bottom: 12px;
+				}
+
+				.task-description {
+					font-size: 20px;
+				}
+			}
+
+			h3 {
+				font-size: 24px;
+			}
+
+			.task-conditions {
+				.task-due-date {
+					margin-top: 12px;
+					margin-bottom: 12px;
+
+          .date {
+            font-size: 20px;
+          }
+				}
+
+				.task-priority {
+					margin-top: 12px;
+					margin-bottom: 12px;
+
+          .priority {
+            font-size: 20px;
+          }
+				}
+			}
+
+			.task-assignees {
+				margin-top: 12px;
+        margin-bottom: 12px;
+				height: 280px;
+				overflow-y: auto;
+			}
+
+			.assignee-headline {
+				margin-bottom: 12px;
+			}
+
+			.assignees {
+				padding-left: 12px;
+				gap: 12px;
+
+				.assignee {
+					width: 100%;
+					height: 60px;
+					display: flex;
+					align-items: center;
+
+					.initial {
+						.bubble {
+							background-color: #3b7cee;
+							width: 42px;
+							height: 42px;
+							font-size: 16px;
+							color: whitesmoke;
+						}
+					}
+
+					.contact {
+						width: 85%;
+						display: flex;
+						align-items: center;
+						> span {
+							font-size: 20px;
+						}
+					}
+				}
+			}
+
+			.task-subtasks {
+				display: flex;
+				flex-direction: column;
+				overflow-y: auto;
+				height: 150px;
+
+				.subtask-headline {
+					margin-bottom: 16px;
+				}
+
+				.subtasks {
+					padding-left: 12px;
+
+					.subtask {
+						gap: 16px;
+						margin-bottom: 8px;
+            height: 24px;
+
+            .task {
+              >span {
+                font-size: 20px;
+              }
+            }
+					}
+				}
+			}
+		}
+
+		footer {
+			height: 5%;
+			width: 100%;
+
+      app-button {
+        height: 32px;
+      }
+		}
+	}
+}

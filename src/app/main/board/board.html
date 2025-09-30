@@ -1,1 +1,17 @@
-<p>board works!</p>
+
+<section>
+<button (click)="openTaskView()">Task</button>
+
+  @if (isTaskViewOpen) {
+    <div class="overlay-wrapper">
+      <div class="overlay-backdrop" (click)="closeTaskView()"></div>
+
+      <app-task-view
+        (closed)="closeTaskView()"
+        (open)="openTaskView()"
+      />
+    </div>
+  }
+
+</section>
+
