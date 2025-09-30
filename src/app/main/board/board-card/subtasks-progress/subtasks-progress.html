@@ -1,0 +1,4 @@
+<div class="container">
+	<app-progress-bar [max]="subtasksCount()" [current]="subtasksCompleted()" />
+	<span class="text">{{ `${subtasksCompleted()}/${subtasksCount()} Subtasks` }}</span>
+</div>
