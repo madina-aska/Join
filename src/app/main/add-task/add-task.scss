@@ -1,0 +1,24 @@
+.add-task-container {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding: 50px 18px 18px;
+	background: var(--bg-color-gray, #f6f7f8);
+	font-family: "Inter", sans-serif;
+	color: var(--text-color-black, #000);
+	overflow: hidden;
+}
+
+.form-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.at-title {
+	margin: 0 0 40px 0;
+	font-size: var(--fs-h1);
+	line-height: 1;
+	font-weight: var(--fw-bold);
+	color: var(--text-color-black);
+}
