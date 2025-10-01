@@ -98,8 +98,27 @@
 				width: 50%;
 			}
 
-			.priority {
+			.priority-tag {
 				width: 50%;
+				display: flex;
+				align-items: center;
+        gap: 12px;
+
+				.priority-img {
+					background-color: orange;
+					display: flex;
+					align-items: center;
+          justify-content: center;
+          padding: 2px;
+          border: none;
+          border-radius: 8px;
+          height: 32px;
+          width: 40px;
+          >img {
+            height: 24px;
+            width: 24px;
+          }
+				}
 			}
 		}
 
@@ -193,7 +212,7 @@
 		width: 70vw;
 		height: 80vh;
 		padding: 24px;
-    overflow-y: auto;
+		overflow-y: auto;
 
 		header {
 			.type {
@@ -234,24 +253,25 @@
 					margin-top: 12px;
 					margin-bottom: 12px;
 
-          .date {
-            font-size: 20px;
-          }
+					.date {
+						font-size: 20px;
+					}
+
 				}
 
 				.task-priority {
 					margin-top: 12px;
 					margin-bottom: 12px;
 
-          .priority {
-            font-size: 20px;
-          }
+					.priority {
+						font-size: 20px;
+					}
 				}
 			}
 
 			.task-assignees {
 				margin-top: 12px;
-        margin-bottom: 12px;
+				margin-bottom: 12px;
 				height: 280px;
 				overflow-y: auto;
 			}
@@ -307,13 +327,13 @@
 					.subtask {
 						gap: 16px;
 						margin-bottom: 8px;
-            height: 24px;
+						height: 24px;
 
-            .task {
-              >span {
-                font-size: 20px;
-              }
-            }
+						.task {
+							> span {
+								font-size: 20px;
+							}
+						}
 					}
 				}
 			}
@@ -323,9 +343,9 @@
 			height: 5%;
 			width: 100%;
 
-      app-button {
-        height: 32px;
-      }
+			app-button {
+				height: 32px;
+			}
 		}
 	}
 }
