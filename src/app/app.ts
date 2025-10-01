@@ -1,8 +1,9 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, HostListener, inject, signal } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { PopoverService } from "@core/services/popover-service";
+import { Toast } from "./shared/components/toast/toast";
 import { Footer } from "./shared/footer/footer";
 import { Header } from "./shared/header/header";
-import { Toast } from "./shared/components/toast/toast";
 import { ToastService } from "./shared/services/toast.service";
 
 /**
@@ -55,6 +56,8 @@ export class App {
 	/** Current toast state from ToastService for template binding */
 	protected currentToast = this.toastService.toast;
 
+	protected popoverService = inject(PopoverService);
+
 	/**
 	 * Handles action button clicks from toast notifications.
 	 * Executes the action handler if a toast with action is currently active.
@@ -69,6 +72,14 @@ export class App {
 		const toast = this.currentToast();
 		if (toast?.action) {
 			toast.action.handler();
+		}
+	}
+
+	@HostListener("click", ["$event.target"])
+	onDocumentClick(target: EventTarget | null) {
+		const isPopover = (target as HTMLElement).closest("[appPopover]");
+		if (!isPopover) {
+			this.popoverService.closeAll();
 		}
 	}
 }

@@ -1,0 +1,59 @@
+:host {
+	--vertical: calc(100% - 0.25rem);
+	--horizonal: calc(100% - 0.25rem);
+
+	position: absolute;
+	top: 100%;
+	left: 100%;
+	visibility: hidden;
+	opacity: 0;
+	font-size: var(--fs-extraSmall);
+	padding: 0.75rem 1.25rem;
+	border-radius: 20px;
+	transition: opacity 225ms;
+	overflow: hidden;
+}
+
+:host.sharp-top-right {
+	left: initial;
+	right: var(--horizonal);
+	top: var(--vertical);
+	bottom: initial;
+	border-top-right-radius: 0;
+}
+
+:host.sharp-bottom-right {
+	left: initial;
+	right: var(--horizonal);
+	top: initial;
+	bottom: var(--vertical);
+	border-bottom-right-radius: 0;
+}
+
+:host.sharp-bottom-left {
+	left: var(--horizonal);
+	right: initial;
+	top: initial;
+	bottom: var(--vertical);
+	border-bottom-left-radius: 0;
+}
+
+:host.sharp-top-left {
+	left: var(--horizonal);
+	right: initial;
+	top: var(--vertical);
+	bottom: initial;
+	border-top-left-radius: 0;
+}
+
+:host.primary {
+	background-color: var(--bg-color-blue-darker);
+	color: var(--bg-color-white);
+	box-shadow: 0 0 5px 1px #0000000a;
+}
+
+:host.secondary {
+	background-color: var(--bg-color-white);
+	color: var(--bg-color-blue-darker);
+	box-shadow: 0 4px 4px 1px #00000040;
+}
