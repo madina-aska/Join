@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "JoinTestDb": "join-tasksdb"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -1,5 +1,6 @@
 import {
 	ApplicationConfig,
+	APP_INITIALIZER,
 	provideBrowserGlobalErrorListeners,
 	provideZoneChangeDetection,
 } from "@angular/core";
@@ -7,8 +8,13 @@ import { provideRouter, withInMemoryScrolling, withViewTransitions } from "@angu
 
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
-import { firebaseConfig } from "environment/environment";
+import {
+	firebaseConfig,
+	environment
+} from "environment/environment";
 import { routes } from "./app.routes";
+import { initializeFirestore } from "@core/initializers/firestore.initializer";
+import { FirestoreInitService } from "@core/services/firestore-init.service";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -22,7 +28,16 @@ export const appConfig: ApplicationConfig = {
 			}),
 			withViewTransitions(),
 		),
+		// Firebase Setup - einheitliche Konfiguration
 		provideFirebaseApp(() => initializeApp(firebaseConfig)),
 		provideFirestore(() => getFirestore()),
+
+		// Firestore Schema Initialization
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initializeFirestore,
+			deps: [FirestoreInitService],
+			multi: true
+		},
 	],
 };

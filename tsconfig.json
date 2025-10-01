@@ -15,12 +15,14 @@
 		"importHelpers": true,
 		"target": "ES2022",
 		"module": "preserve",
+		"resolveJsonModule": true,
 		"paths": {
 			"@shared/*": ["app/shared/*"],
 			"@core/*": ["app/core/*"],
 			"@main/*": ["app/main/*"],
 			"@styles/*": ["styles/*"],
-			"@app/*": ["app/*"]
+			"@app/*": ["app/*"],
+			"@data/*": ["../scripts/data/*"]
 		}
 	},
 	"angularCompilerOptions": {

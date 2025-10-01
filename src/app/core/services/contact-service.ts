@@ -7,8 +7,10 @@ import {
 	deleteDoc,
 	doc,
 	Firestore,
+	getDocs,
 	onSnapshot,
 	QuerySnapshot,
+	setDoc,
 } from "@angular/fire/firestore";
 import { Contact } from "@core/interfaces/contact";
 
@@ -152,10 +154,36 @@ export class ContactService implements OnDestroy {
 	}
 
 	/**
-	 * Adds a new contact to Firestore database.
+	 * Generates the next sequential contact ID in format: contact-001, contact-002, etc.
+	 *
+	 * @returns Promise that resolves to the next available contact ID
+	 * @private
+	 *
+	 * @example
+	 * ```typescript
+	 * const nextId = await this.generateNextContactId(); // "contact-015"
+	 * ```
+	 */
+	private async generateNextContactId(): Promise<string> {
+		const contactsCol = collection(this.firestore, "contacts");
+		const snapshot = await getDocs(contactsCol);
+		let maxNum = 0;
+
+		snapshot.forEach((docSnapshot) => {
+			const match = docSnapshot.id.match(/^contact-(\d+)$/);
+			if (match) {
+				maxNum = Math.max(maxNum, parseInt(match[1]));
+			}
+		});
+
+		return `contact-${String(maxNum + 1).padStart(3, '0')}`;
+	}
+
+	/**
+	 * Adds a new contact to Firestore database with custom sequential ID.
 	 *
 	 * @param contact - Contact object to add to database
-	 * @returns Promise that resolves when contact is successfully added
+	 * @returns Promise that resolves to the new contact's ID (format: contact-001)
 	 * @throws Error if contact creation fails
 	 *
 	 * @example
@@ -175,15 +203,21 @@ export class ContactService implements OnDestroy {
 			const contactsCol = collection(this.firestore, "contacts");
 
 			try {
-				const docRef = await addDoc(contactsCol, {
+				const contactId = await this.generateNextContactId();
+				console.log('[ContactService] Generated contact ID:', contactId);
+
+				await setDoc(doc(contactsCol, contactId), {
 					name: contact.name,
 					email: contact.email,
 					telephone: contact.telephone,
 					initials: contact.initials,
 					color: contact.color,
 				});
-				return docRef.id;
+
+				console.log('[ContactService] Contact successfully added with ID:', contactId);
+				return contactId;
 			} catch (error) {
+				console.error('[ContactService] Failed to add contact:', error);
 				throw error;
 			}
 		});

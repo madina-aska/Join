@@ -1,0 +1,162 @@
+[
+  {
+    "id": "task-001",
+    "title": "User Registration System",
+    "description": "Implement complete user registration flow with email verification and password validation",
+    "category": "User Story",
+    "priority": "urgent",
+    "status": "in-progress",
+    "assignedContacts": ["contact-001", "contact-002"],
+    "dueDate": "2025-01-15",
+    "color": 1,
+    "subtasks": [
+      {
+        "id": "subtask-001-001",
+        "title": "Design registration form UI",
+        "completed": true
+      },
+      {
+        "id": "subtask-001-002",
+        "title": "Implement email validation",
+        "completed": true
+      },
+      {
+        "id": "subtask-001-003",
+        "title": "Add password strength validation",
+        "completed": false
+      },
+      {
+        "id": "subtask-001-004",
+        "title": "Setup email verification service",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "task-002",
+    "title": "Database Schema Migration",
+    "description": "Update database schema to support new user profile fields and optimize queries",
+    "category": "Technical Task",
+    "priority": "medium",
+    "status": "todo",
+    "assignedContacts": ["contact-003"],
+    "dueDate": "2025-01-22",
+    "color": 2,
+    "subtasks": [
+      {
+        "id": "subtask-002-001",
+        "title": "Analyze current schema structure",
+        "completed": false
+      },
+      {
+        "id": "subtask-002-002",
+        "title": "Create migration scripts",
+        "completed": false
+      },
+      {
+        "id": "subtask-002-003",
+        "title": "Test migration on staging",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "task-003",
+    "title": "Mobile App Design Review",
+    "description": "Review and approve final mobile app mockups before development phase",
+    "category": "User Story",
+    "priority": "low",
+    "status": "done",
+    "assignedContacts": ["contact-001", "contact-004"],
+    "dueDate": "2024-12-28",
+    "color": 3,
+    "subtasks": [
+      {
+        "id": "subtask-003-001",
+        "title": "Review homepage mockup",
+        "completed": true
+      },
+      {
+        "id": "subtask-003-002",
+        "title": "Review user profile screens",
+        "completed": true
+      },
+      {
+        "id": "subtask-003-003",
+        "title": "Approve final designs",
+        "completed": true
+      }
+    ]
+  },
+  {
+    "id": "task-004",
+    "title": "API Documentation Update",
+    "description": "Create comprehensive API documentation for all endpoints with examples and authentication details",
+    "category": "Technical Task",
+    "priority": "urgent",
+    "status": "todo",
+    "assignedContacts": ["contact-002", "contact-005"],
+    "dueDate": "2025-01-29",
+    "color": 4,
+    "subtasks": [
+      {
+        "id": "subtask-004-001",
+        "title": "Document authentication endpoints",
+        "completed": false
+      },
+      {
+        "id": "subtask-004-002",
+        "title": "Document user management APIs",
+        "completed": false
+      },
+      {
+        "id": "subtask-004-003",
+        "title": "Add code examples for each endpoint",
+        "completed": false
+      },
+      {
+        "id": "subtask-004-004",
+        "title": "Setup interactive API explorer",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "task-005",
+    "title": "Performance Optimization Sprint",
+    "description": "Optimize application performance by implementing lazy loading, caching strategies, and code splitting",
+    "category": "Technical Task",
+    "priority": "medium",
+    "status": "in-progress",
+    "assignedContacts": ["contact-003", "contact-005"],
+    "dueDate": "2025-01-18",
+    "color": 5,
+    "subtasks": [
+      {
+        "id": "subtask-005-001",
+        "title": "Implement lazy loading for routes",
+        "completed": true
+      },
+      {
+        "id": "subtask-005-002",
+        "title": "Add component-level code splitting",
+        "completed": false
+      },
+      {
+        "id": "subtask-005-003",
+        "title": "Setup Redis caching layer",
+        "completed": false
+      },
+      {
+        "id": "subtask-005-004",
+        "title": "Optimize database queries",
+        "completed": false
+      },
+      {
+        "id": "subtask-005-005",
+        "title": "Run performance benchmarks",
+        "completed": false
+      }
+    ]
+  }
+]

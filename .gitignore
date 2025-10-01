@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 
 /src/environment/environment.ts
+/src/environment/*.backup.*
+firebase-project-info.txt
