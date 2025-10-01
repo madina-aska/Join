@@ -1,6 +1,6 @@
 import {
-	ApplicationConfig,
 	APP_INITIALIZER,
+	ApplicationConfig,
 	provideBrowserGlobalErrorListeners,
 	provideZoneChangeDetection,
 } from "@angular/core";
@@ -8,13 +8,10 @@ import { provideRouter, withInMemoryScrolling, withViewTransitions } from "@angu
 
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
-import {
-	firebaseConfig,
-	environment
-} from "environment/environment";
-import { routes } from "./app.routes";
 import { initializeFirestore } from "@core/initializers/firestore.initializer";
 import { FirestoreInitService } from "@core/services/firestore-init.service";
+import { firebaseConfig } from "environment/environment";
+import { routes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -37,7 +34,7 @@ export const appConfig: ApplicationConfig = {
 			provide: APP_INITIALIZER,
 			useFactory: initializeFirestore,
 			deps: [FirestoreInitService],
-			multi: true
+			multi: true,
 		},
 	],
 };
