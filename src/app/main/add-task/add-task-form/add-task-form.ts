@@ -14,7 +14,9 @@ export class AddTaskForm {
 	dueDate = "";
 	category = "";
 	subtask = "";
-	assignedTo = "";
+  
+	// MULTI-SELECT: store multiple assigned users
+	assignedTo: string[] = [];
 
 	titleFocus = false;
 	dueDateFocus = false;
@@ -29,30 +31,26 @@ export class AddTaskForm {
 		this.selectedPriority = priority;
 	}
 
+	// Dropdown states
 	assignedDropdownOpen = false;
-	activeItem: string | null = null;
+	categoryDropdownOpen = false;
 
+	// For highlighting active items (optional)
+	activeItem: string | null = null;
+	activeCategory: string | null = null;
+
+	// Assigned-to dropdown toggle
 	onInputClick() {
 		this.assignedDropdownOpen = !this.assignedDropdownOpen;
 	}
 
-	selectAssigned(name: string) {
-		this.activeItem = name;
-		this.assignedTo = name;
-
-		setTimeout(() => {
-			this.assignedDropdownOpen = false;
-			this.activeItem = null;
-		}, 120);
-	}
-
-	categoryDropdownOpen = false;
-	activeCategory: string | null = null;
-
+	// Category dropdown toggle
 	onCategoryClick() {
 		this.categoryDropdownOpen = !this.categoryDropdownOpen;
 	}
 
+
+	// Category select
 	selectCategory(cat: string) {
 		this.activeCategory = cat;
 		this.category = cat;
@@ -61,5 +59,18 @@ export class AddTaskForm {
 			this.categoryDropdownOpen = false;
 			this.activeCategory = null;
 		}, 120);
+	}
+
+	// === Multi-select logic ===
+	isAssigned(name: string): boolean {
+		return this.assignedTo.includes(name);
+	}
+
+	toggleAssigned(name: string) {
+		if (this.isAssigned(name)) {
+			this.assignedTo = this.assignedTo.filter((p) => p !== name);
+		} else {
+			this.assignedTo.push(name);
+		}
 	}
 }

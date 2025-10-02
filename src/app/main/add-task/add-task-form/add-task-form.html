@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <!-- <div class="form-row">
         <label class="label">Assigned to</label>
         <div class="select-wrap" [class.focus]="assignedFocus">
             <div class="select-input" (click)="onInputClick()" (focus)="assignedFocus = true"
@@ -89,6 +89,38 @@
                     {{ person }}
                 </li>
             </ul>
+        </div>
+    </div> -->
+
+
+    <div class="form-row">
+        <label class="label">Assigned to</label>
+
+        <!-- select-wrap: contains input and dropdown (dropdown is absolute) -->
+        <div class="select-wrap" [class.focus]="assignedFocus">
+            <div class="select-input" (click)="onInputClick()" (focus)="assignedFocus = true"
+                (blur)="assignedFocus = false" tabindex="0">
+                Select contacts to assign
+                <span class="select-arrow" aria-hidden>
+                    <img src="images/add_task_section/arrow_drop_downaa.svg" alt="">
+                </span>
+            </div>
+
+            <!-- dropdown: absolutely positioned, floats on top -->
+            <ul class="dropdown-list" *ngIf="assignedDropdownOpen">
+                <li *ngFor="let person of ['Madina','Calvin','Falko','Christoph','Philip']"
+                    (click)="$event.stopPropagation(); toggleAssigned(person)" [class.selected]="isAssigned(person)">
+                    <span class="person-name">{{ person }}</span>
+                    <input class="person-checkbox" type="checkbox" [checked]="isAssigned(person)" />
+                </li>
+            </ul>
+        </div>
+
+        <!-- selected-list is a sibling below select-wrap and in normal flow -->
+        <div class="selected-list" *ngIf="assignedTo.length">
+            <span class="selected-item" *ngFor="let person of assignedTo">
+                {{ person }}
+            </span>
         </div>
     </div>
 
