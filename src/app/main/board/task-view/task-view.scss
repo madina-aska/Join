@@ -31,9 +31,15 @@
 		}
 
 		.close {
-			&:hover {
-				background-color: rgba(0, 0, 0, 0.2);
-				border-radius: 100%;
+			> img {
+				height: 32px;
+				width: 32px;
+				cursor: pointer;
+
+				&:hover {
+					background-color: rgba(0, 0, 0, 0.1);
+					border-radius: 100%;
+				}
 			}
 		}
 	}
@@ -102,22 +108,22 @@
 				width: 50%;
 				display: flex;
 				align-items: center;
-        gap: 12px;
+				gap: 12px;
 
 				.priority-img {
 					background-color: orange;
 					display: flex;
 					align-items: center;
-          justify-content: center;
-          padding: 2px;
-          border: none;
-          border-radius: 8px;
-          height: 32px;
-          width: 40px;
-          >img {
-            height: 24px;
-            width: 24px;
-          }
+					justify-content: center;
+					padding: 2px;
+					border: none;
+					border-radius: 8px;
+					height: 32px;
+					width: 40px;
+					> img {
+						height: 24px;
+						width: 24px;
+					}
 				}
 			}
 		}
@@ -256,7 +262,6 @@
 					.date {
 						font-size: 20px;
 					}
-
 				}
 
 				.task-priority {

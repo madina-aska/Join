@@ -1,0 +1,291 @@
+<div class="main"  (click)="onOverlayClick($event)">
+	<header class="task-header">
+		<div class="close" (click)="closeEditOverlay()">
+			<img src="/images/assets/close_cross.svg" alt="" />
+		</div>
+	</header>
+
+	<div class="content">
+		<div class="form-scroll" role="region" aria-label="Edit task form">
+			<div class="form-row">
+				<label class="label">Title <span class="required"></span></label>
+				<input
+					class="input text-input"
+					type="text"
+					placeholder="Enter a title"
+					[(ngModel)]="title"
+					name="title"
+					required
+					#titleInput="ngModel"
+					(focus)="titleFocus = true"
+					(blur)="titleFocus = false"
+					[ngClass]="{ focus: titleFocus, error: titleInput.invalid && titleInput.touched }"
+				/>
+
+				<div class="field-error" *ngIf="titleInput.invalid && titleInput.touched">
+					This field is required
+				</div>
+			</div>
+
+			<div class="form-row description-row">
+				<label class="label">Description</label>
+				<div class="textarea-wrap">
+					<textarea
+						class="input textarea-input"
+						placeholder="Enter a Description"
+						[(ngModel)]="description"
+						name="description"
+						(focus)="descriptionFocus = true"
+						(blur)="descriptionFocus = false"
+						[ngClass]="{ focus: descriptionFocus }"
+					></textarea>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<label class="label">Due date <span class="required"></span></label>
+				<div class="input-with-icon">
+					<input
+						class="input date-input"
+						type="text"
+						placeholder="dd/mm/yyyy"
+						[(ngModel)]="dueDate"
+						name="dueDate"
+						#dueDateInput="ngModel"
+						(focus)="dueDateFocus = true"
+						(blur)="dueDateFocus = false"
+						[ngClass]="{ focus: dueDateFocus, error: dueDateInput.invalid && dueDateInput.touched }"
+						required
+					/>
+					<button class="icon-btn date-icon" type="button" aria-hidden="true">
+						<img src="images/add_task_section/events_icon.svg" alt="" />
+					</button>
+				</div>
+
+				<div class="field-error" *ngIf="dueDateInput.invalid && dueDateInput.touched">
+					This field is required
+				</div>
+			</div>
+
+			<div class="form-row">
+				<label class="label">Priority</label>
+
+				<div class="priority-row" role="tablist" aria-label="Priority">
+					<button
+						class="prio-btn prio-urgent"
+						[class.active]="selectedPriority === 'urgent'"
+						(click)="setPriority('urgent')"
+					>
+						<span class="prio-text">Urgent</span>
+						<span class="prio-ico" aria-hidden>
+							<img
+								[src]="
+									selectedPriority === 'urgent'
+										? 'images/add_task_section/prio_alta_white.svg'
+										: 'images/add_task_section/prio_alta_red.svg'
+								"
+							/>
+						</span>
+					</button>
+
+					<button
+						class="prio-btn prio-medium"
+						[class.active]="selectedPriority === 'medium'"
+						(click)="setPriority('medium')"
+					>
+						<span class="prio-text">Medium</span>
+						<span class="prio-ico" aria-hidden>
+							<img
+								[src]="
+									selectedPriority === 'medium'
+										? 'images/add_task_section/priority_symbols_white.svg'
+										: 'images/add_task_section/priority_symbols.svg'
+								"
+							/>
+						</span>
+					</button>
+
+					<button
+						class="prio-btn prio-low"
+						[class.active]="selectedPriority === 'low'"
+						(click)="setPriority('low')"
+					>
+						<span class="prio-text">Low</span>
+						<span class="prio-ico" aria-hidden>
+							<img
+								[src]="
+									selectedPriority === 'low'
+										? 'images/add_task_section/prio_baja_white.svg'
+										: 'images/add_task_section/prio_baja.svg'
+								"
+							/>
+						</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<label class="label">Assigned to</label>
+				<div class="select-wrap" [class.focus]="assignedFocus">
+					<div class="select-input" (click)="toggleAssignedDropdown($event)" tabindex="0">
+						Select contacts to assign
+						<span class="select-arrow">
+							<img src="images/add_task_section/arrow_drop_downaa.svg" />
+						</span>
+					</div>
+
+					<div class="selected-initials" *ngIf="assignedContacts.length > 0">
+						<ng-container *ngFor="let entry of contactService.contactsObject | keyvalue">
+							<ng-container *ngFor="let contact of entry.value">
+								<ng-container *ngIf="contact.id && assignedContacts.includes(contact.id)">
+									<div
+										class="initial-circle"
+										[style.background-color]="contactService.getAvatarColor(contact)"
+										[title]="contact.name"
+									>
+										{{ contact.initials }}
+									</div>
+								</ng-container>
+							</ng-container>
+						</ng-container>
+					</div>
+
+					<ul class="dropdown-list" *ngIf="assignedDropdownOpen">
+						<ng-container *ngFor="let entry of contactService.contactsObject | keyvalue">
+							<ng-container *ngFor="let contact of entry.value">
+								<li class="dropdown-contact">
+									<label>
+										<input
+											type="checkbox"
+											[checked]="contact.id ? isAssigned(contact.id) : false"
+											(change)="contact.id && toggleAssignment(contact.id)"
+										/>
+										<div
+											class="avatar"
+											[style.background-color]="contactService.getAvatarColor(contact)"
+										>
+											{{ contact.initials }}
+										</div>
+										<span class="contact-name">{{ contact.name }}</span>
+									</label>
+								</li>
+							</ng-container>
+						</ng-container>
+					</ul>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<label class="label">Category <span class="required"></span></label>
+				<div class="select-wrap" [class.focus]="categoryFocus">
+					<!-- Field -->
+					<div
+						class="select-input"
+						(click)="onCategoryClick()"
+						(focus)="categoryFocus = true"
+						(blur)="categoryFocus = false; categoryTouched = true"
+						tabindex="0"
+					>
+						{{ category || "Select task category" }}
+						<span class="select-arrow" aria-hidden>
+							<img src="images/add_task_section/arrow_drop_downaa.svg" />
+						</span>
+					</div>
+
+					<ul class="dropdown-list" *ngIf="categoryDropdownOpen">
+						<li
+							*ngFor="let cat of ['User Story', 'Technical Task']"
+							(click)="selectCategory(cat)"
+							[class.active]="activeCategory === cat"
+						>
+							{{ cat }}
+						</li>
+					</ul>
+				</div>
+
+				<div class="field-error" *ngIf="!category && categoryTouched">This field is required</div>
+			</div>
+
+			<div class="form-row">
+				<label class="label">Subtasks</label>
+
+				<!-- Add new subtask -->
+				<div class="subtask-input-group">
+					<input
+						class="input subtask-input"
+						type="text"
+						placeholder="Add new subtask"
+						[(ngModel)]="subtask"
+						name="subtask"
+						(focus)="subtaskFocus = true"
+						(blur)="onSubtaskBlur()"
+						[ngClass]="{ focus: subtaskFocus }"
+						(keyup.enter)="confirmSubtask()"
+					/>
+
+					<div class="icon-overlay" *ngIf="subtaskFocus || subtask.trim()">
+						<button type="button" (click)="confirmSubtask()" aria-label="Save subtask">
+							<img src="images/assets/check.svg" alt="" />
+						</button>
+						|
+						<button type="button" (click)="cancelSubtask()" aria-label="Cancel subtask">
+							<img src="images/assets/close_mobile.svg" alt="" />
+						</button>
+					</div>
+				</div>
+
+				<!-- List of subtasks -->
+				<ul class="subtask-list">
+					<li class="subtask-item" *ngFor="let st of subtasks; let i = index">
+						<span class="bullet-point">•</span>
+
+						<ng-container *ngIf="st.isEditing; else readonlyTitle">
+							<div class="subtask-edit-row">
+								<input
+									type="text"
+									[(ngModel)]="st.title"
+									name="title{{ i }}"
+									class="subtask-edit-input"
+									placeholder="Subtask title"
+								/>
+								<div class="edit-actions">
+									<button type="button" (click)="confirmEdit(i)" aria-label="Save subtask">
+										<img src="images/assets/check.svg" alt="" />
+									</button>
+									|
+									<button type="button" (click)="removeSubtask(i)" aria-label="Delete subtask">
+										<img src="images/assets/delete_icon_white.svg" alt="" />
+									</button>
+								</div>
+							</div>
+						</ng-container>
+
+						<ng-template #readonlyTitle>
+							<span class="subtask-title-text">{{ st.title }}</span>
+						</ng-template>
+
+						<div class="subtask-actions" *ngIf="!st.isEditing">
+							<button type="button" (click)="enableEditing(i)" aria-label="Edit subtask">
+								<img src="images/add_task_section/edit.svg" alt="" />
+							</button>
+							|
+							<button type="button" (click)="removeSubtask(i)" aria-label="Delete subtask">
+								<img src="images/add_task_section/delete_icon.svg" alt="" />
+							</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="bottom-spacer" aria-hidden="true"></div>
+		</div>
+	</div>
+
+	<footer class="task-actions">
+		<div class="form-actions" role="toolbar" aria-label="Form actions">
+			<button class="btn-create" type="button" (click)="saveTask()">
+				OK <img src="images/assets/check.svg" />
+			</button>
+		</div>
+	</footer>
+</div>
