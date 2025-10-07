@@ -4,7 +4,7 @@ export interface Task {
 	description?: string;
 	category: "User Story" | "Technical Task";
 	priority: "low" | "medium" | "urgent";
-	status: "todo" | "in-progress" | "done";
+	status: "todo" | "in-progress" | "awaiting-feedback" | "done";
 	assignedContacts?: string[];
 	dueDate?: Date;
 	subtasks?: {

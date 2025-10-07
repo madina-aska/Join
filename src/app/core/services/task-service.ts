@@ -11,7 +11,7 @@ import {
 	updateDoc,
 } from "@angular/fire/firestore";
 import { Task } from "@core/interfaces/task";
-import { firstValueFrom, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
 
 type TaskDictionary = Record<string, Task[]>;
@@ -61,7 +61,10 @@ export class TaskService implements OnDestroy {
 	 */
 	get tasksObject(): TaskDictionary {
 		let result: TaskDictionary = {};
-		this.tasksObject$.pipe().subscribe(val => result = val).unsubscribe();
+		this.tasksObject$
+			.pipe()
+			.subscribe((val) => (result = val))
+			.unsubscribe();
 		return result;
 	}
 
@@ -71,10 +74,12 @@ export class TaskService implements OnDestroy {
 	 */
 	get allTasks(): Task[] {
 		let result: Task[] = [];
-		this.allTasks$.pipe().subscribe(val => result = val).unsubscribe();
+		this.allTasks$
+			.pipe()
+			.subscribe((val) => (result = val))
+			.unsubscribe();
 		return result;
 	}
-
 
 	constructor() {
 		// Initialize Observables
@@ -87,13 +92,11 @@ export class TaskService implements OnDestroy {
 					// Transform raw Firestore data to Task objects
 					return rawTasks.map((rawTask) => this.buildDocument(rawTask.id, rawTask));
 				}),
-				shareReplay(1) // Share one Firestore subscription among all subscribers
+				shareReplay(1), // Share one Firestore subscription among all subscribers
 			);
 
 			// Derive tasksObject$ from allTasks$
-			this.tasksObject$ = this.allTasks$.pipe(
-				map((tasks) => this.createStatusObject(tasks))
-			);
+			this.tasksObject$ = this.allTasks$.pipe(map((tasks) => this.createStatusObject(tasks)));
 		});
 	}
 
@@ -115,7 +118,6 @@ export class TaskService implements OnDestroy {
 			return this.firestore;
 		}
 	}
-
 
 	/**
 	 * @deprecated Use allTasks$ Observable instead to avoid creating duplicate Firestore listeners.
@@ -140,11 +142,11 @@ export class TaskService implements OnDestroy {
 		return this.allTasks$;
 	}
 
-
 	private createStatusObject(tasksArr: Task[]): TaskDictionary {
 		const tasksObject: TaskDictionary = {
 			todo: [],
 			"in-progress": [],
+			"awaiting-feedback": [],
 			done: [],
 		};
 
@@ -168,7 +170,6 @@ export class TaskService implements OnDestroy {
 	}
 
 	private buildDocument(id: string, data: DocumentData): Task {
-
 		return {
 			id,
 			title: data["title"] || "",
@@ -178,7 +179,7 @@ export class TaskService implements OnDestroy {
 			status: data["status"] || "todo",
 			assignedContacts: data["assignedContacts"] || [],
 			subtasks: data["subtasks"] || [],
-      dueDate: data["dueDate"] || undefined,
+			dueDate: data["dueDate"] || undefined,
 			createdAt: data["createdAt"] || undefined,
 			updatedAt: data["updatedAt"] || undefined,
 			color: data["color"],
@@ -212,7 +213,7 @@ export class TaskService implements OnDestroy {
 			}
 		});
 
-		return `task-${String(maxNum + 1).padStart(3, '0')}`;
+		return `task-${String(maxNum + 1).padStart(3, "0")}`;
 	}
 
 	/**
@@ -260,7 +261,7 @@ export class TaskService implements OnDestroy {
 
 				return taskId;
 			} catch (error) {
-				console.error('[TaskService] Failed to add task:', error);
+				console.error("[TaskService] Failed to add task:", error);
 				throw error;
 			}
 		});
@@ -359,9 +360,7 @@ export class TaskService implements OnDestroy {
 	 * @returns Observable stream of tasks with specified status
 	 */
 	getTasksByStatus(status: Task["status"]): Observable<Task[]> {
-		return this.tasksObject$.pipe(
-			map((tasksObj) => tasksObj[status] || [])
-		);
+		return this.tasksObject$.pipe(map((tasksObj) => tasksObj[status] || []));
 	}
 
 	/**
@@ -371,8 +370,6 @@ export class TaskService implements OnDestroy {
 	 * @returns Observable stream of tasks with specified priority
 	 */
 	getTasksByPriority(priority: Task["priority"]): Observable<Task[]> {
-		return this.allTasks$.pipe(
-			map((tasks) => tasks.filter((task) => task.priority === priority))
-		);
+		return this.allTasks$.pipe(map((tasks) => tasks.filter((task) => task.priority === priority)));
 	}
 }
