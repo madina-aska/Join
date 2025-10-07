@@ -1,7 +1,6 @@
 import { inject, Injectable, Injector, OnDestroy, runInInjectionContext } from "@angular/core";
 import { DocumentData } from "@angular/fire/compat/firestore";
 import {
-	addDoc,
 	collection,
 	collectionData,
 	deleteDoc,
@@ -13,6 +12,7 @@ import {
 	setDoc,
 } from "@angular/fire/firestore";
 import { Contact } from "@core/interfaces/contact";
+import { map, Observable, shareReplay } from "rxjs";
 
 type ContactDictionary = Record<string, Contact[]>;
 
@@ -45,6 +45,8 @@ export class ContactService implements OnDestroy {
 	firestore = inject(Firestore);
 	injector = inject(Injector);
 
+	allContacts$!: Observable<Contact[]>;
+
 	/** Currently selected contact for detailed view */
 	contactForView: Contact | undefined;
 
@@ -59,6 +61,7 @@ export class ContactService implements OnDestroy {
 
 	constructor() {
 		this.getContactsAsObject();
+		this.getAllContacts();
 	}
 
 	/**
@@ -94,6 +97,14 @@ export class ContactService implements OnDestroy {
 			data = collectionData(contactsCol, { idField: "id" });
 		});
 		return data;
+	}
+
+	private getAllContacts() {
+		const coll = collection(this.firestore, "contacts");
+		this.allContacts$ = collectionData(coll, { idField: "id" }).pipe(
+			map((contacts) => contacts as Contact[]),
+			shareReplay(1),
+		);
 	}
 
 	/**
@@ -176,7 +187,7 @@ export class ContactService implements OnDestroy {
 			}
 		});
 
-		return `contact-${String(maxNum + 1).padStart(3, '0')}`;
+		return `contact-${String(maxNum + 1).padStart(3, "0")}`;
 	}
 
 	/**
@@ -204,7 +215,7 @@ export class ContactService implements OnDestroy {
 
 			try {
 				const contactId = await this.generateNextContactId();
-				console.log('[ContactService] Generated contact ID:', contactId);
+				console.log("[ContactService] Generated contact ID:", contactId);
 
 				await setDoc(doc(contactsCol, contactId), {
 					name: contact.name,
@@ -214,10 +225,10 @@ export class ContactService implements OnDestroy {
 					color: contact.color,
 				});
 
-				console.log('[ContactService] Contact successfully added with ID:', contactId);
+				console.log("[ContactService] Contact successfully added with ID:", contactId);
 				return contactId;
 			} catch (error) {
-				console.error('[ContactService] Failed to add contact:', error);
+				console.error("[ContactService] Failed to add contact:", error);
 				throw error;
 			}
 		});

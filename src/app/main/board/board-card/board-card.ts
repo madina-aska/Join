@@ -1,63 +1,53 @@
-import { CommonModule, SlicePipe } from "@angular/common";
-import { Component, inject, input, output } from "@angular/core";
-import { Router } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { Component, inject, input, OnInit, output } from "@angular/core";
 import { Task } from "@app/core/interfaces/task";
+import { Contact } from "@core/interfaces/contact";
+import { ContactService } from "@core/services/contact-service";
+import { AssignedList } from "@shared/assigned-list/assigned-list";
+import { ProgressBar } from "@shared/components/progress-bar/progress-bar";
+import { TaskLabel } from "@shared/components/task-label/task-label";
+import { PopoverMobile } from "../popover-mobile/popover-mobile";
 
 @Component({
 	selector: "app-board-card",
 	standalone: true,
-	imports: [CommonModule, SlicePipe], // SlicePipe hinzugefügt, da es im Template verwendet wird
+	imports: [CommonModule, TaskLabel, PopoverMobile, ProgressBar, AssignedList],
 	templateUrl: "./board-card.html",
 	styleUrl: "./board-card.scss",
 })
-export class BoardCard {
-	// Input: Die darzustellende Aufgabe (Task)
+export class BoardCard implements OnInit {
 	task = input.required<Task>();
-
-	// Output: Sendet die ID der geklickten Karte an die BoardView, um die Detailansicht zu öffnen
 	cardClicked = output<string>();
+	contactService = inject(ContactService);
+	completedSubtasks = 0;
+	amountSubtasks = 0;
+	assignedContacts: Contact[] = [];
 
-	// Output: Sendet ein Signal, wenn der Bearbeiten-Button geklickt wird
-	editClicked = output<string>();
-
-	// --- DEPENDENCIES ---
-	private router = inject(Router);
-
-	/**
-	 * Gibt die Farbe für die Task-Kategorie zurück.
-	 */
-	getCategoryColor(): string {
-		// Korrektur der String-Werte, um mit dem Task-Interface übereinzustimmen
-		switch (this.task().category) {
-			case "Technical Task":
-				return "#1cb700"; // Beispiel-Farbe für Technical Task
-			case "User Story":
-				return "#003cff"; // Beispiel-Farbe für User Story
-			default:
-				return "#888"; // Standard-Farbe
-		}
+	ngOnInit() {
+		this.calcSubtasks();
+		this.getAssigned();
 	}
 
-	/**
-	 * Öffnet die Detailansicht der Aufgabe.
-	 */
+	private calcSubtasks() {
+		this.completedSubtasks =
+			this.task().subtasks?.reduce((_, curr, acc) => {
+				return acc + (curr.completed ? 1 : 0);
+			}, 0) || 0;
+
+		this.amountSubtasks = this.task().subtasks?.length || 0;
+	}
+
+	private getAssigned() {
+		const ids = this.task().assignedContacts || [];
+
+		this.contactService.allContacts$.subscribe((contacts) => {
+			this.assignedContacts = contacts.filter((contact) => ids.includes(contact.id || ""));
+		});
+	}
+
 	openDetailView() {
 		if (this.task().id) {
-			// Non-Null Assertion Operator (!) stellt sicher, dass der String-Typ gesendet wird.
 			this.cardClicked.emit(this.task().id!);
-		}
-	}
-
-	/**
-	 * Bearbeitet die Aufgabe und verhindert das Öffnen der Detailansicht.
-	 * @param event Das DOM-Ereignis des Klicks.
-	 */
-	editTask(event: Event) {
-		// Wichtig: Stoppt die Event-Propagation, damit der Klick nicht die openDetailView-Methode der gesamten Karte auslöst
-		event.stopPropagation();
-		if (this.task().id) {
-			// Non-Null Assertion Operator (!) stellt sicher, dass der String-Typ gesendet wird.
-			this.editClicked.emit(this.task().id!);
 		}
 	}
 }

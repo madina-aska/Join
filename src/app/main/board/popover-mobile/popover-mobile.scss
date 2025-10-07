@@ -1,5 +1,11 @@
+@use "../../../../styles/mixins";
+
 :host {
 	height: 100%;
+
+	@include mixins.desktop {
+		display: none;
+	}
 }
 
 .flex {
@@ -37,8 +43,6 @@ button:not(.toggle-btn):active {
 	align-items: center;
 	height: 1rem;
 	width: 1rem;
-	top: 200px;
-	left: 50%;
 	background-color: blue;
 
 	> img {
