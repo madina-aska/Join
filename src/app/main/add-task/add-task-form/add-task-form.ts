@@ -1,6 +1,8 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { Contact } from "@core/interfaces/contact";
+import { ContactService } from "@core/services/contact-service";
 
 @Component({
 	selector: "app-add-task-form",
@@ -14,9 +16,11 @@ export class AddTaskForm {
 	dueDate = "";
 	category = "";
 	subtask = "";
-  
-	// MULTI-SELECT: store multiple assigned users
-	assignedTo: string[] = [];
+
+	contacts: Contact[] = [];
+	assignedTo: Contact[] = [];
+
+	contactService = inject(ContactService);
 
 	titleFocus = false;
 	dueDateFocus = false;
@@ -24,33 +28,30 @@ export class AddTaskForm {
 	descriptionFocus = false;
 	assignedFocus = false;
 	subtaskFocus = false;
+
+	titleTouched = false;
+	dueDateTouched = false;
 	categoryTouched = false;
+
+	assignedDropdownOpen = false;
+	categoryDropdownOpen = false;
+
+	activeItem: string | null = null;
+	activeCategory: string | null = null;
 
 	selectedPriority = "";
 	setPriority(priority: string) {
 		this.selectedPriority = priority;
 	}
 
-	// Dropdown states
-	assignedDropdownOpen = false;
-	categoryDropdownOpen = false;
-
-	// For highlighting active items (optional)
-	activeItem: string | null = null;
-	activeCategory: string | null = null;
-
-	// Assigned-to dropdown toggle
 	onInputClick() {
 		this.assignedDropdownOpen = !this.assignedDropdownOpen;
 	}
 
-	// Category dropdown toggle
 	onCategoryClick() {
 		this.categoryDropdownOpen = !this.categoryDropdownOpen;
 	}
 
-
-	// Category select
 	selectCategory(cat: string) {
 		this.activeCategory = cat;
 		this.category = cat;
@@ -61,16 +62,71 @@ export class AddTaskForm {
 		}, 120);
 	}
 
-	// === Multi-select logic ===
-	isAssigned(name: string): boolean {
-		return this.assignedTo.includes(name);
+	getContactByName(name: string) {
+		return (
+			this.contacts.find((contact) => contact.name === name) || { initials: "?", color: "default" }
+		);
 	}
 
-	toggleAssigned(name: string) {
-		if (this.isAssigned(name)) {
-			this.assignedTo = this.assignedTo.filter((p) => p !== name);
+	isAssigned(contact: Contact) {
+		return this.assignedTo.some((c) => c.id === contact.id);
+	}
+
+	toggleAssigned(contact: Contact) {
+		if (this.isAssigned(contact)) {
+			this.assignedTo = this.assignedTo.filter((c) => c.id !== contact.id);
 		} else {
-			this.assignedTo.push(name);
+			this.assignedTo.push(contact);
 		}
+	}
+
+	get showActionError(): boolean {
+		return (
+			(this.titleTouched && !this.title) ||
+			(this.dueDateTouched && !this.dueDate) ||
+			(this.categoryTouched && !this.category)
+		);
+	}
+
+	onBlur(field: string) {
+		if (field === "title") this.titleTouched = true;
+		if (field === "dueDate") this.dueDateTouched = true;
+		if (field === "category") this.categoryTouched = true;
+	}
+
+	// get live contacts from Firestore
+	ngOnInit() {
+		this.loadContacts();
+	}
+
+	loadContacts() {
+		const checkInterval = setInterval(() => {
+			if (Object.keys(this.contactService.contactsObject).length > 0) {
+				this.contacts = Object.values(this.contactService.contactsObject).flat();
+				clearInterval(checkInterval);
+			}
+		}, 200);
+	}
+
+	clearForm() {
+		this.title = "";
+		this.description = "";
+		this.dueDate = "";
+		this.category = "";
+		this.subtask = "";
+		this.selectedPriority = "";
+		this.assignedTo = [];
+
+		this.titleFocus = false;
+		this.dueDateFocus = false;
+		this.categoryFocus = false;
+		this.descriptionFocus = false;
+		this.assignedFocus = false;
+		this.subtaskFocus = false;
+		this.categoryTouched = false;
+		this.assignedDropdownOpen = false;
+		this.categoryDropdownOpen = false;
+		this.activeItem = null;
+		this.activeCategory = null;
 	}
 }
