@@ -1,1 +1,34 @@
-<p>board-card works!</p>
+<div
+  class="task-card"
+  [class.urgent]="task().priority === 'urgent'"
+  tabindex="0"
+  (click)="openDetailView()"
+  (keydown.enter)="openDetailView()"
+>
+  <header class="card-header">
+    <span class="task-category" [style.background-color]="getCategoryColor()">
+      {{ task().category }}
+    </span>
+    <!-- KORREKTUR HIER: Übergabe von $event an die editTask Methode -->
+    <button class="icon-button-edit" (click)="editTask($event)" aria-label="Aufgabe bearbeiten">
+      <i class="icon-edit"></i>
+    </button>
+  </header>
+
+  <main class="card-content">
+    <h3 class="task-title">{{ task().title }}</h3>
+    <p class="task-description">{{ task().description | slice: 0 : 70 }}...</p>
+  </main>
+
+  <footer class="card-footer">
+    <div class="subtask-progress"></div>
+
+    <div class="user-info">
+      <div class="assigned-users"></div>
+
+      <div class="task-priority">
+        <i class="icon-priority"></i>
+      </div>
+    </div>
+  </footer>
+</div>

@@ -1,14 +1,5 @@
-<section>
-	<button (click)="openTaskView()">Task</button>
-	@if (isTaskViewOpen) {
-		<div class="overlay-wrapper">
-			<div class="overlay-backdrop" (click)="closeTaskView()"></div>
-
-			<app-task-view (closed)="closeTaskView()" (open)="openTaskView()" (edit)="openEditTask()" />
-
-			@if (isEditTaskOpen) {
-				<app-edit-task (closed)="closeEditTask()" />
-			}
-		</div>
-	}
+<section class="main-content-wrapper">
+  <!-- Die gesamte Board-Ansicht, einschließlich der Task-Karten und des Overlays,
+       wird jetzt von der app-board-view Komponente verwaltet. -->
+  <app-board-view></app-board-view>
 </section>

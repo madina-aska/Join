@@ -1,0 +1,129 @@
+@use "../../../../styles/mixins";
+
+.board-container {
+	padding: 1rem;
+	font-family: Inter, sans-serif;
+  padding-left: 5%;
+}
+
+.board-header {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+
+	.board-title {
+		font-size: var(--fs-h1);
+		color: var(--text-color-black);
+		font-weight: var(--fw-bold);
+		margin: 0;
+	}
+
+	.header-controls {
+		display: flex;
+    align-items: stretch;
+		justify-content: space-between;
+		gap: 1rem;
+
+	}
+}
+
+.board-columns {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.column-status {
+	.column-title {
+		font-size: var(--fs-text);
+		font-weight: var(--fw-bold);
+		color: var(--text-color-blue);
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.column-body {
+		min-height: 50px;
+		padding: 0.5rem;
+		border-radius: 8px;
+		background-color: var(--bg-color-gray);
+	}
+}
+
+@include mixins.desktop {
+	.board-container {
+		padding-top: 3rem;
+	}
+
+	.board-header {
+		// Desktop: Suchfeld und Button in einer Reihe zentrieren
+    display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 2rem;
+    height: 44px;
+
+		.board-title {
+			// Anpassung der Schriftgröße für Desktop
+			font-size: 61px;
+      font-weight: var(--fw-bold);
+		}
+
+		.header-controls {
+			display: flex;
+			justify-content: flex-end;
+			min-width: 400px;
+      padding-right: 100px;
+
+		}
+
+    .desktop-add-button{
+      width: 300px;
+    }
+
+	}
+
+    .desktop-headline-btn{
+      display: flex;
+      justify-content: space-between;
+    }
+
+	.board-columns {
+		// Wichtig: Desktop-Ansicht mit Spalten nebeneinander
+		flex-direction: row;
+		gap: 2rem;
+		overflow-x: auto; // Ermöglicht horizontales Scrollen, falls die Tasks sehr breit werden
+		height: calc(100vh - var(--header-height) - 100px); // Beispiel für fixe Höhe
+    width: 100%;
+	}
+
+	.column-status {
+		// Jede Spalte soll gleich breit sein und nicht schrumpfen
+		flex-grow: 1;
+    flex-basis: 100px;
+
+		.column-body {
+			// Auf Desktop: Feste Höhe für Scrollbarkeit innerhalb der Spalte
+			height: calc(100% - 40px); // Gesamthöhe abzüglich Titelhöhe
+			overflow-y: auto; // Scrollbar nur für die Task-Karten
+			padding: 0.5rem;
+		}
+	}
+/*
+  .add-task-btn{
+    display: flex;
+    width: 260px;
+    height: 48px;
+  }
+ */
+  .btn-overlay{
+    background-image: url('../../../../../public/images/board_section/plus_button.svg');
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+  }
+}
