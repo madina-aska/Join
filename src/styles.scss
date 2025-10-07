@@ -1,10 +1,38 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use "@angular/material" as mat;
+
 /* You can add global styles to this file, and also import other style files */
 @use "styles/variables";
 @use "styles/mixins";
 @use "styles/fonts";
 
 html {
+	@include mat.theme(
+		(
+			color: (
+				primary: mat.$blue-palette,
+				tertiary: mat.$violet-palette,
+			),
+			typography: Roboto,
+			density: 0,
+		)
+	);
+
 	scroll-behavior: smooth;
+	height: 100%;
+}
+
+body {
+	height: 100dvh;
+	margin: 0;
+	overflow-y: clip;
+	font-family: Inter, sans-serif;
+	font-size: var(--fs-text);
+	font-weight: var(--fw-regular);
 }
 
 *,
@@ -39,14 +67,6 @@ h4 {
 	font-size: var(--fs-h4);
 }
 
-body {
-	height: 100dvh;
-	overflow-y: clip;
-	font-family: Inter, sans-serif;
-	font-size: var(--fs-text);
-	font-weight: var(--fw-regular);
-}
-
 // text elements
 p,
 span,
@@ -79,4 +99,10 @@ button,
 	font-family: Inter, sans-serif;
 	font-size: var(--fs-button);
 	font-weight: var(--fw-regular);
+}
+
+.mat-datepicker-content .mat-calendar {
+	background-color: white;
+	border-radius: 12px;
+	border: 1px solid var(--bg-color-gray-darker, #d1d1d1);
 }

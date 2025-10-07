@@ -24,23 +24,17 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <label class="label">Due date <span class="required">*</span></label>
-                <div class="input-with-icon">
-                    <input class="input date-input" type="text" placeholder="dd/mm/yyyy" [(ngModel)]="dueDate"
-                        name="dueDate" #dueDateInput="ngModel" (focus)="dueDateFocus = true"
-                        (blur)="dueDateFocus = false; dueDateTouched = true"
-                        [ngClass]="{'focus': dueDateFocus, 'error': dueDateTouched && !dueDate }" required />
-                    <button class="icon-btn date-icon" type="button" aria-hidden="true">
-                        <img src="images/add_task_section/events_icon.svg" alt="">
-                    </button>
-                </div>
+            <div class="input-with-icon">
+                <input matInput [matDatepicker]="picker" class="input date-input" placeholder="dd/MM/yyyy"
+                    [(ngModel)]="dueDate" readonly />
+                <button class="icon-btn date-icon" type="button" (click)="picker.open()" aria-hidden="true">
+                    <img src="images/add_task_section/events_icon.svg" alt="">
+                </button>
+                <mat-datepicker #picker></mat-datepicker>
             </div>
-
             <div class="field-error" *ngIf="dueDateTouched && !dueDate">
                 This field is required
             </div>
-
         </div>
 
         <div class="divider-wrapper">

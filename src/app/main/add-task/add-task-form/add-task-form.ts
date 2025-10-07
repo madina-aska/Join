@@ -3,10 +3,21 @@ import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Contact } from "@core/interfaces/contact";
 import { ContactService } from "@core/services/contact-service";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @Component({
 	selector: "app-add-task-form",
-	imports: [FormsModule, CommonModule],
+	imports: [
+		FormsModule,
+		CommonModule,
+		MatDatepickerModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatNativeDateModule,
+	],
 	templateUrl: "./add-task-form.html",
 	styleUrl: "./add-task-form.scss",
 })
@@ -39,7 +50,7 @@ export class AddTaskForm {
 	activeItem: string | null = null;
 	activeCategory: string | null = null;
 
-	selectedPriority = "";
+	selectedPriority = "medium";
 	setPriority(priority: string) {
 		this.selectedPriority = priority;
 	}
