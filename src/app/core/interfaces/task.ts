@@ -6,14 +6,14 @@ export interface Task {
 	priority: "low" | "medium" | "urgent";
 	status: "todo" | "in-progress" | "awaiting-feedback" | "done";
 	assignedContacts?: string[];
-	dueDate?: Date;
+	dueDate?: string | undefined;
 	subtasks?: {
 		id: string;
 		title: string;
 		completed: boolean;
-		createdAt?: Date;
+		createdAt?:  string | undefined;
 	}[];
-	createdAt?: Date;
-	updatedAt?: Date;
+	createdAt?:  string | undefined;
+	updatedAt?:  string | undefined;
 	color?: number;
 }
