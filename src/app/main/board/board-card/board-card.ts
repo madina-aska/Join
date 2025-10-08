@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, input, OnInit, output } from "@angular/core";
+import { Component, inject, input, OnChanges, output } from "@angular/core";
 import { Task } from "@app/core/interfaces/task";
 import { Contact } from "@core/interfaces/contact";
 import { ContactService } from "@core/services/contact-service";
@@ -15,7 +15,7 @@ import { PopoverMobile } from "../popover-mobile/popover-mobile";
 	templateUrl: "./board-card.html",
 	styleUrl: "./board-card.scss",
 })
-export class BoardCard implements OnInit {
+export class BoardCard implements OnChanges {
 	task = input.required<Task>();
 	cardClicked = output<string>();
 	contactService = inject(ContactService);
@@ -23,7 +23,7 @@ export class BoardCard implements OnInit {
 	amountSubtasks = 0;
 	assignedContacts: Contact[] = [];
 
-	ngOnInit() {
+	ngOnChanges() {
 		this.calcSubtasks();
 		this.getAssigned();
 	}
