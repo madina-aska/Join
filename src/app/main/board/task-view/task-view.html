@@ -1,7 +1,7 @@
 <div class="main">
 	<header class="task-header">
 		<div class="task-type">
-			<span class="type">User Story</span>
+			<app-task-label [category]="task?.category || ''"></app-task-label>
 		</div>
 		<div class="close" (click)="closeOverlay()">
 			<img src="/images/assets/close_cross.svg" alt="" />
@@ -10,8 +10,8 @@
 
 	<div class="content">
 		<div class="headline">
-			<h1 class="task-title">CSS Architecture Planning</h1>
-			<span class="task-description"> Define CSS naming conventions and structure. </span>
+			<h1 class="task-title">{{ task?.title }}</h1>
+			<span class="task-description"> {{ task?.description }} </span>
 		</div>
 
 		<div class="task-conditions">
@@ -20,7 +20,9 @@
 					<h3>Due date:</h3>
 				</div>
 				<div class="date">
-					<time datetime="2023-09-02"> 02/09/2023 </time>
+					<time [attr.datetime]="task?.dueDate">
+						{{ task?.dueDate | date: "dd/MM/yyyy" }}
+					</time>
 				</div>
 			</div>
 			<div class="task-priority">
@@ -29,10 +31,16 @@
 				</div>
 				<div class="priority-tag">
 					<div>
-						<span class="priority"> Urgent </span>
+						<span class="priority">{{ task?.priority | titlecase }}</span>
 					</div>
 					<div class="priority-img">
-						<img src="/images/board_section/prio_alta.svg" alt="" />
+						@if (task?.priority === "urgent") {
+							<img src="/images/add_task_section/prio_alta_red.svg" alt="Urgent" />
+						} @else if (task?.priority === "medium") {
+							<img src="/images/add_task_section/priority_symbols.svg" alt="Medium" />
+						} @else if (task?.priority === "low") {
+							<img src="/images/add_task_section/prio_baja.svg" alt="Low" />
+						}
 					</div>
 				</div>
 			</div>
@@ -43,23 +51,16 @@
 				<h3>Assigned To:</h3>
 			</div>
 			<div class="assignees">
-				<div class="assignee">
-					<div class="initial">
-						<span class="bubble">SM</span>
+				@for (contact of assignedContacts; track contact.id) {
+					<div class="assignee">
+						<div class="initial">
+							<span class="bubble">{{ contact.initials }}</span>
+						</div>
+						<div class="contact">
+							<span>{{ contact.name }}</span>
+						</div>
 					</div>
-					<div class="contact">
-						<span>Sofia Müller</span>
-					</div>
-				</div>
-
-				<div class="assignee">
-					<div class="initial">
-						<span class="bubble">SM</span>
-					</div>
-					<div class="contact">
-						<span>Sofia Müller</span>
-					</div>
-				</div>
+				}
 			</div>
 		</div>
 
@@ -69,29 +70,30 @@
 			</div>
 
 			<div class="subtasks">
-				<div class="subtask">
-					<div class="checkbox">
-						<input type="checkbox" />
+				@for (subtask of task?.subtasks; track subtask.id) {
+					<div class="subtask">
+						<div class="checkbox">
+							<input type="checkbox" [checked]="subtask.completed" />
+						</div>
+						<div class="task">
+							<span>{{ subtask.title }}</span>
+						</div>
 					</div>
-					<div class="task">
-						<span> Establish CSS Methodology </span>
-					</div>
-				</div>
-
-				<div class="subtask">
-					<div class="checkbox">
-						<input type="checkbox" />
-					</div>
-					<div class="task">
-						<span> Setup Base Styles </span>
-					</div>
-				</div>
+				}
 			</div>
 		</div>
-	</div>
 
-	<footer class="task-actions">
-		<app-button variant="edit" icon="images/contacs_section/edit.svg" (click)="onEditClick()"> Edit </app-button>
-		<app-button variant="delete" icon="images/contacs_section/trash_icon.svg"> Delete </app-button>
-	</footer>
+		<footer class="task-actions">
+			<app-button variant="edit" icon="images/contacs_section/edit.svg" (click)="onEditClick()">
+				Edit
+			</app-button>
+			<app-button
+				variant="delete"
+				icon="images/contacs_section/trash_icon.svg"
+				(click)="onDeleteClick()"
+			>
+				Delete
+			</app-button>
+		</footer>
+	</div>
 </div>
