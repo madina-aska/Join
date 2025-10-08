@@ -24,6 +24,10 @@
 		align-items: stretch;
 		justify-content: space-between;
 		gap: 1rem;
+
+    .desktop-btn{
+      display: none;
+    }
 	}
 }
 
@@ -81,9 +85,8 @@
 			height: 44px;
 			padding-right: 2%;
 			gap: 30px;
-		}
 
-		.desktop-btn {
+      		.desktop-btn {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -109,6 +112,9 @@
 				transform: scale(0.98);
 			}
 		}
+		}
+
+
 	}
 
 	.desktop-headline-btn {

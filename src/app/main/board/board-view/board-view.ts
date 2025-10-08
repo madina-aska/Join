@@ -58,23 +58,23 @@ export class BoardView {
 	private filteredTasks = signal<Task[]>([]);
 
 	constructor() {
-		const tasksObject = this.taskService.tasksObject as Record<TaskStatusKey | string, Task[]>;
-		const allTasksFlat = this.taskService.allTasks;
-		this.filteredTasks.set(allTasksFlat);
 
 		// Filtere und setze die Spalten-Signals unter Verwendung der korrekten Status-Keys
-		this.todoTasks.set(tasksObject["todo"] || []);
-		this.inProgressTasks.set(tasksObject["in-progress"] || []);
-		this.feedbackTasks.set(tasksObject["awaiting-feedback"] || []);
-		this.doneTasks.set(tasksObject["done"] || []);
+		this.taskService.tasksObject$.subscribe((tasks) => {
+			this.todoTasks.set(tasks["todo"] || []);
+			this.inProgressTasks.set(tasks["in-progress"] || []);
+			this.feedbackTasks.set(tasks["awaiting-feedback"] || []);
+			this.doneTasks.set(tasks["done"] || []);
+      //this.filteredTasks.set(tasks);
+		});
 
-		console.log("[BoardView Effect] Tasks updated from Service:", {
+		/*console.log("[BoardView Effect] Tasks updated from Service:", {
 			todo: this.todoTasks().length,
 			inProgress: this.inProgressTasks().length,
 			feedback: this.feedbackTasks().length,
 			done: this.doneTasks().length,
 			totalServiceTasks: allTasksFlat.length,
-		});
+		});*/
 	}
 
 	// --- NEUE METHODEN FÜR DRAG & DROP ---
