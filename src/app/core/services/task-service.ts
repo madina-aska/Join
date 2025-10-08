@@ -242,7 +242,7 @@ export class TaskService implements OnDestroy {
 			try {
 				const taskId = await this.generateNextTaskId();
 
-				const now = new Date();
+				const now = new Date().toISOString().split('T')[0];
 				const taskData = {
 					title: task.title,
 					description: task.description || "",
@@ -290,7 +290,7 @@ export class TaskService implements OnDestroy {
 		try {
 			await updateDoc(taskDoc, {
 				...updates,
-				updatedAt: new Date(),
+				updatedAt: new Date().toISOString().split('T')[0]
 			});
 		} catch (error) {
 			throw new Error("Failed to update task");
