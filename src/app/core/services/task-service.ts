@@ -1,14 +1,14 @@
 import { inject, Injectable, Injector, OnDestroy, runInInjectionContext } from "@angular/core";
 import { DocumentData } from "@angular/fire/compat/firestore";
 import {
-	collection,
-	collectionData,
-	deleteDoc,
-	doc,
-	Firestore,
-	getDocs,
-	setDoc,
-	updateDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  Firestore,
+  getDocs,
+  setDoc,
+  updateDoc,
 } from "@angular/fire/firestore";
 import { Task } from "@core/interfaces/task";
 import { Observable } from "rxjs";
@@ -242,7 +242,7 @@ export class TaskService implements OnDestroy {
 			try {
 				const taskId = await this.generateNextTaskId();
 
-				const now = new Date().toISOString().split('T')[0];
+				const now = new Date().toISOString().split("T")[0];
 				const taskData = {
 					title: task.title,
 					description: task.description || "",
@@ -290,7 +290,7 @@ export class TaskService implements OnDestroy {
 		try {
 			await updateDoc(taskDoc, {
 				...updates,
-				updatedAt: new Date().toISOString().split('T')[0]
+				updatedAt: new Date().toISOString().split("T")[0],
 			});
 		} catch (error) {
 			throw new Error("Failed to update task");
@@ -371,5 +371,45 @@ export class TaskService implements OnDestroy {
 	 */
 	getTasksByPriority(priority: Task["priority"]): Observable<Task[]> {
 		return this.allTasks$.pipe(map((tasks) => tasks.filter((task) => task.priority === priority)));
+	}
+
+	/**
+    Toggles the completed status of a subtask within a task
+    @param taskId - The ID of the task containing the subtask
+    @param subtaskId - The ID of the subtask to toggle
+    @returns Promise that resolves when the subtask is updated
+    @throws Error if task or subtask is not found*
+    @example
+    typescriptff
+    await this.taskService.toggleSubtask('task-001', 'subtask-1');
+  */
+	async toggleSubtask(taskId: string, subtaskId: string): Promise<void> {
+		if (!taskId || !subtaskId) return;
+
+		try {
+			// Get current task from allTasks$ Observable
+			const tasks = await new Promise<Task[]>((resolve) => {
+				this.allTasks$
+					.pipe()
+					.subscribe((tasks) => resolve(tasks))
+					.unsubscribe();
+			});
+
+			const task = tasks.find((t) => t.id === taskId);
+			if (!task?.subtasks) {
+				throw new Error("Task or subtasks not found");
+			}
+
+			// Toggle completed status
+			const updatedSubtasks = task.subtasks.map((st) =>
+				st.id === subtaskId ? { ...st, completed: !st.completed } : st,
+			);
+
+			// Update in Firestore
+			await this.updateTask(taskId, { subtasks: updatedSubtasks });
+		} catch (error) {
+			console.error("[TaskService] Failed to toggle subtask:", error);
+			throw error;
+		}
 	}
 }

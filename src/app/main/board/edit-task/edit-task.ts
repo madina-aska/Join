@@ -10,12 +10,19 @@ import {
 } from "@angular/core";
 import { Firestore, doc, updateDoc } from "@angular/fire/firestore";
 import { FormsModule } from "@angular/forms";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { Task } from "@app/core/interfaces/task";
 import { ContactService } from "@core/services/contact-service";
 
 @Component({
 	selector: "app-edit-task",
-	imports: [CommonModule, FormsModule],
+	imports: [CommonModule, FormsModule, MatDatepickerModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatNativeDateModule,],
 	templateUrl: "./edit-task.html",
 	styleUrl: "./edit-task.scss",
 })
@@ -24,6 +31,8 @@ export class EditTask {
 		private elementRef: ElementRef,
 		private renderer: Renderer2,
 	) {}
+
+  @Input() taskId!: string;
 
 	ngAfterViewInit(): void {
 		this.renderer.listen("document", "click", (event: MouseEvent) => {
@@ -39,6 +48,7 @@ export class EditTask {
 
 	toggleAssignedDropdown(event: MouseEvent): void {
 		event.stopPropagation();
+    this.categoryDropdownOpen = false;
 		this.assignedDropdownOpen = !this.assignedDropdownOpen;
 	}
 
@@ -92,6 +102,7 @@ export class EditTask {
 	// Dropdown states
 	assignedDropdownOpen = false;
 	activeItem: string | null = null;
+  today = new Date();
 
 	categoryDropdownOpen = false;
 	activeCategory: string | null = null;
@@ -198,6 +209,7 @@ export class EditTask {
 	}
 
 	onCategoryClick() {
+    this.assignedDropdownOpen = false;
 		this.categoryDropdownOpen = !this.categoryDropdownOpen;
 	}
 

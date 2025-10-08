@@ -1,10 +1,10 @@
-import { Component, EventEmitter, inject, input, Output, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, inject, input, Output, signal } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 
 //  Imports für Angular CDK Drag and Drop
-import { CdkDragDrop, transferArrayItem, DragDropModule } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, DragDropModule, transferArrayItem } from "@angular/cdk/drag-drop";
 
 // Komponenten-Imports
 import { Button } from "@shared/components/button/button";
@@ -14,8 +14,9 @@ import { ToastService } from "@shared/services/toast.service";
 // Angenommener Import für Task-Datenstruktur und Service
 import { Task } from "@app/core/interfaces/task";
 import { TaskService } from "@app/core/services/task-service";
-import { BoardCard } from "../board-card/board-card";
 import { TaskView } from "@app/main/board/task-view/task-view";
+import { BoardCard } from "../board-card/board-card";
+import { EditTask } from "../edit-task/edit-task";
 
 // Definiere die Status-Schlüssel
 type TaskStatusKey = "todo" | "in-progress" | "awaiting-feedback" | "done";
@@ -26,7 +27,7 @@ const ALL_STATUS_KEYS: TaskStatusKey[] = ["todo", "in-progress", "awaiting-feedb
 @Component({
 	selector: "app-board-view",
 	// DragDropModule hinzugefügt, muss installiert werden!!!
-	imports: [CommonModule, Button, SearchField, BoardCard, TaskView, DragDropModule],
+	imports: [CommonModule, Button, SearchField, BoardCard, TaskView, EditTask, DragDropModule],
 	templateUrl: "./board-view.html",
 	styleUrl: "./board-view.scss",
 	standalone: true,
@@ -42,6 +43,7 @@ export class BoardView {
 	id = input<string>("");
 	isAddTaskOverlayOpen = signal(false);
 	selectedTaskId = signal<string | null>(null);
+	selectedTaskData = signal<Task | null>(null);
 
 	@Output() addTaskClicked = new EventEmitter<void>();
 
@@ -53,7 +55,7 @@ export class BoardView {
 	feedbackTasks = signal<Task[]>([]);
 	doneTasks = signal<Task[]>([]);
 
-	allTasks: Task[] = [];
+	allTasks: any = [];
 
 	private filteredTasks = signal<Task[]>([]);
 
@@ -65,6 +67,7 @@ export class BoardView {
 			this.inProgressTasks.set(tasks["in-progress"] || []);
 			this.feedbackTasks.set(tasks["awaiting-feedback"] || []);
 			this.doneTasks.set(tasks["done"] || []);
+      this.allTasks = tasks;
       //this.filteredTasks.set(tasks);
 		});
 
@@ -157,6 +160,8 @@ export class BoardView {
 	 */
 	openTaskDetail(taskId: string) {
 		this.selectedTaskId.set(taskId);
+		const task = this.taskService.allTasks.find((t) => t.id === taskId);
+		this.selectedTaskData.set(task ?? null);
 	}
 
 	/**
@@ -166,11 +171,14 @@ export class BoardView {
 		this.selectedTaskId.set(null);
 	}
 
-	/**
-	 * Wird beim Bearbeiten-Klick aufgerufen. Navigiert zur Edit-Task-Seite.
-	 */
-	editTask(taskId: string) {
-		this.router.navigate(["/main/task-edit", taskId]);
+	isEditTaskOpen = signal(false);
+
+	openEditTask() {
+		this.isEditTaskOpen.set(true);
+	}
+
+	closeEditTask() {
+		this.isEditTaskOpen.set(false);
 	}
 
 	// --- METHODEN FÜR SUCHE ETC. ---
@@ -180,7 +188,7 @@ export class BoardView {
 	 */
 	onSearch(term: string) {
 		console.log("[BoardView] search triggered with:", term);
-		const allTasksFlat = this.taskService.allTasks;
+		const allTasksFlat = this.allTasks;
 
 		if (!term) {
 			this.filterTasks(allTasksFlat);

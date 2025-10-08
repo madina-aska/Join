@@ -46,6 +46,7 @@
 				<label class="label">Due date <span class="required"></span></label>
 				<div class="input-with-icon">
 					<input
+          [min] = "today"
 						class="input date-input"
 						type="text"
 						placeholder="dd/mm/yyyy"
@@ -56,16 +57,13 @@
 						(blur)="dueDateFocus = false"
 						[ngClass]="{ focus: dueDateFocus, error: dueDateInput.invalid && dueDateInput.touched }"
 						required
+            matInput [matDatepicker]="picker"
 					/>
-					<button class="icon-btn date-icon" type="button" aria-hidden="true">
-						<img src="images/add_task_section/events_icon.svg" alt="" />
-					</button>
+                <button class="icon-btn date-icon" type="button" (click)="picker.open()" aria-hidden="true">
+                    <img src="images/add_task_section/events_icon.svg" alt="">
+                </button>
+                <mat-datepicker #picker xPosition="start" yPosition="above"></mat-datepicker>
 				</div>
-
-				<div class="field-error" *ngIf="dueDateInput.invalid && dueDateInput.touched">
-					This field is required
-				</div>
-			</div>
 
 			<div class="form-row">
 				<label class="label">Priority</label>

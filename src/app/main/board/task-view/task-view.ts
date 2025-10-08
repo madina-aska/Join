@@ -74,4 +74,13 @@ export class TaskView implements OnInit {
 	onEditClick() {
 		this.edit.emit();
 	}
+
+  async toggleSubtask( subtaskId: string ) {
+    if (!this.task?.id)
+      return;
+    try {await this.taskService.toggleSubtask(this.task.id, subtaskId);
+    } catch (error) {
+      console.error("failed toggle Subtask", error);
+    }
+  }
 }
