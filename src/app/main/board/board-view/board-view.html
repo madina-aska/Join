@@ -4,16 +4,23 @@
 		<div class="header-controls">
 			<app-search-field (searchText)="onSearch($event)"></app-search-field>
 
-			<app-button
-				class="desktop-add-button"
-				(click)="openAddTaskOverlay()"
-				title="Add task"
-				icon="images/board_section/add_icon.svg"
-			>
-				Add task
-			</app-button>
-		</div>
-	</header>
+      <button class="desktop-btn" type="button"
+      (click)="openAddTaskOverlay()">Add task
+        <img src="images/board_section/add_icon.svg">
+      </button>
+
+ <!--      <app-button
+        class="desktop-add-button"
+        variant="primary"
+        (click)="openAddTaskOverlay()"
+        [fullWidth]="true"
+        title="Add task"
+        icon="images/board_section/add_icon.svg"
+      >
+        Add task
+      </app-button> -->
+    </div>
+  </header>
 
 	<main class="board-columns">
 		<!-- TO DO COLUMN -->
@@ -91,31 +98,30 @@
 			</div>
 		</div>
 
-		<!-- DONE COLUMN -->
-		<div
-			class="column-status"
-			cdkDropList
-			id="done"
-			[cdkDropListConnectedTo]="dropListIds"
-			[cdkDropListData]="taskService.tasksObject['done']"
-			(cdkDropListDropped)="drop($event)"
-		>
-			<div class="desktop-headline-btn">
-				<h2 class="column-title">Done</h2>
-				<div class="btn-overlay"></div>
-			</div>
-			<div class="column-body">
-				@for (task of taskService.tasksObject["done"]; track task.id) {
-					<app-board-card
-						cdkDrag
-						[cdkDragData]="task"
-						[task]="task"
-						(cardClicked)="openTaskDetail($event)"
-					></app-board-card>
-				}
-			</div>
-		</div>
-	</main>
+    <!-- DONE COLUMN -->
+    <div
+      class="column-status"
+      cdkDropList
+      id="done"
+      [cdkDropListConnectedTo]="dropListIds"
+      [cdkDropListData]="taskService.tasksObject['done']"
+      (cdkDropListDropped)="drop($event)"
+    >
+
+      <h2 class="column-title">Done</h2>
+
+      <div class="column-body">
+        @for (task of taskService.tasksObject["done"]; track task.id) {
+          <app-board-card
+            cdkDrag
+            [cdkDragData]="task"
+            [task]="task"
+            (cardClicked)="openTaskDetail($event)"
+          ></app-board-card>
+        }
+      </div>
+    </div>
+  </main>
 
 	<!-- TASK DETAIL OVERLAY WIEDER EINGEFÜGT -->
 	<!-- Zeigt die TaskView nur an, wenn selectedTaskId einen Wert hat -->

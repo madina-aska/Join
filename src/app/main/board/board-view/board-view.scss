@@ -3,7 +3,7 @@
 .board-container {
 	padding: 1rem;
 	font-family: Inter, sans-serif;
-  padding-left: 5%;
+	padding-left: 5%;
 }
 
 .board-header {
@@ -21,10 +21,9 @@
 
 	.header-controls {
 		display: flex;
-    align-items: stretch;
+		align-items: stretch;
 		justify-content: space-between;
 		gap: 1rem;
-
 	}
 }
 
@@ -49,48 +48,73 @@
 		min-height: 50px;
 		padding: 0.5rem;
 		border-radius: 8px;
-		background-color: var(--bg-color-gray);
 	}
 }
 
 @include mixins.desktop {
 	.board-container {
 		padding-top: 3rem;
+		background: var(--bg-color-gray);
 	}
 
 	.board-header {
 		// Desktop: Suchfeld und Button in einer Reihe zentrieren
-    display: flex;
+		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 2rem;
-    height: 44px;
+		margin-bottom: 3rem;
+		margin-top: 1rem;
+		height: 44px;
 
 		.board-title {
 			// Anpassung der Schriftgröße für Desktop
 			font-size: 61px;
-      font-weight: var(--fw-bold);
+			font-weight: var(--fw-bold);
 		}
 
 		.header-controls {
 			display: flex;
 			justify-content: flex-end;
+			text-align: center;
 			min-width: 400px;
-      padding-right: 100px;
-
+			height: 44px;
+			padding-right: 2%;
+			gap: 30px;
 		}
 
-    .desktop-add-button{
-      width: 300px;
-    }
+		.desktop-btn {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 10px;
+			padding: 12px 16px;
+			height: 44px;
+			white-space: nowrap;
+			cursor: pointer;
+			border: none;
+			background: var(--bg-color-blue-darker);
+			color: var(--bg-color-white);
+			font-weight: var(--fw-bold);
+			flex: 0 0 120px;
+			font-size: var(--fs-button);
+			gap: 10px;
 
+			> img {
+				width: 32px;
+			}
+
+			&:hover {
+				background: var(--bg-color-blue-lighter);
+				transform: scale(0.98);
+			}
+		}
 	}
 
-    .desktop-headline-btn{
-      display: flex;
-      justify-content: space-between;
-    }
+	.desktop-headline-btn {
+		display: flex;
+		justify-content: space-between;
+	}
 
 	.board-columns {
 		// Wichtig: Desktop-Ansicht mit Spalten nebeneinander
@@ -98,13 +122,13 @@
 		gap: 2rem;
 		overflow-x: auto; // Ermöglicht horizontales Scrollen, falls die Tasks sehr breit werden
 		height: calc(100vh - var(--header-height) - 100px); // Beispiel für fixe Höhe
-    width: 100%;
+		width: 100%;
 	}
 
 	.column-status {
 		// Jede Spalte soll gleich breit sein und nicht schrumpfen
 		flex-grow: 1;
-    flex-basis: 100px;
+		flex-basis: 100px;
 
 		.column-body {
 			// Auf Desktop: Feste Höhe für Scrollbarkeit innerhalb der Spalte
@@ -113,17 +137,17 @@
 			padding: 0.5rem;
 		}
 	}
-/*
-  .add-task-btn{
-    display: flex;
-    width: 260px;
-    height: 48px;
-  }
- */
-  .btn-overlay{
-    background-image: url('../../../../../public/images/board_section/plus_button.svg');
-    width: 32px;
-    height: 32px;
-    background-repeat: no-repeat;
-  }
+
+	.btn-overlay {
+		background-image: url("../../../../../public/images/board_section/plus_button.svg");
+		width: 32px;
+		height: 32px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+
+		&:hover {
+			color: var(--bg-color-blue-lighter);
+			transform: scale(0.98);
+		}
+	}
 }
