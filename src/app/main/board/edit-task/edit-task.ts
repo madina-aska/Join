@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  Renderer2,
-  inject,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	Renderer2,
+	inject,
 } from "@angular/core";
 import { Firestore, doc, updateDoc } from "@angular/fire/firestore";
 import { FormsModule } from "@angular/forms";
@@ -73,7 +73,7 @@ export class EditTask {
 		id: string;
 		title: string;
 		completed: boolean;
-		createdAt?: Date;
+		createdAt?: string;
 		isEditing?: boolean;
 	}[] = [];
 
@@ -118,24 +118,24 @@ export class EditTask {
 		await updateDoc(taskRef, {
 			title: this.title,
 			description: this.description,
-			dueDate: new Date(this.dueDate),
+			dueDate: this.dueDate,
 			category: this.category as "User Story" | "Technical Task",
 			assignedContacts: this.assignedContacts,
 			priority: this.selectedPriority as "low" | "medium" | "urgent",
 			subtasks: this.subtasks,
-			updatedAt: new Date(),
+			updatedAt: new Date().toISOString().split("T")[0],
 		});
 
 		this.taskUpdated.emit({
 			id: task.id,
 			title: this.title,
 			description: this.description,
-			dueDate: new Date(this.dueDate),
+			dueDate: this.dueDate,
 			category: this.category as "User Story" | "Technical Task",
 			assignedContacts: this.assignedContacts,
 			priority: this.selectedPriority as "low" | "medium" | "urgent",
 			subtasks: this.subtasks,
-			updatedAt: new Date(),
+			updatedAt: new Date().toISOString().split("T")[0],
 			status: task.status!,
 			createdAt: task.createdAt!,
 			color: task.color,
@@ -151,7 +151,7 @@ export class EditTask {
 				id: crypto.randomUUID(),
 				title: trimmed,
 				completed: false,
-				createdAt: new Date(),
+				createdAt: new Date().toISOString().split("T")[0],
 				isEditing: false,
 			});
 			this.subtask = "";
