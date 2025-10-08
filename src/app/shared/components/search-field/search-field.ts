@@ -29,14 +29,15 @@ export class SearchField {
 		}
 
 		if (input.valid) {
-			this.emitText();
+			this.emitText(this.textValue());
 		} else {
 			this.showErrors(input);
+			this.emitText("");
 		}
 	}
 
-	private emitText() {
-		this.searchText.emit(this.textValue());
+	private emitText(text: string) {
+		this.searchText.emit(text);
 	}
 
 	private showErrors(input: NgModel) {

@@ -108,9 +108,9 @@ img {
 }
 
 .enter-animation {
-	animation: slide-fade 500ms;
+	animation: slide-fade 200ms ease-in-out;
 }
 
 .leave-animation {
-	animation: slide-fade 500ms reverse;
+	animation: slide-fade 200ms ease-in-out reverse;
 }
