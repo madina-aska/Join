@@ -30,7 +30,7 @@ export class BoardCard implements OnChanges {
 
 	private calcSubtasks() {
 		this.completedSubtasks =
-			this.task().subtasks?.reduce((_, curr, acc) => {
+			this.task().subtasks?.reduce((acc, curr) => {
 				return acc + (curr.completed ? 1 : 0);
 			}, 0) || 0;
 
