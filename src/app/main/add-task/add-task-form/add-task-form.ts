@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, input, signal } from "@angular/core";
+import { Component, inject, input, signal, HostListener, ElementRef } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -47,6 +47,7 @@ export class AddTaskForm {
 	contactService = inject(ContactService);
 	taskService = inject(TaskService);
 	router = inject(Router);
+	eRef = inject(ElementRef);
 	today = new Date();
 
 	titleFocus = false;
@@ -73,16 +74,12 @@ export class AddTaskForm {
 
 	onInputClick() {
 		this.assignedDropdownOpen = !this.assignedDropdownOpen;
-		if (this.assignedDropdownOpen) {
-			this.categoryDropdownOpen = false;
-		}
+		this.categoryDropdownOpen = false;
 	}
 
 	onCategoryClick() {
 		this.categoryDropdownOpen = !this.categoryDropdownOpen;
-		if (this.categoryDropdownOpen) {
-			this.assignedDropdownOpen = false;
-		}
+		this.assignedDropdownOpen = false;
 	}
 
 	selectCategory(cat: string) {
@@ -252,5 +249,30 @@ export class AddTaskForm {
 		setTimeout(() => {
 			this.toastVisible.set(false);
 		}, 3000);
+	}
+
+	@HostListener("document:click", ["$event"])
+	onDocumentClick(event: MouseEvent) {
+		const target = event.target as HTMLElement;
+		const assignedWrap = this.eRef.nativeElement.querySelector(
+			".assigned-wrap",
+		) as HTMLElement | null;
+		const categoryWrap = this.eRef.nativeElement.querySelector(
+			".category-wrap",
+		) as HTMLElement | null;
+
+		const clickedInsideAssigned = assignedWrap ? assignedWrap.contains(target) : false;
+		const clickedInsideCategory = categoryWrap ? categoryWrap.contains(target) : false;
+
+		const clickedInMatDatepicker = !!target.closest(
+			".mat-datepicker-content, .mat-datepicker-popup, .mat-datepicker-calendar",
+		);
+
+		if (!clickedInsideAssigned && !clickedInMatDatepicker) {
+			this.assignedDropdownOpen = false;
+		}
+		if (!clickedInsideCategory && !clickedInMatDatepicker) {
+			this.categoryDropdownOpen = false;
+		}
 	}
 }

@@ -84,7 +84,7 @@
             <div class="form-row">
                 <label class="label">Assigned to</label>
 
-                <div class="select-wrap" [class.focus]="assignedFocus">
+                <div class="select-wrap assigned-wrap" [class.focus]="assignedFocus">
                     <div class="select-input" (click)="onInputClick()" (focus)="assignedFocus = true"
                         (blur)="assignedFocus = false" tabindex="0">
                         Select contacts to assign
@@ -117,7 +117,7 @@
 
             <div class="form-row">
                 <label class="label">Category <span class="required">*</span></label>
-                <div class="select-wrap" [class.focus]="categoryFocus">
+                <div class="select-wrap category-wrap" [class.focus]="categoryFocus">
                     <div class="select-input" (click)="onCategoryClick()" (blur)="categoryTouched = true" tabindex="0"
                         (focus)="categoryFocus = true" (blur)="categoryFocus = false; categoryTouched = true"
                         [ngClass]="{'focus': categoryFocus, 'error': categoryTouched && !category }">
