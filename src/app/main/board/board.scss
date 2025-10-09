@@ -15,3 +15,36 @@
 	pointer-events: all;
 	z-index: 1000;
 }
+
+.overlay {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	inset: 0;
+	backdrop-filter: blur(2px);
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 2rem;
+	padding: 1rem;
+	background-color: var(--bg-color-white);
+	box-shadow: 0 0 8px #00000049;
+	border-radius: 20px;
+
+	& button {
+		align-self: end;
+		display: flex;
+		justify-content: center;
+		align-items: cener;
+		height: 40px;
+		aspect-ratio: 1;
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+}
