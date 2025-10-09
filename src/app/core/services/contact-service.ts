@@ -215,7 +215,7 @@ export class ContactService implements OnDestroy {
 
 			try {
 				const contactId = await this.generateNextContactId();
-				console.log("[ContactService] Generated contact ID:", contactId);
+				
 
 				await setDoc(doc(contactsCol, contactId), {
 					name: contact.name,
@@ -225,7 +225,7 @@ export class ContactService implements OnDestroy {
 					color: contact.color,
 				});
 
-				console.log("[ContactService] Contact successfully added with ID:", contactId);
+
 				return contactId;
 			} catch (error) {
 				console.error("[ContactService] Failed to add contact:", error);

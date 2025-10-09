@@ -1,9 +1,9 @@
 import { CommonModule, ViewportScroller } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AddContact } from "./add-contact/add-contact";
-import { ContactList } from "./contact-list/contact-list";
-import { ContactView } from "./contact-view/contact-view";
+import { AddContact } from "@main/contacts/add-contact/add-contact";
+import { ContactList } from "@main/contacts/contact-list/contact-list";
+import { ContactView } from "@main/contacts/contact-view/contact-view";
 
 @Component({
 	selector: "app-contacts",

@@ -1,10 +1,10 @@
 import { Component, HostListener, inject, signal } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { PopoverService } from "@core/services/popover-service";
-import { Toast } from "./shared/components/toast/toast";
-import { Footer } from "./shared/footer/footer";
-import { Header } from "./shared/header/header";
-import { ToastService } from "./shared/services/toast.service";
+import { Toast } from "@shared/components/toast/toast";
+import { Footer } from "@shared/footer/footer";
+import { Header } from "@shared/header/header";
+import { ToastService } from "@shared/services/toast.service";
 
 /**
  * Root application component that orchestrates the main layout and global features.

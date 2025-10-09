@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SvgButton } from './svg-button';
+import { SvgButton } from '@shared/components/svg-button/svg-button';
 
 describe('SvgButton', () => {
   let component: SvgButton;

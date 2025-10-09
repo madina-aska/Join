@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ProfilePicture } from "./profile-picture";
+import { ProfilePicture } from "@shared/components/profile-picture/profile-picture";
 
 describe("ProfilePicture", () => {
 	let component: ProfilePicture;

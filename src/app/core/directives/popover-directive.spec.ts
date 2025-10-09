@@ -1,4 +1,4 @@
-import { PopoverDirective } from './popover-directive';
+import { PopoverDirective } from '@core/directives/popover-directive';
 
 describe('PopoverDirective', () => {
   it('should create an instance', () => {

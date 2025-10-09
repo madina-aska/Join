@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PopoverService } from './popover-service';
+import { PopoverService } from '@core/services/popover-service';
 
 describe('PopoverService', () => {
   let service: PopoverService;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PrivacyPolicy } from "./privacy-policy";
+import { PrivacyPolicy } from "@main/info/privacy-policy/privacy-policy";
 
 describe("PrivacyPolicy", () => {
 	let component: PrivacyPolicy;

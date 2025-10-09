@@ -4,7 +4,7 @@
 			<app-task-label [category]="task?.category || ''"></app-task-label>
 		</div>
 		<div class="close" (click)="closeOverlay()">
-			<img src="/images/assets/close_cross.svg" alt="" />
+			<img src="images/assets/close_cross.svg" alt="" />
 		</div>
 	</header>
 
@@ -35,11 +35,11 @@
 					</div>
 					<div class="priority-img">
 						@if (task?.priority === "urgent") {
-							<img src="/images/add_task_section/prio_alta_red.svg" alt="Urgent" />
+							<img src="images/add_task_section/prio_alta_red.svg" alt="Urgent" />
 						} @else if (task?.priority === "medium") {
-							<img src="/images/add_task_section/priority_symbols.svg" alt="Medium" />
+							<img src="images/add_task_section/priority_symbols.svg" alt="Medium" />
 						} @else if (task?.priority === "low") {
-							<img src="/images/add_task_section/prio_baja.svg" alt="Low" />
+							<img src="images/add_task_section/prio_baja.svg" alt="Low" />
 						}
 					</div>
 				</div>

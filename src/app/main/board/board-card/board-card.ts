@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject, input, OnChanges, output } from "@angular/core";
-import { Task } from "@app/core/interfaces/task";
+import { Task } from "@core/interfaces/task";
 import { Contact } from "@core/interfaces/contact";
 import { ContactService } from "@core/services/contact-service";
 import { AssignedList } from "@shared/assigned-list/assigned-list";
 import { ProgressBar } from "@shared/components/progress-bar/progress-bar";
 import { TaskLabel } from "@shared/components/task-label/task-label";
-import { PopoverMobile } from "../popover-mobile/popover-mobile";
+import { PopoverMobile } from "@main/board/popover-mobile/popover-mobile";
 
 @Component({
 	selector: "app-board-card",

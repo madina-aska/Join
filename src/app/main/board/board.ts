@@ -4,7 +4,7 @@ import { Component, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AddTask } from "@main/add-task/add-task";
 import { AddTaskForm } from "@main/add-task/add-task-form/add-task-form";
-import { BoardView } from "./board-view/board-view";
+import { BoardView } from "@main/board/board-view/board-view";
 
 @Component({
 	selector: "app-board",

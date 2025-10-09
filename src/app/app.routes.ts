@@ -1,8 +1,8 @@
 import { Routes } from "@angular/router";
-import { AddTask } from "./main/add-task/add-task";
-import { Board } from "./main/board/board";
-import { Contacts } from "./main/contacts/contacts";
-import { Summary } from "./main/summary/summary";
+import { AddTask } from "@main/add-task/add-task";
+import { Board } from "@main/board/board";
+import { Contacts } from "@main/contacts/contacts";
+import { Summary } from "@main/summary/summary";
 
 export const routes: Routes = [
 	{ path: "", redirectTo: "summary", pathMatch: "full" },

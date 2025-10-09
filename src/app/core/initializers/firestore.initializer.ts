@@ -20,7 +20,7 @@ export function initializeFirestore(firestoreInitService: FirestoreInitService) 
       if (!isInitialized) {
         console.log('Starting Firestore initialization...');
         await firestoreInitService.initializeFirestore();
-        console.log('Firestore initialization completed');
+
       } else {
         console.log('Firestore already initialized, skipping setup');
       }

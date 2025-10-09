@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubtasksProgress } from './subtasks-progress';
+import { SubtasksProgress } from '@main/board/board-card/subtasks-progress/subtasks-progress';
 
 describe('SubtasksProgress', () => {
   let component: SubtasksProgress;

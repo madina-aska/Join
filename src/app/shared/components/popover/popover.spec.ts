@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Popover } from './popover';
+import { Popover } from '@shared/components/popover/popover';
 
 describe('Popover', () => {
   let component: Popover;

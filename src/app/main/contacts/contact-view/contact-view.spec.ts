@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ContactView } from "./contact-view";
+import { ContactView } from "@main/contacts/contact-view/contact-view";
 
 describe("ContactView", () => {
 	let component: ContactView;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignedList } from './assigned-list';
+import { AssignedList } from '@shared/assigned-list/assigned-list';
 
 describe('AssignedList', () => {
   let component: AssignedList;

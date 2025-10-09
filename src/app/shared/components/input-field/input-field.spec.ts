@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { InputField } from "./input-field";
+import { InputField } from "@shared/components/input-field/input-field";
 
 describe("InputField", () => {
 	let component: InputField;

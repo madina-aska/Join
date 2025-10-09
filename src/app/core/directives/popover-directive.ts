@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, OnDestroy, OnInit } from "@angular/core";
-import { PopoverService } from "../services/popover-service";
+import { PopoverService } from "@core/services/popover-service";
 
 @Directive({
 	selector: "[appPopover]",

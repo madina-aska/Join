@@ -2,7 +2,7 @@
 	<div class="content_mobile">
 		<div class="up">
 			<div class="close" (click)="closeOverlay()">
-				<img src="/images/assets/close_cross" alt="" />
+				<img src="images/assets/close_cross.svg" alt="" />
 			</div>
 			<div class="head">
 				<h2>Add contact</h2>
@@ -60,7 +60,7 @@
 
 				<button type="submit" [disabled]="contactForm.invalid">
 					Create contact
-					<img src="/images/assets/check.svg" alt="" />
+					<img src="images/assets/check.svg" alt="" />
 				</button>
 			</form>
 		</div>
@@ -71,7 +71,7 @@
 	<div class="content_desktop">
 		<div class="left">
 			<div class="head">
-				<img class="logo" src="/images/join_logo/join_logo.svg" alt="" />
+				<img class="logo" src="images/join_logo/join_logo.svg" alt="" />
 				<h2>Add contact</h2>
 				<span>Tasks are better with a team!</span>
 				<div class="blueline"></div>
@@ -82,7 +82,7 @@
 
 		<div class="right_desktop">
 			<div class="close_desktop" (click)="closeOverlay()">
-				<img src="/images/assets/close_cross.svg" alt="" />
+				<img src="images/assets/close_cross.svg" alt="" />
 			</div>
 			<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
 				<input
@@ -131,11 +131,11 @@
 				<div class="buttons">
 					<button type="submit" [disabled]="contactForm.invalid">
 						Create contact
-						<img src="/images/assets/check.svg" alt="" />
+						<img src="images/assets/check.svg" alt="" />
 					</button>
 					<button class="cancel" type="button" (click)="closeOverlay()">
 						Cancel
-						<img src="/images/assets/close_cross.svg" alt="x" />
+						<img src="images/assets/close_cross.svg" alt="x" />
 					</button>
 				</div>
 			</form>

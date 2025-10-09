@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopoverMobile } from './popover-mobile';
+import { PopoverMobile } from '@main/board/popover-mobile/popover-mobile';
 
 describe('PopoverMobile', () => {
   let component: PopoverMobile;

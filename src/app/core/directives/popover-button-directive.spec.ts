@@ -1,4 +1,4 @@
-import { PopoverButtonDirective } from './popover-button-directive';
+import { PopoverButtonDirective } from '@core/directives/popover-button-directive';
 
 describe('PopoverButtonDirective', () => {
   it('should create an instance', () => {

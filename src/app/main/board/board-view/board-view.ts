@@ -13,11 +13,11 @@ import { SvgButton } from "@shared/components/svg-button/svg-button";
 import { ToastService } from "@shared/services/toast.service";
 
 // Angenommener Import für Task-Datenstruktur und Service
-import { Task } from "@app/core/interfaces/task";
-import { TaskService } from "@app/core/services/task-service";
-import { TaskView } from "@app/main/board/task-view/task-view";
-import { BoardCard } from "../board-card/board-card";
-import { EditTask } from "../edit-task/edit-task";
+import { Task } from "@core/interfaces/task";
+import { TaskService } from "@core/services/task-service";
+import { TaskView } from "@main/board/task-view/task-view";
+import { BoardCard } from "@main/board/board-card/board-card";
+import { EditTask } from "@main/board/edit-task/edit-task";
 
 // Definiere die Status-Schlüssel
 type TaskStatusKey = "todo" | "in-progress" | "awaiting-feedback" | "done";
@@ -196,7 +196,7 @@ export class BoardView {
 	 * Filtert Tasks basierend auf dem Suchbegriff in Titel oder Beschreibung.
 	 */
 	onSearch(term: string) {
-		console.log("[BoardView] search triggered with:", term);
+		
 		const allTasksFlat = Object.values(this.allTasks).flat() as Task[];
 
 		if (!term) {
@@ -243,7 +243,7 @@ export class BoardView {
 		term: "todo" | "in-progress" | "awaiting-feedback" | "done",
 	) {
 		if (!id) return;
-		console.log(term);
+
 		this.updateTaskStatus(id, term);
 	}
 }
