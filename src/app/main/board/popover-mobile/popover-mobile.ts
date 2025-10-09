@@ -1,4 +1,4 @@
-import { Component, output } from "@angular/core";
+import { Component, input, output } from "@angular/core";
 import { PopoverButtonDirective } from "@core/directives/popover-button-directive";
 import { Popover } from "@shared/components/popover/popover";
 
@@ -9,9 +9,11 @@ import { Popover } from "@shared/components/popover/popover";
 	styleUrl: "./popover-mobile.scss",
 })
 export class PopoverMobile {
-	clicked = output<string>();
+	next = input.required<"todo" | "in-progress" | "awaiting-feedback" | "done">();
+	prev = input.required<"todo" | "in-progress" | "awaiting-feedback" | "done">();
+	clicked = output<"todo" | "in-progress" | "awaiting-feedback" | "done">();
 
-	onClick(action: string) {
+	onClick(action: "todo" | "in-progress" | "awaiting-feedback" | "done") {
 		this.clicked.emit(action);
 	}
 }

@@ -16,7 +16,10 @@ import { PopoverMobile } from "../popover-mobile/popover-mobile";
 	styleUrl: "./board-card.scss",
 })
 export class BoardCard implements OnChanges {
+	next = input.required<"todo" | "in-progress" | "awaiting-feedback" | "done">();
+	prev = input.required<"todo" | "in-progress" | "awaiting-feedback" | "done">();
 	task = input.required<Task>();
+	popoverClicked = output<"todo" | "in-progress" | "awaiting-feedback" | "done">();
 	cardClicked = output<string>();
 	contactService = inject(ContactService);
 	completedSubtasks = 0;
@@ -49,5 +52,9 @@ export class BoardCard implements OnChanges {
 		if (this.task().id) {
 			this.cardClicked.emit(this.task().id!);
 		}
+	}
+
+	onClickPopover(term: "todo" | "in-progress" | "awaiting-feedback" | "done") {
+		this.popoverClicked.emit(term);
 	}
 }

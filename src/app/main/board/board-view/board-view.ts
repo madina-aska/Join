@@ -237,4 +237,13 @@ export class BoardView {
 	openAddTaskOverlay() {
 		this.addTaskClicked.emit();
 	}
+
+	onPopoverMobileClicked(
+		id: string | undefined,
+		term: "todo" | "in-progress" | "awaiting-feedback" | "done",
+	) {
+		if (!id) return;
+		console.log(term);
+		this.updateTaskStatus(id, term);
+	}
 }

@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="label">
 			<app-task-label [category]="task().category.replaceAll(' ', '').toLowerCase()" />
-			<app-popover-mobile />
+			<app-popover-mobile [next]="next()" [prev]="prev()" (clicked)="onClickPopover($event)" />
 		</div>
 		<div class="content">
 			<span class="task-title">{{ task().title }}</span>

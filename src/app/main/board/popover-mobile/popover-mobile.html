@@ -1,16 +1,16 @@
 <button class="toggle-btn" appPopoverButton [popover]="popover">
-	<img src="images/assets/check.svg" alt="" />
-	<app-popover #popover="appPopover" sharpCorner="bottomLeft" variant="primary"
+	<img src="images/board_section/arrows.svg" alt="" />
+	<app-popover #popover="appPopover" sharpCorner="bottomRight" variant="primary"
 		><div class="flex">
 			<span class="title">Move To</span>
 			<div class="options-container">
-				<button class="option" (click)="onClick('edit')">
-					<img class="option-img" src="images/assets/edit_icon_white.svg" alt="" />
-					<span class="option-text">Edit</span>
+				<button class="option" (click)="onClick(prev())">
+					<img class="option-img" src="images/board_section/arrow_upward.svg" alt="" />
+					<span class="option-text">{{ prev() }}</span>
 				</button>
-				<button class="option" (click)="onClick('delete')">
-					<img class="option-img" src="images/assets/delete_icon_white.svg" alt="" />
-					<span class="option-text">Delete</span>
+				<button class="option" (click)="onClick(next())">
+					<img class="option-img" src="images/board_section/arrow_downward.svg" alt="" />
+					<span class="option-text">{{ next() }}</span>
 				</button>
 			</div>
 		</div>
