@@ -55,7 +55,9 @@ export class BoardView {
 	selectedTaskId = signal<string | null>(null);
 	selectedTaskData = signal<Task | null>(null);
 
-	@Output() addTaskClicked = new EventEmitter<void>();
+	@Output() addTaskClicked = new EventEmitter<
+		"todo" | "in-progress" | "awaiting-feedback" | "done"
+	>();
 
 	//Liste der Status-IDs für cdkDropListConnectedTo
 	dropListIds = ALL_STATUS_KEYS;
@@ -232,8 +234,8 @@ export class BoardView {
 	/**
 	 * Öffnet das Add-Task Overlay.
 	 */
-	openAddTaskOverlay() {
-		this.addTaskClicked.emit();
+	openAddTaskOverlay(category: "todo" | "in-progress" | "awaiting-feedback" | "done") {
+		this.addTaskClicked.emit(category);
 	}
 
 	onPopoverMobileClicked(

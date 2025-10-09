@@ -2,12 +2,13 @@
 	<header class="board-header">
 		<div class="mobile-btn-cnt">
 			<h1 class="board-title">Board</h1>
-			<app-svg-button class="board-add-button" (onClick)="openAddTaskOverlay()"> </app-svg-button>
+			<app-svg-button class="board-add-button" (onClick)="openAddTaskOverlay('todo')">
+			</app-svg-button>
 		</div>
 		<div class="header-controls">
 			<app-search-field (searchText)="onSearch($event)"></app-search-field>
 
-			<button class="desktop-btn" type="button" (click)="openAddTaskOverlay()">
+			<button class="desktop-btn" type="button" (click)="openAddTaskOverlay('todo')">
 				Add task
 				<img src="images/board_section/add_icon.svg" />
 			</button>
@@ -27,8 +28,9 @@
 		>
 			<div class="mobile-btn-cnt">
 				<h2 class="column-title">To Do</h2>
-				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay()"> </app-svg-button>
-				<app-svg-button class="task-add-button-desktop" (onClick)="openAddTaskOverlay()">
+				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay('todo')">
+				</app-svg-button>
+				<app-svg-button class="task-add-button-desktop" (onClick)="openAddTaskOverlay('todo')">
 				</app-svg-button>
 				<div class="btn-overlay"></div>
 			</div>
@@ -59,8 +61,12 @@
 		>
 			<div class="mobile-btn-cnt">
 				<h2 class="column-title">In Progress</h2>
-				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay()"> </app-svg-button>
-				<app-svg-button class="task-add-button-desktop" (onClick)="openAddTaskOverlay()">
+				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay('in-progress')">
+				</app-svg-button>
+				<app-svg-button
+					class="task-add-button-desktop"
+					(onClick)="openAddTaskOverlay('in-progress')"
+				>
 				</app-svg-button>
 				<div class="btn-overlay"></div>
 			</div>
@@ -91,8 +97,12 @@
 		>
 			<div class="mobile-btn-cnt">
 				<h2 class="column-title">Awaiting Feedback</h2>
-				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay()"> </app-svg-button>
-				<app-svg-button class="task-add-button-desktop" (onClick)="openAddTaskOverlay()">
+				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay('awaiting-feedback')">
+				</app-svg-button>
+				<app-svg-button
+					class="task-add-button-desktop"
+					(onClick)="openAddTaskOverlay('awaiting-feedback')"
+				>
 				</app-svg-button>
 				<div class="btn-overlay"></div>
 			</div>

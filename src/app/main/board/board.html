@@ -1,7 +1,7 @@
 <section class="main-content-wrapper">
 	<!-- Die gesamte Board-Ansicht, einschließlich der Task-Karten und des Overlays,
        wird jetzt von der app-board-view Komponente verwaltet. -->
-	<app-board-view (addTaskClicked)="onAddTaskClicked()"></app-board-view>
+	<app-board-view (addTaskClicked)="onAddTaskClicked($event)"></app-board-view>
 
 	@if (addTaskOverlayOpen) {
 		<div class="overlay">
@@ -9,7 +9,7 @@
 				<button (click)="onCloseAddTask()">
 					<img src="images/assets/cancel_icon.svg" alt="Cancel" />
 				</button>
-				<app-add-task-form />
+				<app-add-task-form [categoryToAdd]="categoryToAdd" />
 			</div>
 		</div>
 	}

@@ -15,6 +15,7 @@ import { BoardView } from "@main/board/board-view/board-view";
 export class Board {
 	isTaskViewOpen = false;
 	addTaskOverlayOpen = false;
+	categoryToAdd: "todo" | "in-progress" | "awaiting-feedback" | "done" = "todo";
 
 	openTaskView() {
 		this.isTaskViewOpen = true;
@@ -24,7 +25,8 @@ export class Board {
 	route = inject(ActivatedRoute);
 	router = inject(Router);
 
-	onAddTaskClicked() {
+	onAddTaskClicked(category: "todo" | "in-progress" | "awaiting-feedback" | "done") {
+		this.categoryToAdd = category;
 		this.addTaskOverlayOpen = true;
 	}
 

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { AddTaskForm } from "@main/add-task/add-task-form/add-task-form";
 
 @Component({
@@ -7,4 +7,6 @@ import { AddTaskForm } from "@main/add-task/add-task-form/add-task-form";
 	templateUrl: "./add-task.html",
 	styleUrl: "./add-task.scss",
 })
-export class AddTask {}
+export class AddTask {
+	categoryToAdd = input<"todo" | "in-progress" | "awaiting-feedback" | "done">("todo");
+}

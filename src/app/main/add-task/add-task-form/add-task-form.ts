@@ -1,16 +1,16 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, input, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { Contact } from "@core/interfaces/contact";
-import { ContactService } from "@core/services/contact-service";
+import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { MatNativeDateModule } from "@angular/material/core";
-import { TaskService } from "@core/services/task-service";
-import { Task } from "@core/interfaces/task";
-import { Toast } from "@shared/components/toast/toast";
 import { Router } from "@angular/router";
+import { Contact } from "@core/interfaces/contact";
+import { Task } from "@core/interfaces/task";
+import { ContactService } from "@core/services/contact-service";
+import { TaskService } from "@core/services/task-service";
+import { Toast } from "@shared/components/toast/toast";
 
 @Component({
 	selector: "app-add-task-form",
@@ -27,6 +27,7 @@ import { Router } from "@angular/router";
 	styleUrl: "./add-task-form.scss",
 })
 export class AddTaskForm {
+	categoryToAdd = input<"todo" | "in-progress" | "awaiting-feedback" | "done">("todo");
 	title = "";
 	description = "";
 	dueDate = "";
@@ -179,7 +180,7 @@ export class AddTaskForm {
 			description: this.description,
 			category: this.category as "User Story" | "Technical Task",
 			priority: this.selectedPriority as "low" | "medium" | "urgent",
-			status: "todo",
+			status: this.categoryToAdd(),
 			assignedContacts: this.assignedTo.map((c) => c.id ?? "").filter(Boolean),
 			subtasks: this.subtasks.map((s) => ({
 				id: s.id,
