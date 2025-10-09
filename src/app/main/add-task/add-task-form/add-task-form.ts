@@ -72,10 +72,16 @@ export class AddTaskForm {
 
 	onInputClick() {
 		this.assignedDropdownOpen = !this.assignedDropdownOpen;
+		if (this.assignedDropdownOpen) {
+			this.categoryDropdownOpen = false;
+		}
 	}
 
 	onCategoryClick() {
 		this.categoryDropdownOpen = !this.categoryDropdownOpen;
+		if (this.categoryDropdownOpen) {
+			this.assignedDropdownOpen = false;
+		}
 	}
 
 	selectCategory(cat: string) {
