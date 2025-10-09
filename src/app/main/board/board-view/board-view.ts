@@ -10,6 +10,7 @@ import { CdkDragDrop, DragDropModule, transferArrayItem } from "@angular/cdk/dra
 import { Button } from "@shared/components/button/button";
 import { SearchField } from "@shared/components/search-field/search-field";
 import { ToastService } from "@shared/services/toast.service";
+import { SvgButton } from "@shared/components/svg-button/svg-button";
 
 // Angenommener Import für Task-Datenstruktur und Service
 import { Task } from "@app/core/interfaces/task";
@@ -27,7 +28,7 @@ const ALL_STATUS_KEYS: TaskStatusKey[] = ["todo", "in-progress", "awaiting-feedb
 @Component({
 	selector: "app-board-view",
 	// DragDropModule hinzugefügt, muss installiert werden!!!
-	imports: [CommonModule, Button, SearchField, BoardCard, TaskView, EditTask, DragDropModule],
+	imports: [CommonModule, Button, SearchField, BoardCard, TaskView, EditTask, DragDropModule, SvgButton],
 	templateUrl: "./board-view.html",
 	styleUrl: "./board-view.scss",
 	standalone: true,
