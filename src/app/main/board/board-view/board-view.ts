@@ -9,8 +9,8 @@ import { CdkDragDrop, DragDropModule, transferArrayItem } from "@angular/cdk/dra
 // Komponenten-Imports
 import { Button } from "@shared/components/button/button";
 import { SearchField } from "@shared/components/search-field/search-field";
-import { ToastService } from "@shared/services/toast.service";
 import { SvgButton } from "@shared/components/svg-button/svg-button";
+import { ToastService } from "@shared/services/toast.service";
 
 // Angenommener Import für Task-Datenstruktur und Service
 import { Task } from "@app/core/interfaces/task";
@@ -28,7 +28,16 @@ const ALL_STATUS_KEYS: TaskStatusKey[] = ["todo", "in-progress", "awaiting-feedb
 @Component({
 	selector: "app-board-view",
 	// DragDropModule hinzugefügt, muss installiert werden!!!
-	imports: [CommonModule, Button, SearchField, BoardCard, TaskView, EditTask, DragDropModule, SvgButton],
+	imports: [
+		CommonModule,
+		Button,
+		SearchField,
+		BoardCard,
+		TaskView,
+		EditTask,
+		DragDropModule,
+		SvgButton,
+	],
 	templateUrl: "./board-view.html",
 	styleUrl: "./board-view.scss",
 	standalone: true,
@@ -61,15 +70,14 @@ export class BoardView {
 	private filteredTasks = signal<Task[]>([]);
 
 	constructor() {
-
 		// Filtere und setze die Spalten-Signals unter Verwendung der korrekten Status-Keys
 		this.taskService.tasksObject$.subscribe((tasks) => {
 			this.todoTasks.set(tasks["todo"] || []);
 			this.inProgressTasks.set(tasks["in-progress"] || []);
 			this.feedbackTasks.set(tasks["awaiting-feedback"] || []);
 			this.doneTasks.set(tasks["done"] || []);
-      this.allTasks = tasks;
-      //this.filteredTasks.set(tasks);
+			this.allTasks = tasks;
+			//this.filteredTasks.set(tasks);
 		});
 
 		/*console.log("[BoardView Effect] Tasks updated from Service:", {
@@ -189,7 +197,7 @@ export class BoardView {
 	 */
 	onSearch(term: string) {
 		console.log("[BoardView] search triggered with:", term);
-		const allTasksFlat = this.allTasks;
+		const allTasksFlat = Object.values(this.allTasks).flat() as Task[];
 
 		if (!term) {
 			this.filterTasks(allTasksFlat);
