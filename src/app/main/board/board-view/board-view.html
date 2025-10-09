@@ -20,6 +20,7 @@
 			class="column-status"
 			cdkDropList
 			id="todo"
+			#todoList="cdkDropList"
 			[cdkDropListConnectedTo]="dropListIds"
 			[cdkDropListData]="todoTasks()"
 			(cdkDropListDropped)="drop($event)"
@@ -51,6 +52,7 @@
 			class="column-status"
 			cdkDropList
 			id="in-progress"
+			#progressList="cdkDropList"
 			[cdkDropListConnectedTo]="dropListIds"
 			[cdkDropListData]="inProgressTasks()"
 			(cdkDropListDropped)="drop($event)"
@@ -82,6 +84,7 @@
 			class="column-status"
 			cdkDropList
 			id="awaiting-feedback"
+			#feedbackList="cdkDropList"
 			[cdkDropListConnectedTo]="dropListIds"
 			[cdkDropListData]="feedbackTasks()"
 			(cdkDropListDropped)="drop($event)"
@@ -112,6 +115,7 @@
 		<div
 			class="column-status"
 			cdkDropList
+			#doneList="cdkDropList"
 			id="done"
 			[cdkDropListConnectedTo]="dropListIds"
 			[cdkDropListData]="doneTasks()"

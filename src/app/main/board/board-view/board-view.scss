@@ -1,7 +1,9 @@
 @use "../../../../styles/mixins";
 
 .board-container {
-	height: 100vh;
+	height: calc(100vh - var(--header-height));
+	display: flex;
+	flex-direction: column;
 	padding: 1rem;
 	font-family: Inter, sans-serif;
 	padding-left: 5%;
@@ -73,6 +75,7 @@
 }
 
 .board-header {
+	padding-block: 1rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
@@ -98,6 +101,8 @@
 }
 
 .board-columns {
+	padding-bottom: 100px;
+	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
@@ -123,9 +128,13 @@
 	}
 
 	.column-body {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 1rem;
 		min-height: 50px;
 		padding: 0.5rem;
 		border-radius: 8px;
+		width: 100%;
 	}
 }
 
@@ -212,7 +221,7 @@
 		flex-direction: row;
 		gap: 2rem;
 		overflow-x: auto;
-		height: calc(100vh - var(--header-height) - 100px);
+		height: 100%;
 		width: 100%;
 	}
 
@@ -222,9 +231,11 @@
 		flex-basis: 100px;
 
 		.column-body {
+			row-gap: 1rem;
+			flex-flow: column nowrap;
 			// Auf Desktop: Feste Höhe für Scrollbarkeit innerhalb der Spalte
-			height: calc(100% - 40px); // Gesamthöhe abzüglich Titelhöhe
-			overflow-y: auto; // Scrollbar nur für die Task-Karten
+			// Gesamthöhe abzüglich Titelhöhe
+			// Scrollbar nur für die Task-Karten
 			padding: 0.5rem;
 		}
 
@@ -240,7 +251,6 @@
 
 	.mobile-btn-cnt {
 		padding: 0;
-		width: 95%;
 
 		.task-add-button {
 			width: 20px;
@@ -258,5 +268,11 @@
 		transform-origin: center center;
 		will-change: transform;
 		rotate: 5deg;
+	}
+
+	.cdk-drag-placeholder {
+		opacity: 0.25;
+		box-shadow: 0 0 10px 3px rgb(0 0 0 / 7.84%);
+		border-radius: 24px;
 	}
 }

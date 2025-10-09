@@ -15,9 +15,9 @@ import { ToastService } from "@shared/services/toast.service";
 // Angenommener Import für Task-Datenstruktur und Service
 import { Task } from "@core/interfaces/task";
 import { TaskService } from "@core/services/task-service";
-import { TaskView } from "@main/board/task-view/task-view";
 import { BoardCard } from "@main/board/board-card/board-card";
 import { EditTask } from "@main/board/edit-task/edit-task";
+import { TaskView } from "@main/board/task-view/task-view";
 
 // Definiere die Status-Schlüssel
 type TaskStatusKey = "todo" | "in-progress" | "awaiting-feedback" | "done";
@@ -108,7 +108,6 @@ export class BoardView {
 				event.previousIndex,
 				event.currentIndex,
 			);
-
 			// 2. Hole die verschobene Task (sie befindet sich jetzt im neuen Array)
 			// das Task-Objekt aus den cdkDragData holen, das als 'Task' getypt ist
 			const movedTask = event.item.data as Task;
@@ -196,7 +195,6 @@ export class BoardView {
 	 * Filtert Tasks basierend auf dem Suchbegriff in Titel oder Beschreibung.
 	 */
 	onSearch(term: string) {
-		
 		const allTasksFlat = Object.values(this.allTasks).flat() as Task[];
 
 		if (!term) {
