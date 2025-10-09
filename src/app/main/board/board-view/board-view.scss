@@ -147,7 +147,7 @@
 	z-index: 1000;
 }
 
-@include mixins.desktop {
+@media (min-width: 1250px) {
 	.board-container {
 		padding-top: 3rem;
 		background: var(--bg-color-gray);
