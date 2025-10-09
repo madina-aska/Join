@@ -26,8 +26,8 @@
 
             <div class="form-row"> <label class="label">Due date <span class="required">*</span></label>
                 <div class="input-with-icon">
-                    <input matInput [matDatepicker]="picker" class="input date-input" placeholder="dd/MM/yyyy"
-                        [(ngModel)]="dueDate" name="dueDate" (focus)="dueDateFocus = true"
+                    <input matInput [matDatepicker]="picker" [min]="today" class="input date-input"
+                        placeholder="dd/MM/yyyy" [(ngModel)]="dueDate" name="dueDate" (focus)="dueDateFocus = true"
                         (blur)="dueDateFocus = false; dueDateTouched = true"
                         [ngClass]="{'focus': dueDateFocus, 'error': (dueDateTouched || formSubmitAttempted) && !dueDate}" />
 

@@ -46,6 +46,7 @@ export class AddTaskForm {
 	contactService = inject(ContactService);
 	taskService = inject(TaskService);
 	router = inject(Router);
+	today = new Date();
 
 	titleFocus = false;
 	dueDateFocus = false;
