@@ -129,6 +129,24 @@
 	}
 }
 
+.overlay-wrapper {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.overlay-backdrop {
+	position: absolute;
+	inset: 0;
+	backdrop-filter: blur(4px);
+	background: rgba(0, 0, 0, 0.1);
+	pointer-events: all;
+	z-index: 1000;
+}
+
 @include mixins.desktop {
 	.board-container {
 		padding-top: 3rem;
@@ -222,16 +240,16 @@
 
 	.mobile-btn-cnt {
 		padding: 0;
-    width: 95%;
+		width: 95%;
 
 		.task-add-button {
 			width: 20px;
 			height: 20px;
-      cursor: pointer;
+			cursor: pointer;
 
-      .svg-button-base {
-        cursor: pointer;
-      }
+			.svg-button-base {
+				cursor: pointer;
+			}
 		}
 	}
 
