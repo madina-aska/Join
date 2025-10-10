@@ -41,6 +41,7 @@
 						next="in-progress"
 						(popoverClicked)="onPopoverMobileClicked(task.id, $event)"
 						cdkDrag
+						[cdkDragDisabled]="isMobile"
 						[cdkDragData]="task"
 						[task]="task"
 						(cardClicked)="openTaskDetail($event)"
@@ -75,6 +76,7 @@
 						next="awaiting-feedback"
 						(popoverClicked)="onPopoverMobileClicked(task.id, $event)"
 						cdkDrag
+						[cdkDragDisabled]="isMobile"
 						[cdkDragData]="task"
 						[task]="task"
 						(cardClicked)="openTaskDetail($event)"
@@ -109,6 +111,7 @@
 						next="done"
 						(popoverClicked)="onPopoverMobileClicked(task.id, $event)"
 						cdkDrag
+						[cdkDragDisabled]="isMobile"
 						[cdkDragData]="task"
 						[task]="task"
 						(cardClicked)="openTaskDetail($event)"
@@ -139,6 +142,7 @@
 						next="done"
 						(popoverClicked)="onPopoverMobileClicked(task.id, $event)"
 						cdkDrag
+						[cdkDragDisabled]="isMobile"
 						[cdkDragData]="task"
 						[task]="task"
 						(cardClicked)="openTaskDetail($event)"

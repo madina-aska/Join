@@ -1,5 +1,13 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, inject, input, Output, signal } from "@angular/core";
+import {
+	Component,
+	EventEmitter,
+	HostListener,
+	inject,
+	input,
+	Output,
+	signal,
+} from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 
@@ -44,6 +52,7 @@ const ALL_STATUS_KEYS: TaskStatusKey[] = ["todo", "in-progress", "awaiting-feedb
 })
 export class BoardView {
 	// --- DEPENDENCIES ---
+	isMobile = false;
 	firestore = inject(Firestore);
 	router = inject(Router);
 	toastService = inject(ToastService);
@@ -72,6 +81,7 @@ export class BoardView {
 	private filteredTasks = signal<Task[]>([]);
 
 	constructor() {
+		this.onResize();
 		// Filtere und setze die Spalten-Signals unter Verwendung der korrekten Status-Keys
 		this.taskService.tasksObject$.subscribe((tasks) => {
 			this.todoTasks.set(tasks["todo"] || []);
@@ -89,6 +99,12 @@ export class BoardView {
 			done: this.doneTasks().length,
 			totalServiceTasks: allTasksFlat.length,
 		});*/
+	}
+
+	@HostListener("window:resize")
+	onResize() {
+		const mq = window.matchMedia("(width <= 768px)");
+		this.isMobile = mq.matches;
 	}
 
 	// --- NEUE METHODEN FÜR DRAG & DROP ---

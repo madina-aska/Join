@@ -16,8 +16,6 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding-top: 8%;
-	padding-bottom: 4%;
 
 	.board-add-button {
 		width: 40px;
@@ -120,7 +118,8 @@
 
 	.column-body {
 		display: flex;
-		flex-flow: row wrap;
+		flex-flow: row nowrap;
+		overflow: auto visible;
 		gap: 1rem;
 		min-height: 50px;
 		padding: 0.5rem;
@@ -163,6 +162,7 @@
 	border-radius: 8px;
 	border-style: dashed;
 	font-size: clamp(0.875em, 3vw, 1.125em);
+	text-align: center;
 }
 
 @media (min-width: 1250px) {
