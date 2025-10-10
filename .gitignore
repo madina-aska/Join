@@ -44,3 +44,7 @@ Thumbs.db
 /src/environment/environment.ts
 /src/environment/*.backup.*
 firebase-project-info.txt
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

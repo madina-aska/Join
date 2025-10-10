@@ -7,11 +7,12 @@ import {
 import { provideRouter, withInMemoryScrolling, withViewTransitions } from "@angular/router";
 
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
+import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
+import { routes } from "@app/app.routes";
 import { initializeFirestore } from "@core/initializers/firestore.initializer";
 import { FirestoreInitService } from "@core/services/firestore-init.service";
 import { firebaseConfig } from "@environments/environment";
-import { routes } from "@app/app.routes";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -36,5 +37,6 @@ export const appConfig: ApplicationConfig = {
 			deps: [FirestoreInitService],
 			multi: true,
 		},
+		provideAuth(() => getAuth()),
 	],
 };
