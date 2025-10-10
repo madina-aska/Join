@@ -7,7 +7,6 @@
 		</div>
 		<div class="header-controls">
 			<app-search-field (searchText)="onSearch($event)"></app-search-field>
-
 			<button class="desktop-btn" type="button" (click)="openAddTaskOverlay('todo')">
 				Add task
 				<img src="images/board_section/add_icon.svg" />
@@ -30,11 +29,12 @@
 				<h2 class="column-title">To Do</h2>
 				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay('todo')">
 				</app-svg-button>
-				<app-svg-button class="task-add-button-desktop" (onClick)="openAddTaskOverlay('todo')">
-				</app-svg-button>
 				<div class="btn-overlay"></div>
 			</div>
 			<div class="column-body">
+				@if (todoTasks().length === 0) {
+					<div class="no-tasks">No tasks To do</div>
+				}
 				@for (task of todoTasks(); track task.id) {
 					<app-board-card
 						prev="todo"
@@ -63,14 +63,12 @@
 				<h2 class="column-title">In Progress</h2>
 				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay('in-progress')">
 				</app-svg-button>
-				<app-svg-button
-					class="task-add-button-desktop"
-					(onClick)="openAddTaskOverlay('in-progress')"
-				>
-				</app-svg-button>
 				<div class="btn-overlay"></div>
 			</div>
 			<div class="column-body">
+				@if (inProgressTasks().length === 0) {
+					<div class="no-tasks">No tasks To do</div>
+				}
 				@for (task of inProgressTasks(); track task.id) {
 					<app-board-card
 						prev="todo"
@@ -99,14 +97,12 @@
 				<h2 class="column-title">Awaiting Feedback</h2>
 				<app-svg-button class="task-add-button" (onClick)="openAddTaskOverlay('awaiting-feedback')">
 				</app-svg-button>
-				<app-svg-button
-					class="task-add-button-desktop"
-					(onClick)="openAddTaskOverlay('awaiting-feedback')"
-				>
-				</app-svg-button>
 				<div class="btn-overlay"></div>
 			</div>
 			<div class="column-body">
+				@if (feedbackTasks().length === 0) {
+					<div class="no-tasks">No tasks To do</div>
+				}
 				@for (task of feedbackTasks(); track task.id) {
 					<app-board-card
 						prev="in-progress"
@@ -134,6 +130,9 @@
 			<h2 class="column-title">Done</h2>
 
 			<div class="column-body">
+				@if (doneTasks().length === 0) {
+					<div class="no-tasks">No tasks To do</div>
+				}
 				@for (task of doneTasks(); track task.id) {
 					<app-board-card
 						prev="awaiting-feedback"

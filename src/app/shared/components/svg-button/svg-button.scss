@@ -1,18 +1,14 @@
 .svg-button-base {
     width: 100%;
     height: 100%;
-
-    // WICHTIG: border-radius und padding entfernt, da dies von der Eltern-View gesteuert wird
     border: none;
     background-color: transparent;
     color: currentcolor;
-
-    // Zentriert das SVG-Icon
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    // SVG nimmt volle Größe des Buttons an
     > svg {
         width: 100%;
         height: 100%;
