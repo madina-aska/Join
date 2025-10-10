@@ -3,10 +3,25 @@
 	<span class="desktop-title">Kanban Management Tool</span>
 	<div class="interactives">
 		<img class="help" src="images/assets/help_icon.svg" alt="" />
-		<button>
+		<button appPopoverButton [popover]="popover">
 			<div class="profile-picture">
 				<span>SV</span>
 			</div>
+			<app-popover #popover="appPopover" sharpCorner="topRight" variant="primary"
+				><div class="flex">
+					<div class="options-container">
+						<button class="option" (click)="navigateToLegal()">
+							<span class="option-text">Legal Notice</span>
+						</button>
+						<button class="option" (click)="navigateToPrivacy()">
+							<span class="option-text">Privacy Policy</span>
+						</button>
+						<button class="option" (click)="onLogout()">
+							<span class="option-text">Logout</span>
+						</button>
+					</div>
+				</div>
+			</app-popover>
 		</button>
 	</div>
 </header>

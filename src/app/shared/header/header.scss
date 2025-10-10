@@ -65,10 +65,33 @@ header {
 }
 
 button {
+	position: relative;
 	border-radius: 50%;
 	background-color: initial;
 	border: initial;
 	color: inherit;
 	font-family: inherit;
 	cursor: pointer;
+}
+
+.options-container {
+	font-size: var(--fs-small);
+	color: var(--header-popover-gray);
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.15rem;
+	padding: 0.15rem;
+}
+
+.option {
+	font-size: inherit;
+}
+
+.option:hover {
+	color: var(--bg-color-white);
+}
+
+.option-text {
+	font-size: inherit;
+	text-wrap: nowrap;
 }

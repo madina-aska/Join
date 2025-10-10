@@ -1,5 +1,8 @@
 import { Component, input } from "@angular/core";
+import { PopoverButtonDirective } from "@core/directives/popover-button-directive";
+import { PopoverDirective } from "@core/directives/popover-directive";
 import { Contact } from "@core/interfaces/contact";
+import { Popover } from "@shared/components/popover/popover";
 
 /**
  * Application header component for branding and user profile display.
@@ -41,11 +44,23 @@ import { Contact } from "@core/interfaces/contact";
  */
 @Component({
 	selector: "app-header",
-	imports: [],
+	imports: [PopoverButtonDirective, Popover, PopoverDirective],
 	templateUrl: "./header.html",
 	styleUrl: "./header.scss",
 })
 export class Header {
 	/** Optional user profile information for display in header */
 	profile = input<Contact>();
+
+	navigateToLegal() {
+		console.log("on legal notice clicked");
+	}
+
+	navigateToPrivacy() {
+		console.log("on privacy policy clicked");
+	}
+
+	onLogout() {
+		console.log("logout clicked");
+	}
 }
