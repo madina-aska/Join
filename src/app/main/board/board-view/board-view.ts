@@ -134,15 +134,15 @@ export class BoardView {
 				// Die TaskService-onSnapshot-Funktion wird automatisch alle Tasks neu laden
 				// und die UI dank Angular Signals/Change Detection aktualisieren.
 				this.toastService.showSuccess(
-					"Task Status aktualisiert",
-					`Die Task wurde nach "${this.formatStatus(newStatus)}" verschoben.`,
+					"Task status updated",
+					`The task status was changed to "${this.formatStatus(newStatus)}".`,
 				);
 			})
 			.catch((error) => {
-				console.error("Fehler beim Aktualisieren des Task-Status:", error);
+				console.error("Error while updating the task status:", error);
 				this.toastService.showError(
-					"Fehler",
-					"Der Task-Status konnte in der Datenbank nicht aktualisiert werden.",
+					"Error",
+					"The task status could not be updated in the database.",
 				);
 			});
 	}
