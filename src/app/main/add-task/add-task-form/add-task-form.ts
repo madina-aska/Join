@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, input, signal, HostListener, ElementRef } from "@angular/core";
+import { Component, ElementRef, HostListener, inject, input, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -28,6 +28,7 @@ import { Toast } from "@shared/components/toast/toast";
 })
 export class AddTaskForm {
 	categoryToAdd = input<"todo" | "in-progress" | "awaiting-feedback" | "done">("todo");
+	addedTask = output<void>();
 	title = "";
 	description = "";
 	dueDate = "";
@@ -194,6 +195,7 @@ export class AddTaskForm {
 			const taskId = await this.taskService.addTask(newTask);
 			this.showToast("Task added to board", "success");
 			this.clearForm();
+			this.addedTask.emit();
 			this.formSubmitAttempted = false;
 
 			setTimeout(() => {

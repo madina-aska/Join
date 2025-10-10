@@ -31,6 +31,14 @@ export class Board {
 	}
 
 	onCloseAddTask() {
+		this.closeAddTask();
+	}
+
+	onTaskAdded() {
+		this.closeAddTask();
+	}
+
+	private closeAddTask() {
 		this.addTaskOverlayOpen = false;
 	}
 }

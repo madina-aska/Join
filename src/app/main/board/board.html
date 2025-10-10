@@ -9,7 +9,7 @@
 				<button (click)="onCloseAddTask()">
 					<img src="images/assets/cancel_icon.svg" alt="Cancel" />
 				</button>
-				<app-add-task-form [categoryToAdd]="categoryToAdd" />
+				<app-add-task-form [categoryToAdd]="categoryToAdd" (addedTask)="onTaskAdded()" />
 			</div>
 		</div>
 	}
