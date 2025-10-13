@@ -1,0 +1,12 @@
+@use "../../../styles/mixins";
+
+main {
+	height: 100%;
+	padding-top: var(--header-height);
+	padding-bottom: 59px;
+
+	@include mixins.desktop {
+		padding-left: var(--footer-width-desktop);
+		padding-bottom: revert;
+	}
+}

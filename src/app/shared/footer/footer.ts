@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, inject } from "@angular/core";
-import { NavigationEnd, Router, RouterModule } from "@angular/router";
+import { Component, OnChanges, OnInit, inject } from "@angular/core";
+import { Router, RouterModule } from "@angular/router";
 
 /**
  * Footer navigation component with persistent page state management.
@@ -42,7 +42,7 @@ import { NavigationEnd, Router, RouterModule } from "@angular/router";
 	standalone: true,
 	imports: [CommonModule, RouterModule],
 })
-export class Footer implements OnInit {
+export class Footer implements OnInit, OnChanges {
 	/** Current active page name for state management and UI highlighting */
 	activePage = "summary";
 
@@ -66,27 +66,27 @@ export class Footer implements OnInit {
 	 * ```
 	 */
 	ngOnInit(): void {
-		const savedPage = localStorage.getItem("activePage");
-		if (savedPage) {
-			this.activePage = savedPage;
-			const url = this.router.parseUrl(savedPage);
-			this.router.navigate(
-				url.root.children["primary"].segments.map((segment) => segment.path),
-				{
-					queryParams: url.queryParams,
-				},
-			);
-		}
-
-		// Router-Events überwachen -> aktive Seite automatisch setzen
-		this.router.events.subscribe((event) => {
-			if (event instanceof NavigationEnd) {
-				const current = event.urlAfterRedirects.replace("/", "");
-				this.activePage = current || "summary";
-				localStorage.setItem("activePage", this.activePage);
-			}
-		});
+		// const savedPage = localStorage.getItem("activePage");
+		// if (savedPage) {
+		// 	this.activePage = savedPage;
+		// 	const url = this.router.parseUrl(savedPage);
+		// 	this.router.navigate(
+		// 		url.root.children["primary"].segments.map((segment) => segment.path),
+		// 		{
+		// 			queryParams: url.queryParams,
+		// 		},
+		// 	);
+		// }
+		// this.router.events.subscribe((event) => {
+		// 	if (event instanceof NavigationEnd) {
+		// 		const current = event.urlAfterRedirects.replace("/", "");
+		// 		this.activePage = current || "summary";
+		// 		localStorage.setItem("activePage", this.activePage);
+		// 	}
+		// });
 	}
+
+	ngOnChanges() {}
 
 	/**
 	 * Determines if a given page is currently active.
@@ -105,13 +105,14 @@ export class Footer implements OnInit {
 	 * ```
 	 */
 	isActive(page: string): boolean {
-		const cleanPath = this.getCleanPath(this.activePage);
+		const activePage = this.router.url;
+		const cleanPath = this.getCleanPath(activePage);
 		return cleanPath === page;
 	}
 
 	// returns the path without queryParams
 	getCleanPath(page: string): string {
 		const urlTree = this.router.parseUrl(page);
-		return urlTree.root.children["primary"].segments.map((segment) => segment.path).join("/");
+		return urlTree.root.children["primary"].segments[0].toString();
 	}
 }
