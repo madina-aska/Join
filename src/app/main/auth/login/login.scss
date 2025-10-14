@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  z-index: 1000;
+  animation: fadeOutOverlay 0.5s ease-in-out forwards;
+  animation-delay: 1.25s;
+  background-color: #2a3547;
+}
+
+.join-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: top left;
+  height: clamp(1rem, 40vw, 20rem);
+  width: clamp(1rem, 40vw, 20rem);
+  background-image: url('../../../../../public/images/join_logo/join_logo.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: moveToCorner 1s ease-in-out forwards;
+}
+
+@keyframes moveToCorner {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: scale(1) translate(-50%, -50%);
+  }
+
+  100% {
+    top: calc(env(safe-area-inset-top, 0px) + 18px);
+    left: calc(env(safe-area-inset-left, 0px) + 18px);
+    transform: scale(0.18) translate(0, 0);
+  }
+}
+
+@keyframes fadeOutOverlay {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.logo img {
+  margin-top: 22px;
+  margin-left: 16px;
+  height: 27px;
+  width: 27px;
+}

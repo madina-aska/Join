@@ -6,6 +6,7 @@ import { Contacts } from "@main/contacts/contacts";
 import { Summary } from "@main/summary/summary";
 import { BaseLayout } from "./layouts/base-layout/base-layout";
 
+
 export const routes: Routes = [
 	{ path: "", component: Login },
 	{ path: "login", component: Login },
