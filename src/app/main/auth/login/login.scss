@@ -1,63 +1,372 @@
+@use "../../../../styles/mixins";
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: whitesmoke;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: white;
-  z-index: 1000;
-  animation: fadeOutOverlay 0.5s ease-in-out forwards;
-  animation-delay: 1.25s;
-  background-color: #2a3547;
+	position: fixed;
+	inset: 0;
+	background-color: white;
+	z-index: 1000;
+	animation: fadeOutOverlay 0.5s ease-in-out forwards;
+	animation-delay: 1.25s;
+	background-color: #2a3547;
 }
 
 .join-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: scale(1) translate(-50%, -50%);
-  transform-origin: top left;
-  height: clamp(1rem, 40vw, 20rem);
-  width: clamp(1rem, 40vw, 20rem);
-  background-image: url('../../../../../public/images/join_logo/join_logo.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation: moveToCorner 1s ease-in-out forwards;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: scale(1) translate(-50%, -50%);
+	transform-origin: top left;
+	height: clamp(1rem, 40vw, 20rem);
+	width: clamp(1rem, 40vw, 20rem);
+	background-image: url("../../../../../public/images/join_logo/join_logo.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+	animation: moveToCorner 1s ease-in-out forwards;
 }
 
 @keyframes moveToCorner {
-  0% {
-    top: 50%;
-    left: 50%;
-    transform: scale(1) translate(-50%, -50%);
-  }
+	0% {
+		top: 50%;
+		left: 50%;
+		transform: scale(1) translate(-50%, -50%);
+	}
 
-  100% {
-    top: calc(env(safe-area-inset-top, 0px) + 18px);
-    left: calc(env(safe-area-inset-left, 0px) + 18px);
-    transform: scale(0.18) translate(0, 0);
-  }
+	100% {
+		top: calc(env(safe-area-inset-top, 0px) + 18px);
+		left: calc(env(safe-area-inset-left, 0px) + 18px);
+		transform: scale(0.5) translate(0, 0);
+	}
 }
 
 @keyframes fadeOutOverlay {
-  0% {
-    opacity: 1;
-    visibility: visible;
-  }
+	0% {
+		opacity: 1;
+		visibility: visible;
+	}
 
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .logo img {
-  margin-top: 22px;
-  margin-left: 16px;
-  height: 27px;
-  width: 27px;
+	margin-top: 22px;
+	margin-left: 16px;
+	height: 78px;
+	width: 64px;
+}
+
+.login {
+	width: 100%;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 32px;
+
+	.register {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 48px;
+		gap: 24px;
+
+		span {
+			font-size: 20px;
+			color: #2a3547;
+			font-weight: 500;
+		}
+
+		button {
+			border: none;
+			border-radius: 10px;
+			background-color: #2a3547;
+			width: 120px;
+			height: 30px;
+
+			a {
+				text-decoration: none;
+				font-weight: bold;
+				color: whitesmoke;
+				padding: 8px;
+			}
+		}
+	}
+
+	.legal-notes {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 12px;
+
+		a {
+			text-decoration: none;
+			color: #a8a8a8;
+			padding: 8px;
+			font-size: 16px;
+		}
+	}
+}
+
+.login-window {
+	height: 50vh;
+	width: 70vw;
+	border: none;
+	border-radius: 20px;
+	box-shadow: 1px 1px 20px 1px grey;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 64px;
+
+	.headline {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 20px;
+
+		h1 {
+			margin-bottom: 8px;
+			font-size: 47px;
+			font-weight: bold;
+		}
+
+		.seperator {
+			height: 4px;
+			width: 90px;
+			background-color: #29abe3;
+			border-radius: 8px;
+		}
+	}
+
+	.inputs {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		margin-bottom: 24px;
+
+		.input-wrapper {
+			position: relative;
+			width: 100%;
+			display: flex;
+			align-items: center;
+
+			input {
+				width: 100%;
+				padding-right: 40px;
+				padding-left: 12px;
+				height: 30px;
+				border-radius: 8px;
+				border: 1px solid grey;
+			}
+
+			.input-icon {
+				position: absolute;
+				right: 12px;
+				height: 18px;
+				width: 18px;
+				pointer-events: none;
+				opacity: 1;
+				transition: opacity 0.3s ease;
+			}
+
+			&.hide-icon .input-icon {
+				opacity: 0;
+			}
+		}
+	}
+
+	.login-buttons {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 16px;
+
+		.login-button {
+			border: none;
+			border-radius: 10px;
+			background-color: #2a3547;
+			width: 120px;
+			height: 30px;
+
+			a {
+				text-decoration: none;
+				font-weight: bold;
+				color: whitesmoke;
+				padding: 8px;
+			}
+		}
+
+		.guest-login {
+			width: 120px;
+			height: 30px;
+			border: solid 1px #2a3547;
+			border-radius: 10px;
+			background-color: white;
+			width: 120px;
+			height: 30px;
+
+			a {
+				text-decoration: none;
+				font-weight: bold;
+				color: #2a3547;
+				padding: 8px;
+			}
+		}
+	}
+}
+
+@include mixins.desktop {
+	.login-overlay {
+		background-color: white;
+	}
+
+	.join-logo {
+		background-image: url("../../../../../public/images/join_logo/join_logo_dark.svg");
+	}
+
+	.logo img {
+		height: 121px;
+		width: 100px;
+	}
+
+	.login {
+		width: 100%;
+	}
+
+	.content {
+		.register {
+			position: fixed;
+			top: calc(env(safe-area-inset-top, 0px) + 18px);
+			right: calc(env(safe-area-inset-right, 0px) + 18px);
+			justify-content: flex-end;
+			gap: 32px;
+			z-index: 100;
+
+			button {
+				border: none;
+				border-radius: 10px;
+				background-color: #2a3547;
+				width: auto;
+				height: 30px;
+				padding: 0 12px;
+
+				a {
+					text-decoration: none;
+					font-weight: bold;
+					color: whitesmoke;
+					padding: 8px;
+				}
+			}
+		}
+
+		.legal-notes {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			margin-bottom: 12px;
+
+			a {
+				text-decoration: none;
+				color: #a8a8a8;
+				padding: 8px;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.login-window {
+		height: 50vh;
+		width: 70vw;
+		max-height: 650px;
+		max-width: 850px;
+		margin-bottom: 64px;
+
+		.headline {
+			margin-bottom: 48px;
+
+			h1 {
+				font-size: 47px;
+			}
+		}
+
+		.inputs {
+			gap: 40px;
+			margin-bottom: 24px;
+      width: 350px;
+
+			.input-wrapper {
+				input {
+					height: 48px;
+					border-radius: 12px;
+				}
+			}
+		}
+
+		.login-buttons {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 16px;
+
+			.login-button {
+				border: none;
+				border-radius: 10px;
+				background-color: #2a3547;
+				width: 180px;
+				height: 30px;
+
+				a {
+					text-decoration: none;
+					font-weight: bold;
+					color: whitesmoke;
+					padding: 8px;
+				}
+			}
+
+			.guest-login {
+				width: 190px;
+				height: 30px;
+				border: solid 1px #2a3547;
+				border-radius: 10px;
+				background-color: white;
+				width: 120px;
+				height: 30px;
+
+				a {
+					text-decoration: none;
+					font-weight: bold;
+					color: #2a3547;
+					padding: 8px;
+				}
+			}
+		}
+	}
 }
