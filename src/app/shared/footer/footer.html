@@ -5,25 +5,32 @@
 		</a>
 	</header>
 	<nav class="sidebar-fix">
-		<a routerLink="/summary" class="menu-item" [class.active]="isActive('summary')">
-			<img src="images/sidebar_section/summary_icon.svg" alt="summary" />
-			<span>Summary</span>
-		</a>
+		@if (loggedIn()) {
+			<a routerLink="/summary" class="menu-item" [class.active]="isActive('summary')">
+				<img src="images/sidebar_section/summary_icon.svg" alt="summary" />
+				<span>Summary</span>
+			</a>
 
-		<a routerLink="/add-task" class="menu-item" [class.active]="isActive('add-task')">
-			<img src="images/add_task_section/add_task_icon.svg" alt="add task" />
-			<span>Add Task</span>
-		</a>
+			<a routerLink="/add-task" class="menu-item" [class.active]="isActive('add-task')">
+				<img src="images/add_task_section/add_task_icon.svg" alt="add task" />
+				<span>Add Task</span>
+			</a>
 
-		<a routerLink="/board" class="menu-item" [class.active]="isActive('board')">
-			<img src="images/sidebar_section/board_icon.svg" alt="board" />
-			<span>Board</span>
-		</a>
+			<a routerLink="/board" class="menu-item" [class.active]="isActive('board')">
+				<img src="images/sidebar_section/board_icon.svg" alt="board" />
+				<span>Board</span>
+			</a>
 
-		<a routerLink="/contacts" class="menu-item" [class.active]="isActive('contacts')">
-			<img src="images/sidebar_section/contacts_icon.svg" alt="contact" />
-			<span>Contacts</span>
-		</a>
+			<a routerLink="/contacts" class="menu-item" [class.active]="isActive('contacts')">
+				<img src="images/sidebar_section/contacts_icon.svg" alt="contact" />
+				<span>Contacts</span>
+			</a>
+		} @else {
+			<a routerLink="/login" class="menu-item" [class.active]="isActive('login')">
+				<img src="images/sidebar_section/contacts_icon.svg" alt="contact" />
+				<span>Login</span>
+			</a>
+		}
 	</nav>
 
 	<div class="legal-links">

@@ -17,7 +17,6 @@ export class SubtasksProgress {
 			}
 		});
 
-		console.log(completed);
 		return completed;
 	});
 	subtasksCount = computed(() => this.subtasksList().length);

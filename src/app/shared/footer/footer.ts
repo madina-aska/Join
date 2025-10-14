@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnChanges, OnInit, inject } from "@angular/core";
+import { Component, OnChanges, OnInit, inject, input } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 
 /**
@@ -45,6 +45,7 @@ import { Router, RouterModule } from "@angular/router";
 export class Footer implements OnInit, OnChanges {
 	/** Current active page name for state management and UI highlighting */
 	activePage = "summary";
+	loggedIn = input<boolean>(false);
 
 	/** Injected Angular router for navigation and event monitoring */
 	private router = inject(Router);
@@ -113,6 +114,6 @@ export class Footer implements OnInit, OnChanges {
 	// returns the path without queryParams
 	getCleanPath(page: string): string {
 		const urlTree = this.router.parseUrl(page);
-		return urlTree.root.children["primary"].segments[0].toString();
+		return urlTree.root.children["primary"]?.segments[0].toString();
 	}
 }

@@ -10,15 +10,29 @@
 			<app-popover #popover="appPopover" sharpCorner="topRight" variant="primary"
 				><div class="flex">
 					<div class="options-container">
-						<button class="option" (click)="navigateToLegal()">
-							<span class="option-text">Legal Notice</span>
-						</button>
-						<button class="option" (click)="navigateToPrivacy()">
-							<span class="option-text">Privacy Policy</span>
-						</button>
-						<button class="option" (click)="onLogout()">
-							<span class="option-text">Logout</span>
-						</button>
+						<a routerLink="/legal-notice">
+							<button class="option">
+								<span class="option-text">Legal Notice</span>
+							</button>
+						</a>
+						<a routerLink="/privacy-policy">
+							<button class="option">
+								<span class="option-text">Privacy Policy</span>
+							</button>
+						</a>
+						@if (loggedIn()) {
+							<a routerLink="/login">
+								<button class="option" (click)="onLogout()">
+									<span class="option-text">Logout</span>
+								</button>
+							</a>
+						} @else {
+							<a routerLink="/login">
+								<button class="option">
+									<span class="option-text">Login</span>
+								</button>
+							</a>
+						}
 					</div>
 				</div>
 			</app-popover>

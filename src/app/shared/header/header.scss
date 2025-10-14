@@ -13,6 +13,7 @@ header {
 	box-shadow: 0 4px 4px #0000001a;
 	padding-left: var(--natural-padding);
 	padding-right: var(--natural-padding);
+	z-index: 100;
 
 	@include mixins.desktop {
 		box-shadow: revert;
@@ -94,4 +95,9 @@ button {
 .option-text {
 	font-size: inherit;
 	text-wrap: nowrap;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }

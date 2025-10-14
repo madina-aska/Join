@@ -12,6 +12,7 @@
 	border-radius: 20px;
 	transition: opacity 225ms;
 	overflow: hidden;
+	z-index: 100;
 }
 
 :host.sharp-top-right {

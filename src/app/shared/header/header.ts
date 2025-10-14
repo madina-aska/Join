@@ -1,4 +1,5 @@
-import { Component, input } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
+import { Router, RouterLink } from "@angular/router";
 import { PopoverButtonDirective } from "@core/directives/popover-button-directive";
 import { PopoverDirective } from "@core/directives/popover-directive";
 import { Contact } from "@core/interfaces/contact";
@@ -44,23 +45,25 @@ import { Popover } from "@shared/components/popover/popover";
  */
 @Component({
 	selector: "app-header",
-	imports: [PopoverButtonDirective, Popover, PopoverDirective],
+	imports: [PopoverButtonDirective, Popover, PopoverDirective, RouterLink],
 	templateUrl: "./header.html",
 	styleUrl: "./header.scss",
 })
 export class Header {
 	/** Optional user profile information for display in header */
 	profile = input<Contact>();
+	loggedIn = input<boolean>(false);
+	router = inject(Router);
 
 	navigateToLegal() {
-		console.log("on legal notice clicked");
+		this.router.navigate(["legal-notice"]);
 	}
 
 	navigateToPrivacy() {
-		console.log("on privacy policy clicked");
+		this.router.navigate(["privacy-policy"]);
 	}
 
 	onLogout() {
-		console.log("logout clicked");
+		console.log("should log out here!");
 	}
 }
