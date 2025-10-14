@@ -1,1 +1,5 @@
-<p>summary works!</p>
+@if (showGreeting) {
+<app-greeting [userName]="userName"></app-greeting>
+} @else {
+<app-dashboard></app-dashboard>
+}
