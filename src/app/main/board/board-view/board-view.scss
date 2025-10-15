@@ -125,10 +125,6 @@
 		padding: 0.5rem;
 		width: 100%;
 		border-radius: 24px;
-
-		&:hover:has(.cdk-drag-placeholder) {
-			background-color: var(--input-gray);
-		}
 	}
 }
 
@@ -295,5 +291,10 @@
 		opacity: 0.25;
 		box-shadow: 0 0 10px 3px rgb(0 0 0 / 7.84%);
 		border-radius: 24px;
+	}
+
+	.cdk-drop-list:hover:has(.cdk-drag-placeholder) {
+		border-radius: 5px;
+		background-color: var(--hover-drop-list-gray);
 	}
 }
