@@ -30,7 +30,7 @@
 }
 
 .greeting-text {
-	font-size: 36px;
+	font-size: var(--fs-greeting);
 	font-weight: var(--fw-regular);
 	margin: 0;
 }

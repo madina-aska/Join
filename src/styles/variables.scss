@@ -29,6 +29,12 @@ html {
 	--fs-input: clamp(1rem, 0.938rem + 0.391vw, 1.25rem);
 	/* for button text */
 	--fs-button: clamp(1rem, 0.938rem + 0.41vw, 1.25rem);
+	/* for greeting text */
+	--fs-greeting: clamp(2.25rem, 2.078rem + 0.86vw, 2.938rem);
+	/* for count */
+	--fs-count: clamp(2.938rem, 2.673rem + 1.327vw, 4rem);
+	/* for deadline date */
+	--fs-deadline: clamp(1rem, 0.922rem + 0.391vw, 1.313rem);
 
 	/* Font Weights */
 	--fw-regular: 400;

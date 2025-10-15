@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 	styleUrl: "./greeting.scss",
 })
 export class Greeting implements OnInit {
-	@Input() userName: string = "Madina Aska";
+	@Input() userName: string = "User";
 	greeting: string = "";
 
 	ngOnInit(): void {

@@ -10,7 +10,7 @@ import { Dashboard } from "./dashboard/dashboard";
 })
 export class Summary {
 	showGreeting = signal(true);
-	userName = "Madina Aska";
+	userName = "User";
 
 	toggleGreeting() {
 		this.showGreeting.set(!this.showGreeting());

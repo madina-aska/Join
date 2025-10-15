@@ -1,3 +1,5 @@
+@use "../../../../styles/mixins.scss";
+
 .dashboard-root {
 	width: 100%;
 	margin: 0 auto;
@@ -48,7 +50,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 10px;
+		gap: 15px;
 		padding: 21px;
 		border-radius: 20px;
 		background: var(--bg-color-white);
@@ -80,12 +82,12 @@
 			gap: 10px;
 
 			.stat-count {
-				font-size: var(--fs-h1);
+				font-size: var(--fs-count);
 				font-weight: var(--fw-semibold);
 			}
 
 			.stat-label {
-				font-size: var(--fs-extraSmall);
+				font-size: var(--fs-small);
 				font-weight: var(--fw-regular);
 				color: #000;
 			}
@@ -105,17 +107,17 @@
 	.middle-row .stat-card.urgent {
 		flex: 1 1 0;
 		display: flex;
+		min-width: 0;
 		align-items: center;
 		justify-content: space-evenly;
-		padding: 21px;
 		border-radius: 20px;
 
 		.stat-left {
 			display: flex;
 			align-items: center;
 			flex-direction: row;
-			padding-left: 21px;
-			gap: 10px;
+			gap: 15px;
+			flex-shrink: 1;
 		}
 	}
 
@@ -124,6 +126,7 @@
 		background-color: rgba(209, 209, 209, 1);
 		height: 100%;
 		margin: 0 20px;
+		flex-shrink: 0;
 	}
 
 	.stat-right {
@@ -131,15 +134,18 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 10px;
+		min-width: 0;
+		gap: 10px;
+		flex-shrink: 1;
 
 		.deadline-date {
-			font-size: var(--fs-small);
+			font-size: var(--fs-deadline);
 			font-weight: var(--fw-bold);
 			color: #000;
 		}
 
 		.deadline-note {
-			font-size: var(--fs-extraSmall);
+			font-size: var(--fs-small);
 			color: rgba(42, 54, 71, 1);
 			flex-wrap: nowrap;
 		}
@@ -160,5 +166,58 @@
 		flex: 1 1 100%;
 		min-width: 0;
 		white-space: normal;
+	}
+}
+
+@include mixins.desktop {
+	.dashboard-root {
+		h1 {
+			margin: 0;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.title-section {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 30px;
+
+			.line-text-container {
+				display: flex;
+				flex-direction: row-reverse;
+				align-items: center;
+				gap: 30px;
+
+				.title-underline {
+					width: 2px;
+					height: 59px;
+					background-color: #3f8efc;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1165px) {
+	.dashboard-root {
+		.title-section {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+
+			.line-text-container {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 0.3rem;
+
+				.title-underline {
+					width: 80px;
+					height: 3px;
+				}
+			}
+		}
 	}
 }
