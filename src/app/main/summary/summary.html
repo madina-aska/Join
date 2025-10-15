@@ -1,5 +1,6 @@
-@if (showGreeting) {
-<app-greeting [userName]="userName"></app-greeting>
-} @else {
-<app-dashboard></app-dashboard>
-}
+<div class="summary-root">
+
+    <app-dashboard></app-dashboard>
+
+    <app-greeting class="greeting-overlay"></app-greeting>
+</div>

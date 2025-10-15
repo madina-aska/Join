@@ -1,11 +1,32 @@
+:host {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	z-index: 10;
+	animation: fadeGreeting 3s ease forwards;
+}
+
 .greeting-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: calc(100vh - 120px);
 	text-align: center;
-	animation: fadeIn 0.5s ease forwards;
+	animation: fadeInGreeting 0.3s ease forwards;
+}
+
+@keyframes fadeInGreeting {
+	0% {
+		opacity: 0;
+		transform: translateY(5px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .greeting-text {
@@ -19,15 +40,4 @@
 	color: var(--bg-color-blue-lighter);
 	margin: 5px 0 0;
 	font-weight: var(--fw-bold);
-}
-
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(5px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
 }
