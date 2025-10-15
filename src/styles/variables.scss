@@ -14,19 +14,21 @@ html {
 
 	/* Typography Sizes - Mobile First */
 	/* headings */
-	--fs-h1: clamp(2.938rem, 2.657rem + 1.284vw, 3.813rem);
-	--fs-h2: clamp(1.25rem, 1.181rem + 0.222vw, 1.688rem);
-	--fs-h3: clamp(1.75rem, 1.471rem + 0.868vw, 2.938rem);
-	--fs-h4: clamp(1.5rem, 0.791rem + 2.026vw, 4rem);
+	--fs-h1: clamp(1rem, 0.938rem + 1.25vw, 1.25rem);
+	--fs-h2: clamp(1rem, 0.938rem + 1.191vw, 1.25rem);
+	--fs-h3: clamp(1rem, 0.938rem + 0.918vw, 1.25rem);
+	--fs-h4: clampclamp(1rem, 0.938rem + 0.527vw, 1.25rem);
 
 	/* text */
-	--fs-text: clamp(1rem, 0.977rem + 0.074vw, 1.25rem);
-	--fs-small: clamp(0.875rem, 0.852rem + 0.074vw, 1rem);
+	--fs-extraSmall: clamp(1rem, 0.938rem + 0.273vw, 1.25rem);
+	--fs-small: clamp(1rem, 0.938rem + 0.313vw, 1.25rem);
+	--fs-medium: clamp(1rem, 0.938rem + 0.352vw, 1.25rem);
+	--fs-big: clamp(1rem, 0.938rem + 0.391vw, 1.25rem);
 
 	/* for inputs text */
-	--fs-input: clamp(1rem, 0.977rem + 0.074vw, 1.25rem);
+	--fs-input: clamp(1rem, 0.938rem + 0.391vw, 1.25rem);
 	/* for button text */
-	--fs-button: clamp(1rem, 0.953rem + 0.148vw, 1.313rem);
+	--fs-button: clamp(1rem, 0.938rem + 0.41vw, 1.25rem);
 
 	/* Font Weights */
 	--fw-regular: 400;
@@ -36,13 +38,6 @@ html {
 
 	/* Legacy font sizes for backward compatibility */
 	/* do not use */
-	--fs-extraSmall: 14px;
-	--fs-small: 16px;
-	--fs-medium: 18px;
-	--fs-big: 20px;
-	--fs-h1: 47px;
-	// --fs-input: 20px;
-	// --fs-button: 21px;
 
 	--footer-width-desktop: min(22vw, 232px);
 	--header-height: 8vh;
