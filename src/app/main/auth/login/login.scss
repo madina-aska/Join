@@ -150,7 +150,7 @@ body {
 
 		h1 {
 			margin-bottom: 8px;
-			font-size: 47px;
+			font-size: 40px;
 			font-weight: bold;
 		}
 
@@ -259,6 +259,11 @@ body {
 	}
 
 	.content {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
 		.register {
 			position: fixed;
 			top: calc(env(safe-area-inset-top, 0px) + 18px);
@@ -306,7 +311,7 @@ body {
 		.inputs {
 			gap: 40px;
 			margin-bottom: 40px;
-      width: 350px;
+			width: 350px;
 
 			.input-wrapper {
 				input {
