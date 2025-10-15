@@ -1,1 +1,58 @@
-<p>signup works!</p>
+<div class="login">
+	<div class="logo">
+		<img src="/images/join_logo/join_logo_dark.svg" alt="" />
+	</div>
+
+	<div class="content">
+		<div class="register-window">
+			<div class="header">
+				<a routerLink="/login">
+					<img src="/images/assets/arrow_left_line.svg" alt="" />
+				</a>
+				<h1>Sign up</h1>
+			</div>
+			<div class="seperator"></div>
+
+			<div class="inputs">
+				<div class="input-wrapper" [class.hide-icon]="name.length > 2">
+					<img src="/images/sign_up_section/person_icon.svg" class="input-icon" />
+					<input type="text" placeholder="Name" [(ngModel)]="name" />
+				</div>
+				<div class="input-wrapper" [class.hide-icon]="email.length > 4">
+					<img src="/images/login_section/mail_icon.svg" class="input-icon" />
+					<input type="text" placeholder="Email" [(ngModel)]="email" />
+				</div>
+
+				<div class="input-wrapper" [class.hide-icon]="password.length > 8">
+					<img src="/images/login_section/lock.svg" class="input-icon" />
+					<input type="password" placeholder="Password" [(ngModel)]="password" />
+				</div>
+				<div class="input-wrapper" [class.hide-icon]="confirmPassword.length > 8">
+					<img src="/images/login_section/lock.svg" class="input-icon" />
+					<input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" />
+				</div>
+			</div>
+
+			<div class="signup">
+				<label class="checkbox-label">
+					<input type="checkbox" [(ngModel)]="acceptedPolicy" />
+					<span> I accept the <a routerLink="/privacy-policy">Privacy Policy</a>. </span>
+				</label>
+
+				<button
+					class="signup-button"
+					[disabled]="!isFormValid()"
+					[class.inactive-text]="!isFormValid()"
+					(click)="navigateToSummary()"
+				>
+					Sign up
+				</button>
+			</div>
+		</div>
+
+		<div class="legal-notes">
+			<a routerLink="summary">Privacy Policy</a>
+			<a routerLink="summary">Legal Notice</a>
+		</div>
+	</div>
+</div>
