@@ -14,27 +14,33 @@ html {
 
 	/* Typography Sizes - Mobile First */
 	/* headings */
-	--fs-h1: clamp(1rem, 0.938rem + 1.25vw, 1.25rem);
-	--fs-h2: clamp(1rem, 0.938rem + 1.191vw, 1.25rem);
-	--fs-h3: clamp(1rem, 0.938rem + 0.918vw, 1.25rem);
-	--fs-h4: clampclamp(1rem, 0.938rem + 0.527vw, 1.25rem);
+
+	--fs-h1: clamp(2.938rem, 2.719rem + 1.094vw, 3.813rem);                  /* Usage  */
+	--fs-h2: clamp(1rem, 0.922rem + 0.391vw, 1.313rem);                     /* Usage  */
+	--fs-h3: clamp(1.688rem, 1.469rem + 1.094vw, 2.563rem);                /* Usage  */
+	--fs-h4: clamp(1.5rem, 1.141rem + 1.797vw, 2.938rem);                 /* Usage  */
 
 	/* text */
-	--fs-extraSmall: clamp(1rem, 0.938rem + 0.273vw, 1.25rem);
-	--fs-small: clamp(1rem, 0.938rem + 0.313vw, 1.25rem);
-	--fs-medium: clamp(1rem, 0.938rem + 0.352vw, 1.25rem);
-	--fs-big: clamp(1rem, 0.938rem + 0.391vw, 1.25rem);
+	--fs-extraSmall: 14px;                                             /* Usage  */
+	--fs-small: clamp(1rem, 0.969rem + 0.156vw, 1.125rem);            /* Usage  */
+	--fs-medium: clamp(1rem, 0.922rem + 0.391vw, 1.313rem);          /* Usage  */
+	--fs-big: clamp(1.5rem, 1.453rem + 0.234vw, 1.688rem);          /* Usage  */
+  --fs-XL: clamp(2.938rem, 2.672rem + 1.328vw, 4rem);            /* Should be used for SummaryNumbers! */
 
 	/* for inputs text */
-	--fs-input: clamp(1rem, 0.938rem + 0.391vw, 1.25rem);
+	--fs-input: clamp(1.25rem, 1.234rem + 0.078vw, 1.313rem);     /* Usage  */
 	/* for button text */
-	--fs-button: clamp(1rem, 0.938rem + 0.41vw, 1.25rem);
+	--fs-button: clamp(1.25rem, 1.234rem + 0.078vw, 1.313rem);    /* Usage  */
+  --fs-login-btn: clamp(1rem, 0.922rem + 0.391vw, 1.313rem);    /* Usage  */
+
 	/* for greeting text */
-	--fs-greeting: clamp(2.25rem, 2.078rem + 0.86vw, 2.938rem);
+	--fs-greeting: clamp(2.25rem, 2.078rem + 0.86vw, 2.938rem);   /* Usage  */
 	/* for count */
-	--fs-count: clamp(2.938rem, 2.673rem + 1.327vw, 4rem);
+	--fs-count: clamp(2.938rem, 2.673rem + 1.327vw, 4rem);        /* Usage  */
 	/* for deadline date */
-	--fs-deadline: clamp(1rem, 0.922rem + 0.391vw, 1.313rem);
+	--fs-deadline: clamp(1rem, 0.922rem + 0.391vw, 1.313rem);     /* Usage  */
+
+
 
 	/* Font Weights */
 	--fw-regular: 400;
