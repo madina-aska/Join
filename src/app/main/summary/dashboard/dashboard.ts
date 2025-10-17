@@ -1,12 +1,12 @@
 import { Component, inject } from "@angular/core";
 import { CommonModule, AsyncPipe, DatePipe } from "@angular/common";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { map, combineLatest } from "rxjs";
 import { TaskService } from "@core/services/task-service";
 
 @Component({
 	selector: "app-dashboard",
-	imports: [CommonModule, AsyncPipe, DatePipe],
+	imports: [CommonModule, AsyncPipe, DatePipe, RouterModule],
 	templateUrl: "./dashboard.html",
 	styleUrl: "./dashboard.scss",
 })
@@ -38,13 +38,9 @@ export class Dashboard {
 	nextDeadline$ = this.taskService.allTasks$.pipe(
 		map((tasks) => {
 			const upcoming = tasks
-				.filter((t) => t.dueDate && t.status !== "done") // exclude completed tasks
+				.filter((t) => t.dueDate && t.status !== "done")
 				.sort((a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime());
 			return upcoming[0]?.dueDate ?? null;
 		}),
 	);
-
-	openBoard() {
-		this.router.navigateByUrl("/board");
-	}
 }

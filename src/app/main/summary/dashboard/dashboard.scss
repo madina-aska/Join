@@ -51,7 +51,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 15px;
-		padding: 21px;
+		padding: min(4vw, 21px);
 		border-radius: 20px;
 		background: var(--bg-color-white);
 		border: 1px solid rgba(0, 0, 0, 0);
@@ -82,12 +82,12 @@
 			gap: 10px;
 
 			.stat-count {
-				font-size: var(--fs-count);
+				font-size: var(--fs-XL);
 				font-weight: var(--fw-semibold);
 			}
 
 			.stat-label {
-				font-size: var(--fs-small);
+				font-size: var(--stat-label);
 				font-weight: var(--fw-regular);
 				color: #000;
 			}
@@ -139,7 +139,7 @@
 		flex-shrink: 1;
 
 		.deadline-date {
-			font-size: var(--fs-deadline);
+			font-size: var(--fs-login-btn);
 			font-weight: var(--fw-bold);
 			color: #000;
 		}

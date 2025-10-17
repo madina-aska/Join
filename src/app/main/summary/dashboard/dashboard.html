@@ -9,7 +9,7 @@
     </div>
 
     <div class="row top-row">
-        <button class="stat-card small todo" (click)="openBoard()" (mouseenter)="isTodoHovered = true"
+        <button class="stat-card small todo" routerLink="/board" (mouseenter)="isTodoHovered = true"
             (mouseleave)="isTodoHovered = false">
             <div class="stat-icon">
                 <img
@@ -21,7 +21,7 @@
             </div>
         </button>
 
-        <button class="stat-card small done" (click)="openBoard()" (mouseenter)="isDoneHovered = true"
+        <button class="stat-card small done" routerLink="/board" (mouseenter)="isDoneHovered = true"
             (mouseleave)="isDoneHovered = false">
             <div class="stat-icon">
                 <img
@@ -35,7 +35,7 @@
     </div>
 
     <div class="row middle-row">
-        <button class="stat-card urgent" (click)="openBoard()">
+        <button class="stat-card urgent" routerLink="/board">
             <div class="stat-left">
                 <div class="stat-icon">
                     <img src="./images/summary_section/urgent.svg">
@@ -60,21 +60,21 @@
     </div>
 
     <div class="row bottom-row">
-        <button class="stat-card tiny" (click)="openBoard()">
+        <button class="stat-card tiny" routerLink="/board">
             <div class="stat-left">
                 <div class="stat-count">{{ (counts$ | async)?.inBoard ?? 0 }}</div>
                 <div class="stat-label">Tasks in Board</div>
             </div>
         </button>
 
-        <button class="stat-card tiny" (click)="openBoard()">
+        <button class="stat-card tiny" routerLink="/board">
             <div class="stat-left">
                 <div class="stat-count">{{ (counts$ | async)?.inProgress ?? 0 }}</div>
                 <div class="stat-label">Tasks in Progress</div>
             </div>
         </button>
 
-        <button class="stat-card tiny" (click)="openBoard()">
+        <button class="stat-card tiny" routerLink="/board">
             <div class="stat-left">
                 <div class="stat-count">{{ (counts$ | async)?.awaitingFeedback ?? 0 }}</div>
                 <div class="stat-label">Awaiting Feedback</div>
