@@ -1,0 +1,91 @@
+@use "./../../../../styles/mixins.scss";
+
+.legal-notice-wrapper {
+	margin: 0 auto;
+	max-height: 100vh;
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.legal-notice {
+	max-width: 1200px;
+	margin: 3rem auto 10rem;
+	padding: 0 0.8rem;
+
+	h1 {
+		font-size: var(--fs-XL);
+		font-weight: var(--fw-bold);
+		text-align: left;
+		margin-bottom: 2rem;
+	}
+
+	h2 {
+		font-size: 27px;
+		font-weight: var(--fw-bold);
+		text-align: left;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	h3 {
+		font-size: 16px;
+		font-weight: var(--fw-bold);
+		text-align: left;
+		margin-top: 1rem;
+	}
+
+	p {
+		font-size: 1rem;
+	}
+
+	.address-box {
+		font-size: 1rem;
+
+		p {
+			position: relative;
+			padding-left: 1.2rem;
+			&::before {
+				content: "•";
+				position: absolute;
+				left: 0;
+				font-size: 1rem;
+			}
+		}
+	}
+
+	.date {
+		margin-top: 1rem;
+	}
+
+	.highlight {
+		color: var(--bg-color-blue-lighter);
+	}
+}
+
+@include mixins.desktop {
+	.legal-notice-wrapper {
+		height: 100%;
+
+		.legal-notice {
+			padding: 0 4rem;
+			margin-bottom: 3rem;
+		}
+	}
+
+	.back-arrow {
+		display: none;
+	}
+}
+
+.back-arrow {
+	background: none;
+	border: none;
+	padding: 0;
+	position: fixed;
+	right: 15px;
+	top: 15%;
+	cursor: pointer;
+}
