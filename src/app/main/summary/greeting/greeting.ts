@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, effect, inject, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { AuthService } from "@core/services/auth-service";
 
 @Component({
 	selector: "app-greeting",
@@ -7,15 +8,15 @@ import { CommonModule } from "@angular/common";
 	templateUrl: "./greeting.html",
 	styleUrl: "./greeting.scss",
 })
-export class Greeting implements OnInit {
-	@Input() userName: string = "User";
-	greeting: string = "";
+export class Greeting {
+	authService = inject(AuthService);
+	userName = signal<string>("");
 
-	ngOnInit(): void {
-		const hour = new Date().getHours();
+	hour = new Date().getHours();
+	greeting = this.hour < 12 ? "Good morning" : this.hour < 18 ? "Good afternoon" : "Good evening";
 
-		if (hour < 12) this.greeting = "Good morning";
-		else if (hour < 18) this.greeting = "Good afternoon";
-		else this.greeting = "Good evening";
-	}
+	private _ = effect(() => {
+		const user = this.authService.currentUser();
+		this.userName.set(user?.displayName || "Guest");
+	});
 }

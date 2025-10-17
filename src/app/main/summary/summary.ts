@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component } from "@angular/core";
 import { Greeting } from "./greeting/greeting";
 import { Dashboard } from "./dashboard/dashboard";
 
@@ -8,11 +8,4 @@ import { Dashboard } from "./dashboard/dashboard";
 	templateUrl: "./summary.html",
 	styleUrl: "./summary.scss",
 })
-export class Summary {
-	showGreeting = signal(true);
-	userName = "User";
-
-	toggleGreeting() {
-		this.showGreeting.set(!this.showGreeting());
-	}
-}
+export class Summary {}
