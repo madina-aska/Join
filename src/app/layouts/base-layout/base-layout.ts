@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { AuthService } from "@core/services/auth-service";
 import { Footer } from "@shared/footer/footer";
@@ -10,11 +10,13 @@ import { Header } from "@shared/header/header";
 	templateUrl: "./base-layout.html",
 	styleUrl: "./base-layout.scss",
 })
-export class BaseLayout implements OnInit {
+export class BaseLayout {
 	private authService = inject(AuthService);
 	loggedIn = false;
 
-	ngOnInit() {
-		this.loggedIn = true;
+	constructor() {
+		this.authService.isLoggedIn$.subscribe((loggedIn) => {
+			this.loggedIn = loggedIn;
+		});
 	}
 }

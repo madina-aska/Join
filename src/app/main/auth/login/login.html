@@ -14,26 +14,57 @@
 				<div class="seperator"></div>
 			</div>
 
-			<div class="inputs">
-				<div class="input-wrapper" [class.hide-icon]="email.length > 4">
-					<img src="/images/login_section/mail_icon.svg" class="input-icon" />
-					<input type="text" placeholder="Email" [(ngModel)]="email" />
+			<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+				<div class="inputs">
+					<div
+						class="input-wrapper"
+						[class.hide-icon]="(loginForm.get('email')?.value || '').length > 4"
+					>
+						<img src="/images/login_section/mail_icon.svg" class="input-icon" />
+						<input type="text" placeholder="Email" formControlName="email" />
+						<div
+							*ngIf="
+								loginForm.get('email')?.invalid &&
+								(loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+							"
+							class="error-message"
+						>
+							Geben Sie eine gültige E-Mail-Adresse ein.
+						</div>
+					</div>
+
+					<div
+						class="input-wrapper"
+						[class.hide-icon]="(loginForm.get('password')?.value || '').length > 8"
+					>
+						<img src="/images/login_section/lock.svg" class="input-icon" />
+						<input type="password" placeholder="Password" formControlName="password" />
+						<div
+							*ngIf="
+								loginForm.get('password')?.invalid &&
+								(loginForm.get('password')?.dirty || loginForm.get('password')?.touched)
+							"
+							class="error-message"
+						>
+							Das Passwort muss mind. 6 Zeichen lang sein.
+						</div>
+					</div>
 				</div>
 
-				<div class="input-wrapper" [class.hide-icon]="password.length > 8">
-					<img src="/images/login_section/lock.svg" class="input-icon" />
-					<input type="password" placeholder="Password" [(ngModel)]="password" />
+				<div *ngIf="errorMessage" class="general-error-message">
+					{{ errorMessage }}
 				</div>
-			</div>
 
-			<div class="login-buttons">
-				<button class="login-button">
-					<a routerLink="summary">Login</a>
-				</button>
-				<button class="guest-login">
-					<a routerLink="summary">Guest Log in</a>
-				</button>
-			</div>
+				<div class="login-buttons">
+					<button type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading">
+						{{ isLoading ? "Loading..." : "Login" }}
+					</button>
+
+					<button type="button" class="guest-login" (click)="onGuestLogin()" [disabled]="isLoading">
+						Guest Log in
+					</button>
+				</div>
+			</form>
 		</div>
 
 		<div class="register">

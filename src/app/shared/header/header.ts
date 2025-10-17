@@ -4,6 +4,7 @@ import { PopoverButtonDirective } from "@core/directives/popover-button-directiv
 import { PopoverDirective } from "@core/directives/popover-directive";
 import { Contact } from "@core/interfaces/contact";
 import { Popover } from "@shared/components/popover/popover";
+import { AuthService } from "@core/services/auth-service";
 
 /**
  * Application header component for branding and user profile display.
@@ -54,6 +55,7 @@ export class Header {
 	profile = input<Contact>();
 	loggedIn = input<boolean>(false);
 	router = inject(Router);
+  authService = inject(AuthService);
 
 	navigateToLegal() {
 		this.router.navigate(["legal-notice"]);
@@ -64,6 +66,6 @@ export class Header {
 	}
 
 	onLogout() {
-		console.log("should log out here!");
+    this.authService.signOut();
 	}
 }

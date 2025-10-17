@@ -1,56 +1,197 @@
 <div class="register">
 	<div class="logo">
-		<img src="/images/join_logo/join_logo_dark.svg" alt="" />
+		<!-- Inline Text/Styling for Logo (replaces external SVG) -->
+		<span class="text-3xl font-bold text-[#2A3647]">J O I N</span>
 	</div>
 
 	<div class="content">
 		<div class="register-window">
 			<div class="header">
 				<a class="back-arrow" routerLink="/login">
-					<img src="/images/assets/arrow_left_line.svg" alt="Back" />
+					<!-- Inline SVG for Back Arrow (replaces /images/assets/arrow_left_line.svg) -->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="lucide lucide-arrow-left"
+					>
+						<path d="m12 19-7-7 7-7" />
+						<path d="M19 12H5" />
+					</svg>
 				</a>
-
 				<div class="title-block">
 					<h1>Sign up</h1>
 					<div class="seperator"></div>
 				</div>
 			</div>
 
-			<div class="inputs">
-				<div class="input-wrapper" [class.hide-icon]="name.length > 2">
-					<img src="/images/sign_up_section/person_icon.svg" class="input-icon" />
-					<input type="text" placeholder="Name" [(ngModel)]="name" />
-				</div>
-				<div class="input-wrapper" [class.hide-icon]="email.length > 4">
-					<img src="/images/login_section/mail_icon.svg" class="input-icon" />
-					<input type="text" placeholder="Email" [(ngModel)]="email" />
+			<!-- FORMULAR-BINDUNG MIT REACTIVE FORMS -->
+			<form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+				<div class="inputs">
+					<div
+						class="input-wrapper"
+						[class.hide-icon]="(signupForm.get('name')?.value ?? '').length > 2"
+					>
+						<!-- Inline SVG for Person Icon (replaces /images/sign_up_section/person_icon.svg) -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="input-icon lucide lucide-user"
+						>
+							<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+							<circle cx="12" cy="7" r="4" />
+						</svg>
+						<!-- Bindung zu Reactive Form Control: name -->
+						<input type="text" placeholder="Name" formControlName="name" />
+						@if (
+							signupForm.get("name")?.invalid &&
+							(signupForm.get("name")?.dirty || signupForm.get("name")?.touched)
+						) {
+							<div class="error-message">Name ist erforderlich (min. 3 Zeichen).</div>
+						}
+					</div>
+
+					<div
+						class="input-wrapper"
+						[class.hide-icon]="(signupForm.get('email')?.value ?? '').length > 4"
+					>
+						<!-- Inline SVG for Mail Icon (replaces /images/login_section/mail_icon.svg) -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="input-icon lucide lucide-mail"
+						>
+							<rect width="20" height="16" x="2" y="4" rx="2" />
+							<path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7" />
+						</svg>
+
+						<input type="text" placeholder="Email" formControlName="email" />
+
+						@if (
+							signupForm.get("email")?.hasError("required") &&
+							(signupForm.get("email")?.dirty || signupForm.get("email")?.touched)
+						) {
+							<div class="error-message">E-Mail ist erforderlich.</div>
+						}
+						@if (
+							signupForm.get("email")?.hasError("email") &&
+							(signupForm.get("email")?.dirty || signupForm.get("email")?.touched)
+						) {
+							<div class="error-message">Bitte geben Sie eine gültige E-Mail-Adresse ein.</div>
+						}
+					</div>
+
+					<div
+						class="input-wrapper"
+						[class.hide-icon]="(signupForm.get('password')?.value ?? '').length > 8"
+					>
+						<!-- Inline SVG for Lock Icon (replaces /images/login_section/lock.svg) -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="input-icon lucide lucide-lock"
+						>
+							<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+							<path d="M7 11V7a5 5 0 0 1 10 0v4" />
+						</svg>
+
+						<input type="password" placeholder="Password" formControlName="password" />
+
+						@if (
+							signupForm.get("password")?.hasError("minlength") &&
+							(signupForm.get("password")?.dirty || signupForm.get("password")?.touched)
+						) {
+							<div class="error-message">Das Passwort muss mind. 8 Zeichen lang sein.</div>
+						}
+					</div>
+
+					<div
+						class="input-wrapper"
+						[class.hide-icon]="(signupForm.get('confirmPassword')?.value ?? '').length > 8"
+					>
+						<!-- Inline SVG for Lock Icon (replaces /images/login_section/lock.svg) -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="input-icon lucide lucide-lock"
+						>
+							<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+							<path d="M7 11V7a5 5 0 0 1 10 0v4" />
+						</svg>
+
+						<input
+							type="password"
+							placeholder="Confirm Password"
+							formControlName="confirmPassword"
+						/>
+
+						@if (
+							signupForm.errors?.["passwordMismatch"] &&
+							(signupForm.get("confirmPassword")?.dirty ||
+								signupForm.get("confirmPassword")?.touched)
+						) {
+							<div class="error-message">Passwörter stimmen nicht überein.</div>
+						}
+					</div>
 				</div>
 
-				<div class="input-wrapper" [class.hide-icon]="password.length > 8">
-					<img src="/images/login_section/lock.svg" class="input-icon" />
-					<input type="password" placeholder="Password" [(ngModel)]="password" />
-				</div>
-				<div class="input-wrapper" [class.hide-icon]="confirmPassword.length > 8">
-					<img src="/images/login_section/lock.svg" class="input-icon" />
-					<input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" />
-				</div>
-			</div>
+				<div class="signup">
+					<label class="checkbox-label">
+						<input type="checkbox" formControlName="acceptedPolicy" />
+						<span> I accept the <a routerLink="/privacy-policy">Privacy Policy</a>. </span>
+					</label>
+					@if (
+						signupForm.get("acceptedPolicy")?.hasError("required") &&
+						(signupForm.get("acceptedPolicy")?.dirty || signupForm.get("acceptedPolicy")?.touched)
+					) {
+						<div class="error-message text-center" style="margin-top: 8px">
+							Sie müssen die Datenschutzrichtlinie akzeptieren.
+						</div>
+					}
 
-			<div class="signup">
-				<label class="checkbox-label">
-					<input type="checkbox" [(ngModel)]="acceptedPolicy" />
-					<span> I accept the <a routerLink="/privacy-policy">Privacy Policy</a>. </span>
-				</label>
+					<button
+						type="submit"
+						class="signup-button"
+						[disabled]="signupForm.invalid || isLoading"
+						[class.inactive-text]="signupForm.invalid"
+					>
+						<!-- Ladezustand anzeigen -->
+						{{ isLoading ? "Registriere..." : "Sign up" }}
+					</button>
 
-				<button
-					class="signup-button"
-					[disabled]="!isFormValid()"
-					[class.inactive-text]="!isFormValid()"
-					(click)="navigateToSummary()"
-				>
-					Sign up
-				</button>
-			</div>
+					@if (errorMessage) {
+						<div class="general-error-message">
+							{{ errorMessage }}
+						</div>
+					}
+				</div>
+			</form>
 		</div>
 
 		<div class="legal-notes">
