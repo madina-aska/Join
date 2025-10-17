@@ -56,7 +56,7 @@
 				</div>
 
 				<div class="login-buttons">
-					<button type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading">
+					<button type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading" [ngClass]="{ 'active-button': loginForm.valid && !isLoading }">
 						{{ isLoading ? "Loading..." : "Login" }}
 					</button>
 

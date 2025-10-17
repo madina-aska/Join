@@ -129,7 +129,7 @@ body {
 }
 
 .login-window {
-	height: 50vh;
+	height: 60vh;
 	width: 70vw;
 	border: none;
 	border-radius: 20px;
@@ -212,8 +212,15 @@ body {
 			border: none;
 			border-radius: 10px;
 			background-color: var(--bg-color-blue-darker);
+			color: var(--text-color-disabled);
 			width: 150px;
 			height: 40px;
+
+			&.active-button {
+				color: var(--bg-color-white);
+				cursor: pointer;
+				font-weight: bold;
+			}
 
 			a {
 				text-decoration: none;
