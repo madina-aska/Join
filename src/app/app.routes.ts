@@ -4,6 +4,7 @@ import { Login } from "@main/auth/login/login";
 import { Signup } from "@main/auth/signup/signup";
 import { Board } from "@main/board/board";
 import { Contacts } from "@main/contacts/contacts";
+import { Help } from "@main/info/help/help";
 import { LegalNotice } from "@main/info/legal-notice/legal-notice";
 import { PrivacyPolicy } from "@main/info/privacy-policy/privacy-policy";
 import { Summary } from "@main/summary/summary";
@@ -13,13 +14,14 @@ import { BaseLayout } from "./layouts/base-layout/base-layout";
 export const routes: Routes = [
 	{ path: "login", component: Login },
 	{ path: "logout", component: Login },
-  { path: "signup", component: Signup },
+	{ path: "signup", component: Signup },
 	{
 		path: "",
 		component: BaseLayout,
 		canActivateChild: [authGuard],
 		children: [
 			{ path: "", component: Summary },
+			{ path: "help", component: Help },
 			{ path: "legal-notice", component: LegalNotice },
 			{ path: "privacy-policy", component: PrivacyPolicy },
 			{ path: "summary", component: Summary },
