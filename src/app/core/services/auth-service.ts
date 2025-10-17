@@ -16,8 +16,10 @@ import {
 	UserCredential,
 } from "@angular/fire/auth";
 
+import { Contact } from "@core/interfaces/contact";
 import { AppUser } from "@core/interfaces/user";
 import { ToastService } from "@shared/services/toast.service";
+import { ContactService } from "./contact-service";
 
 @Injectable({
 	providedIn: "root",
@@ -27,6 +29,7 @@ export class AuthService implements OnDestroy {
 	private firebaseAuth = inject(Auth);
 	private router = inject(Router);
 	private toastService = inject(ToastService);
+	private contactService = inject(ContactService);
 
 	readonly firebaseUser$ = authState(this.firebaseAuth);
 	currentUser = signal<AppUser | null>(null);
@@ -63,7 +66,16 @@ export class AuthService implements OnDestroy {
 	signUp(email: string, password: string, displayName: string): Observable<void> {
 		const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password).then(
 			(userCredential: UserCredential) => {
+				const userName = this.capitalizeNames(displayName);
 				if (userCredential.user && displayName) {
+					const userAsContact: Contact = {
+						name: userName,
+						email: email,
+						telephone: "",
+						initials: this.contactService.generateInitials(userName),
+						color: this.getRandomColor(),
+					};
+					this.contactService.addContact(userAsContact);
 					return updateProfile(userCredential.user, { displayName: displayName });
 				}
 				return Promise.resolve();
@@ -126,5 +138,16 @@ export class AuthService implements OnDestroy {
 
 	ngOnDestroy() {
 		this.signOut();
+	}
+
+	private getRandomColor(): number {
+		return Math.floor(Math.random() * 10) + 1;
+	}
+
+	private capitalizeNames(name: string): string {
+		return name
+			.split(" ")
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+			.join(" ");
 	}
 }
