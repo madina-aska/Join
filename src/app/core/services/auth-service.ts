@@ -31,7 +31,7 @@ export class AuthService implements OnDestroy {
 	private toastService = inject(ToastService);
 	private contactService = inject(ContactService);
 
-	readonly firebaseUser$ = authState(this.firebaseAuth);
+	firebaseUser$ = authState(this.firebaseAuth);
 	currentUser = signal<AppUser | null>(null);
 
 	readonly isLoggedIn$: Observable<boolean> = this.firebaseUser$.pipe(map((user) => !!user));

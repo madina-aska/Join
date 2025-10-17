@@ -13,6 +13,7 @@ header {
 	box-shadow: 0 4px 4px #0000001a;
 	padding-left: var(--natural-padding);
 	padding-right: var(--natural-padding);
+	padding-block: 0.75rem;
 	z-index: 100;
 
 	@include mixins.desktop {
@@ -38,8 +39,16 @@ header {
 	}
 }
 
-.interactives {
+.profile-picture-container {
 	display: flex;
+	height: 100%;
+}
+
+.interactives {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	column-gap: 1rem;
 }
 
@@ -66,6 +75,7 @@ header {
 }
 
 button {
+	height: 100%;
 	position: relative;
 	border-radius: 50%;
 	background-color: initial;
@@ -73,6 +83,9 @@ button {
 	color: inherit;
 	font-family: inherit;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .options-container {

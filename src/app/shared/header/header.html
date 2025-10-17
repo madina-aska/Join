@@ -2,11 +2,17 @@
 	<img class="logo" src="images/join_logo/join_logo_dark.svg" alt="" width="32" />
 	<span class="desktop-title">Kanban Management Tool</span>
 	<div class="interactives">
-		<img class="help" src="images/assets/help_icon.svg" alt="" />
+		<a routerLink="/help"><img class="help" src="images/assets/help_icon.svg" alt="" /></a>
 		<button appPopoverButton [popover]="popover">
-			<div class="profile-picture">
-				<span>SV</span>
-			</div>
+			@if (userAsContact) {
+				<div class="profile-picture-container">
+					<app-profile-picture [contact]="userAsContact" size="medium" />
+				</div>
+			} @else {
+				<div class="profile-picture">
+					<span>SV</span>
+				</div>
+			}
 			<app-popover #popover="appPopover" sharpCorner="topRight" variant="primary"
 				><div class="flex">
 					<div class="options-container">

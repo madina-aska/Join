@@ -3,8 +3,10 @@ import { Router, RouterLink } from "@angular/router";
 import { PopoverButtonDirective } from "@core/directives/popover-button-directive";
 import { PopoverDirective } from "@core/directives/popover-directive";
 import { Contact } from "@core/interfaces/contact";
-import { Popover } from "@shared/components/popover/popover";
 import { AuthService } from "@core/services/auth-service";
+import { ContactService } from "@core/services/contact-service";
+import { Popover } from "@shared/components/popover/popover";
+import { ProfilePicture } from "@shared/components/profile-picture/profile-picture";
 
 /**
  * Application header component for branding and user profile display.
@@ -46,7 +48,7 @@ import { AuthService } from "@core/services/auth-service";
  */
 @Component({
 	selector: "app-header",
-	imports: [PopoverButtonDirective, Popover, PopoverDirective, RouterLink],
+	imports: [PopoverButtonDirective, Popover, PopoverDirective, RouterLink, ProfilePicture],
 	templateUrl: "./header.html",
 	styleUrl: "./header.scss",
 })
@@ -55,7 +57,20 @@ export class Header {
 	profile = input<Contact>();
 	loggedIn = input<boolean>(false);
 	router = inject(Router);
-  authService = inject(AuthService);
+	authService = inject(AuthService);
+	contactService = inject(ContactService);
+	currentUser = null;
+	userAsContact: Contact | undefined;
+
+	constructor() {
+		this.authService.firebaseUser$.subscribe((user) => {
+			if (!user?.email) return;
+			const userAsContact$ = this.contactService.getContactByEmail(user?.email || "");
+			userAsContact$.forEach((contact) => {
+				this.userAsContact = contact;
+			});
+		});
+	}
 
 	navigateToLegal() {
 		this.router.navigate(["legal-notice"]);
@@ -66,6 +81,6 @@ export class Header {
 	}
 
 	onLogout() {
-    this.authService.signOut();
+		this.authService.signOut();
 	}
 }

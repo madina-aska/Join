@@ -107,6 +107,12 @@ export class ContactService implements OnDestroy {
 		);
 	}
 
+	getContactByEmail(email: string) {
+		return this.allContacts$.pipe(
+			map((contacts) => contacts.find((contact) => contact.email === email)),
+		);
+	}
+
 	/**
 	 * Subscribes to a specific contact document by ID for real-time updates.
 	 * Updates contactForView property with the latest contact data.
@@ -215,7 +221,6 @@ export class ContactService implements OnDestroy {
 
 			try {
 				const contactId = await this.generateNextContactId();
-				
 
 				await setDoc(doc(contactsCol, contactId), {
 					name: contact.name,
@@ -224,7 +229,6 @@ export class ContactService implements OnDestroy {
 					initials: contact.initials,
 					color: contact.color,
 				});
-
 
 				return contactId;
 			} catch (error) {
