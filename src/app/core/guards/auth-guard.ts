@@ -15,7 +15,7 @@ export const authGuard: CanActivateChildFn = (
 
 	// 1. Ausnahmen für öffentlich zugängliche Seiten (Impressum, Datenschutz)
 	const path = childRoute.routeConfig?.path;
-	if (path === "legal-notice" || path === "privacy-policy") {
+	if (path === "legal-notice" || path === "privacy-policy" || path === "help") {
 		return true;
 	}
 
