@@ -11,6 +11,7 @@ button {
 	width: 100%;
 	padding: 2rem;
 	padding-bottom: revert;
+	overflow-y: auto;
 
 	@include mixins.desktop {
 		padding: 4rem;
@@ -37,7 +38,6 @@ button {
 	display: flex;
 	flex-direction: column;
 	row-gap: 1.5rem;
-	overflow-y: auto;
 
 	@include mixins.desktop {
 		row-gap: 2.5rem;
