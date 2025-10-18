@@ -16,6 +16,26 @@
 	justify-content: center;
 	text-align: center;
 	animation: fadeInGreeting 0.3s ease forwards;
+	padding: 0 1rem;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.greeting-text {
+	font-size: var(--fs-greeting);
+	font-weight: var(--fw-regular);
+	margin: 0;
+	word-wrap: break-word;
+}
+
+.user-name {
+	font-size: var(--fs-h1);
+	color: var(--bg-color-blue-lighter);
+	margin: 5px 0 0;
+	font-weight: var(--fw-bold);
+	word-break: break-word;
+	text-align: center;
+	max-width: 100%;
 }
 
 @keyframes fadeInGreeting {
@@ -27,17 +47,4 @@
 		opacity: 1;
 		transform: translateY(0);
 	}
-}
-
-.greeting-text {
-	font-size: var(--fs-greeting);
-	font-weight: var(--fw-regular);
-	margin: 0;
-}
-
-.user-name {
-	font-size: var(--fs-h1);
-	color: var(--bg-color-blue-lighter);
-	margin: 5px 0 0;
-	font-weight: var(--fw-bold);
 }
