@@ -4,15 +4,14 @@
 
 <div class="login">
 	<div class="logo">
-		<img src="/images/join_logo/join_logo_dark.svg" alt="" />
+		<img src="images/join_logo/join_logo_dark.svg" alt="" />
 
-    <div class="register-desktop">
+		<div class="register-desktop">
 			<span>Not a Join user?</span>
 			<button>
 				<a routerLink="/signup">Sign up</a>
 			</button>
 		</div>
-
 	</div>
 
 	<div class="content">
@@ -64,7 +63,12 @@
 				</div>
 
 				<div class="login-buttons">
-					<button type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading" [ngClass]="{ 'active-button': loginForm.valid && !isLoading }">
+					<button
+						type="submit"
+						class="login-button"
+						[disabled]="loginForm.invalid || isLoading"
+						[ngClass]="{ 'active-button': loginForm.valid && !isLoading }"
+					>
 						{{ isLoading ? "Loading..." : "Login" }}
 					</button>
 
