@@ -13,6 +13,7 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 	updateProfile,
+	User,
 	UserCredential,
 } from "@angular/fire/auth";
 
@@ -35,6 +36,7 @@ export class AuthService implements OnDestroy {
 	currentUser = signal<AppUser | null>(null);
 
 	readonly isLoggedIn$: Observable<boolean> = this.firebaseUser$.pipe(map((user) => !!user));
+	readonly userLoggedIn$: Observable<User | null> = this.firebaseUser$.pipe(map((user) => user));
 
 	constructor() {
 		this.firebaseUser$.subscribe((firebaseUser) => {
@@ -110,10 +112,7 @@ export class AuthService implements OnDestroy {
 					);
 				} else {
 					// Generische Fehlermeldung für andere, unerwartete Fehler (z.B. Netzwerk)
-					this.toastService.showError(
-						"An unexpected error occurred.",
-						"Please try again later.",
-					);
+					this.toastService.showError("An unexpected error occurred.", "Please try again later.");
 				}
 
 				throw error;

@@ -1,5 +1,5 @@
-import { Component, effect, inject, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Component, inject, signal } from "@angular/core";
 import { AuthService } from "@core/services/auth-service";
 
 @Component({
@@ -15,8 +15,9 @@ export class Greeting {
 	hour = new Date().getHours();
 	greeting = this.hour < 12 ? "Good morning" : this.hour < 18 ? "Good afternoon" : "Good evening";
 
-	private _ = effect(() => {
-		const user = this.authService.currentUser();
-		this.userName.set(user?.displayName || "Guest");
-	});
+	constructor() {
+		this.authService.userLoggedIn$.subscribe((user) => {
+			this.userName.set(user?.displayName || "Guest");
+		});
+	}
 }
