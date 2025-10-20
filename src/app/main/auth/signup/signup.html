@@ -1,7 +1,6 @@
 <div class="register">
 	<div class="logo">
-		<!-- Inline Text/Styling for Logo (replaces external SVG) -->
-		<span class="text-3xl font-bold text-[#2A3647]">J O I N</span>
+		<img src="/images/join_logo/join_logo_dark.svg" alt="" />
 	</div>
 
 	<div class="content">
@@ -39,19 +38,11 @@
 						[class.hide-icon]="(signupForm.get('name')?.value ?? '').length > 2"
 					>
 						<!-- Inline SVG for Person Icon (replaces /images/sign_up_section/person_icon.svg) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="input-icon lucide lucide-user"
-						>
-							<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-							<circle cx="12" cy="7" r="4" />
-						</svg>
+						<img
+							src="images/sign_up_section/person_icon.svg"
+							alt="Person Icon"
+							class="input-icon"
+						/>
 						<!-- Bindung zu Reactive Form Control: name -->
 						<input type="text" placeholder="Name" formControlName="name" />
 						@if (
@@ -67,19 +58,7 @@
 						[class.hide-icon]="(signupForm.get('email')?.value ?? '').length > 4"
 					>
 						<!-- Inline SVG for Mail Icon (replaces /images/login_section/mail_icon.svg) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="input-icon lucide lucide-mail"
-						>
-							<rect width="20" height="16" x="2" y="4" rx="2" />
-							<path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7" />
-						</svg>
+						<img src="images/sign_up_section/mail_icon.svg" alt="Email Icon" class="input-icon" />
 
 						<input type="text" placeholder="Email" formControlName="email" />
 
@@ -102,19 +81,7 @@
 						[class.hide-icon]="(signupForm.get('password')?.value ?? '').length > 8"
 					>
 						<!-- Inline SVG for Lock Icon (replaces /images/login_section/lock.svg) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="input-icon lucide lucide-lock"
-						>
-							<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-							<path d="M7 11V7a5 5 0 0 1 10 0v4" />
-						</svg>
+						<img src="images/sign_up_section/lock.svg" alt="Lock Icon" class="input-icon" />
 
 						<input type="password" placeholder="Password" formControlName="password" />
 
@@ -131,19 +98,7 @@
 						[class.hide-icon]="(signupForm.get('confirmPassword')?.value ?? '').length > 8"
 					>
 						<!-- Inline SVG for Lock Icon (replaces /images/login_section/lock.svg) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="input-icon lucide lucide-lock"
-						>
-							<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-							<path d="M7 11V7a5 5 0 0 1 10 0v4" />
-						</svg>
+						<img src="images/sign_up_section/lock.svg" alt="Lock Icon" class="input-icon" />
 
 						<input
 							type="password"

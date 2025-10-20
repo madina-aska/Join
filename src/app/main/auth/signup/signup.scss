@@ -155,8 +155,7 @@ body {
 			.input-icon {
 				position: absolute;
 				right: 12px;
-				height: 18px;
-				width: 18px;
+				height: 25px;
 				pointer-events: none;
 				opacity: 1;
 				transition: opacity 0.3s ease;
@@ -255,7 +254,7 @@ body {
 	}
 
 	.register-window {
-		width: 70vw;;
+		width: 70vw;
 		max-width: 800px;
 		margin-bottom: 64px;
 
