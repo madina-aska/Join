@@ -4,9 +4,14 @@ main {
 	height: 100%;
 	padding-top: var(--header-height);
 	padding-bottom: 59px;
+	width: 100%;
 
 	@include mixins.desktop {
 		padding-left: var(--footer-width-desktop);
 		padding-bottom: revert;
+		max-width: 1600px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }

@@ -21,7 +21,7 @@
 :host {
 	grid-column: 1;
 	grid-row: 1;
-	box-shadow: 4px 4px 4px #0000001a inset;
+	box-shadow: 0 -4px 4px #0000001a inset;
 	background-color: var(--bg-color-gray);
 
 	@include mixins.desktop {

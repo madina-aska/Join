@@ -16,7 +16,6 @@ header {
 	z-index: 100;
 
 	@include mixins.desktop {
-		box-shadow: revert;
 		padding-left: var(--padding-left-desktop);
 	}
 }
