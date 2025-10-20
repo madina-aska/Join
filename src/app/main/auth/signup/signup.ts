@@ -70,8 +70,7 @@ export class Signup {
 
     if (this.signupForm.invalid) {
       this.toastService.showError(
-        "Validierungsfehler",
-        "Bitte überprüfen Sie alle Eingabefelder und akzeptieren Sie die Datenschutzrichtlinie.",
+        "Validation Error", "Please check all input fields and accept the privacy policy.",
       );
       return;
     }
@@ -92,18 +91,18 @@ export class Signup {
           const code = error.code;
           if (code === "auth/email-already-in-use") {
             this.errorMessage =
-              "Diese E-Mail-Adresse wird bereits verwendet. Bitte logge dich ein.";
+              "This email address is already in use. Please log in.";
           } else {
             // Zeige den allgemeinen Fehler an
-            this.errorMessage = "Registrierung fehlgeschlagen. Bitte versuche es erneut.";
-            console.error("Registrierungsfehler:", error);
+            this.errorMessage = "Registration failed. Please try again.";
+            console.error("Registration error:", error);
           }
-          this.toastService.showError("Registrierungsfehler", this.errorMessage);
+          this.toastService.showError("Registration error", this.errorMessage);
         },
         complete: () => {
           this.isLoading = false;
-          this.toastService.showSuccess("Erfolg", "Registrierung erfolgreich. Du wirst weitergeleitet.");
-          // this.router.navigate(['/dashboard']);
+          this.toastService.showSuccess("Success", "Registration successful. You will be redirected.");
+          this.router.navigate(['/']);
         },
       });
     }

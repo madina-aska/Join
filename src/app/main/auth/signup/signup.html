@@ -58,7 +58,7 @@
 							signupForm.get("name")?.invalid &&
 							(signupForm.get("name")?.dirty || signupForm.get("name")?.touched)
 						) {
-							<div class="error-message">Name ist erforderlich (min. 3 Zeichen).</div>
+							<div class="error-message">Name is required (min. 3 characters).</div>
 						}
 					</div>
 
@@ -87,13 +87,13 @@
 							signupForm.get("email")?.hasError("required") &&
 							(signupForm.get("email")?.dirty || signupForm.get("email")?.touched)
 						) {
-							<div class="error-message">E-Mail ist erforderlich.</div>
+							<div class="error-message">Email is required.</div>
 						}
 						@if (
 							signupForm.get("email")?.hasError("email") &&
 							(signupForm.get("email")?.dirty || signupForm.get("email")?.touched)
 						) {
-							<div class="error-message">Bitte geben Sie eine gültige E-Mail-Adresse ein.</div>
+							<div class="error-message">Please enter a valid email address.</div>
 						}
 					</div>
 
@@ -122,7 +122,7 @@
 							signupForm.get("password")?.hasError("minlength") &&
 							(signupForm.get("password")?.dirty || signupForm.get("password")?.touched)
 						) {
-							<div class="error-message">Das Passwort muss mind. 8 Zeichen lang sein.</div>
+							<div class="error-message">The password must be at least 8 characters long.</div>
 						}
 					</div>
 
@@ -156,7 +156,7 @@
 							(signupForm.get("confirmPassword")?.dirty ||
 								signupForm.get("confirmPassword")?.touched)
 						) {
-							<div class="error-message">Passwörter stimmen nicht überein.</div>
+							<div class="error-message">Passwords do not match</div>
 						}
 					</div>
 				</div>
@@ -171,7 +171,7 @@
 						(signupForm.get("acceptedPolicy")?.dirty || signupForm.get("acceptedPolicy")?.touched)
 					) {
 						<div class="error-message text-center" style="margin-top: 8px">
-							Sie müssen die Datenschutzrichtlinie akzeptieren.
+							You must accept the privacy policy.
 						</div>
 					}
 

@@ -15,6 +15,15 @@ body {
 	align-items: center;
 }
 
+.error-message {
+	position: absolute;
+	top: 100%;
+	font-size: 14px;
+	color: red;
+	margin-top: 4px;
+	display: block;
+}
+
 .join-logo {
 	position: absolute;
 	top: 50%;

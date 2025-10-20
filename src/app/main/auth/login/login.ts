@@ -41,8 +41,7 @@ export class Login {
 		if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
 			this.toastService.showError(
-				"Fehler",
-				"Bitte geben Sie eine gültige E-Mail und ein Passwort (min. 6 Zeichen) ein.",
+				"Error", "Please enter a valid email and a password (min. 6 characters).",
 			);
 			return;
 		}
@@ -61,10 +60,10 @@ export class Login {
 						code === "auth/user-not-found" ||
 						code === "auth/wrong-password"
 					) {
-						this.errorMessage = "Ungültige Anmeldedaten. Bitte prüfen Sie E-Mail und Passwort.";
+						this.errorMessage = "Invalid login details. Please check email and password.";
 					} else {
 						this.errorMessage =
-							"Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+							"An unexpected error occurred. Please try again later.";
 					}
 					this.toastService.showError("Login-Fehler", this.errorMessage);
 				},
@@ -85,8 +84,8 @@ export class Login {
 		this.authService.signInAsGuest().subscribe({
 			error: (error) => {
 				this.isLoading = false;
-				this.errorMessage = "Fehler beim Gast-Login.";
-				this.toastService.showError("Gast-Login-Fehler", "Der anonyme Login ist fehlgeschlagen.");
+				this.errorMessage = "Error with guest login.";
+				this.toastService.showError("Guest Login Error", "The anonymous login failed.");
 			},
 			complete: () => {
 				this.isLoading = false;
