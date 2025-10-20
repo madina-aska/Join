@@ -10,5 +10,5 @@ import { Contact } from "@core/interfaces/contact";
 })
 export class ProfilePicture {
 	contact = input.required<Contact>();
-	size = input<"big" | "medium" | "small">("medium");
+	size = input<"big" | "medium" | "header" | "small">("medium");
 }

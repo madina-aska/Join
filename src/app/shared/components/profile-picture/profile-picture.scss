@@ -16,6 +16,10 @@
 		font-size: var(--fs-h3);
 	}
 
+	&.header {
+		font-size: var(--fs-big);
+	}
+
 	&.small {
 		font-size: 12px;
 		border-width: 1px;
