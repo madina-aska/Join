@@ -84,13 +84,7 @@ export class AuthService implements OnDestroy {
 			},
 		);
 
-		return from(promise).pipe(
-			tap(() => {
-				this.toastService.showSuccess("Registration successful", "Welcome aboard!");
-				this.router.navigate(["/login"]);
-			}),
-			map(() => undefined as void),
-		);
+		return from(promise);
 	}
 
 	signIn(email: string, password: string): Observable<void> {
