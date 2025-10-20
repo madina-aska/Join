@@ -1,6 +1,8 @@
-import { Component, inject, input, OnChanges, signal } from "@angular/core";
+import { Component, inject, input, OnChanges, OnDestroy, signal } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { Contact } from "@core/interfaces/contact";
 import { ContactService } from "@core/services/contact-service";
 import { EditContact } from "@main/contacts/edit-contact/edit-contact";
 import { Button } from "@shared/components/button/button";
@@ -45,7 +47,7 @@ import { ToastService } from "@shared/services/toast.service";
 	styleUrls: ["./contact-view.scss"],
 	standalone: true,
 })
-export class ContactView implements OnChanges {
+export class ContactView implements OnChanges, OnDestroy {
 	/** Injected Firestore service for database operations */
 	firestore = inject(Firestore);
 
@@ -60,6 +62,9 @@ export class ContactView implements OnChanges {
 	/** Input signal containing the contact ID to display */
 	id = input<string>("");
 
+	/** Signal containing the current contact being viewed */
+	contactForView = signal<Contact | undefined>(undefined);
+
 	/** Signal controlling the visibility of the edit contact overlay */
 	isEditOverlayOpen = signal(false);
 
@@ -72,6 +77,9 @@ export class ContactView implements OnChanges {
 	/** Timeout handle for auto-reset of delete confirmation after 5 seconds */
 	private deleteConfirmationTimeout?: number;
 
+	/** Subscription to the contact Observable for cleanup */
+	private contactSubscription?: Subscription;
+
 	/**
 	 * Angular lifecycle hook that responds to changes in input properties.
 	 * Loads contact data when ID changes or clears data when ID is removed.
@@ -83,11 +91,25 @@ export class ContactView implements OnChanges {
 	 * ```
 	 */
 	ngOnChanges() {
+		// Clean up previous subscription
+		this.contactSubscription?.unsubscribe();
+
 		if (this.id()) {
-			this.contactService.getDocumentById(this.id());
+			// Subscribe to contact Observable and update signal
+			this.contactSubscription = this.contactService.getContactById(this.id()).subscribe((contact) => {
+				this.contactForView.set(contact);
+			});
 		} else {
-			this.contactService.contactForView = undefined;
+			this.contactForView.set(undefined);
 		}
+	}
+
+	/**
+	 * Angular lifecycle hook for cleanup when component is destroyed.
+	 * Unsubscribes from contact Observable to prevent memory leaks.
+	 */
+	ngOnDestroy() {
+		this.contactSubscription?.unsubscribe();
 	}
 
 	/**

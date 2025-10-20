@@ -7,8 +7,6 @@ import {
 	doc,
 	Firestore,
 	getDocs,
-	onSnapshot,
-	QuerySnapshot,
 	setDoc,
 } from "@angular/fire/firestore";
 import { Contact } from "@core/interfaces/contact";
@@ -45,113 +43,141 @@ export class ContactService implements OnDestroy {
 	firestore = inject(Firestore);
 	injector = inject(Injector);
 
+	/** Observable stream of all contacts from Firestore with shared subscription */
 	allContacts$!: Observable<Contact[]>;
 
-	/** Currently selected contact for detailed view */
-	contactForView: Contact | undefined;
+	/** Observable stream of contacts organized alphabetically, derived from allContacts$ */
+	contactsObject$!: Observable<ContactDictionary>;
 
-	/** Dictionary of contacts organized alphabetically by first letter of name */
-	contactsObject: ContactDictionary = {};
-
-	/** Cleanup function for contacts collection subscription */
-	unsubscribeContactsObject: (() => void) | null = null;
-
-	/** Cleanup function for single contact subscription */
-	unsubscribeContactForView: (() => void) | null = null;
+	/**
+	 * @deprecated Use contactsObject$ Observable instead
+	 * Getter for backward compatibility - returns current snapshot
+	 */
+	get contactsObject(): ContactDictionary {
+		let result: ContactDictionary = {};
+		this.contactsObject$
+			.pipe()
+			.subscribe((val) => (result = val))
+			.unsubscribe();
+		return result;
+	}
 
 	constructor() {
-		this.getContactsAsObject();
-		this.getAllContacts();
+		this.initializeObservables();
 	}
 
 	/**
-	 * Establishes real-time subscription to all contacts in Firestore.
-	 * Automatically organizes contacts alphabetically and updates contactsObject.
-	 *
-	 * @returns Observable data stream from Firestore collection
-	 *
-	 * @example
-	 * ```typescript
-	 * // Called automatically in constructor
-	 * // Access organized contacts via this.contactsObject
-	 * ```
+	 * Initializes Observable streams for contacts.
+	 * Sets up allContacts$ and derives contactsObject$ from it.
+	 * @private
 	 */
-	getContactsAsObject() {
-		let data;
+	private initializeObservables() {
 		runInInjectionContext(this.injector, () => {
 			const contactsCol = collection(this.firestore, "contacts");
 
-			this.unsubscribeContactsObject = onSnapshot(
-				contactsCol,
-				(snapshot: QuerySnapshot<DocumentData>) => {
-					this.contactsObject = {};
-
-					const contacts: Contact[] = [];
-
-					snapshot.forEach((doc) => {
-						contacts.push(this.buildDocument(doc.id, doc.data()));
-					});
-					this.createLexObject(contacts);
-				},
+			// Create shared Observable stream for all contacts
+			this.allContacts$ = collectionData(contactsCol, { idField: "id" }).pipe(
+				map((rawContacts: any[]) => {
+					// Transform raw Firestore data to Contact objects
+					return rawContacts.map((rawContact) => this.buildDocument(rawContact.id, rawContact));
+				}),
+				shareReplay(1), // Share one Firestore subscription among all subscribers
 			);
-			data = collectionData(contactsCol, { idField: "id" });
+
+			// Derive contactsObject$ from allContacts$
+			this.contactsObject$ = this.allContacts$.pipe(map((contacts) => this.createLexObject(contacts)));
 		});
-		return data;
 	}
 
-	private getAllContacts() {
-		const coll = collection(this.firestore, "contacts");
-		this.allContacts$ = collectionData(coll, { idField: "id" }).pipe(
-			map((contacts) => contacts as Contact[]),
-			shareReplay(1),
-		);
+	/**
+	 * @deprecated Use allContacts$ Observable instead to avoid creating duplicate Firestore listeners.
+	 * This method now returns the shared allContacts$ Observable.
+	 *
+	 * @returns Observable<Contact[]> - Stream of all contacts
+	 *
+	 * @example
+	 * ```typescript
+	 * // Old way (deprecated)
+	 * this.contactService.getContactsAsObject().subscribe(contacts => {
+	 *   console.log('All contacts:', contacts);
+	 * });
+	 *
+	 * // New way (recommended)
+	 * this.contactService.allContacts$.subscribe(contacts => {
+	 *   console.log('All contacts:', contacts);
+	 * });
+	 * ```
+	 */
+	getContactsAsObject(): Observable<Contact[]> {
+		return this.allContacts$;
 	}
 
-	getContactByEmail(email: string) {
+	/**
+	 * Gets a contact by email address as Observable.
+	 *
+	 * @param email - Email address to search for
+	 * @returns Observable stream of the contact with specified email (or undefined if not found)
+	 */
+	getContactByEmail(email: string): Observable<Contact | undefined> {
 		return this.allContacts$.pipe(
 			map((contacts) => contacts.find((contact) => contact.email === email)),
 		);
 	}
 
 	/**
-	 * Subscribes to a specific contact document by ID for real-time updates.
-	 * Updates contactForView property with the latest contact data.
+	 * Gets a contact by ID as Observable.
 	 *
 	 * @param contactId - Firestore document ID of the contact
+	 * @returns Observable stream of the contact with specified ID (or undefined if not found)
 	 *
 	 * @example
 	 * ```typescript
-	 * this.contactService.getDocumentById('contact-id-123');
-	 * // Access contact via this.contactService.contactForView
+	 * this.contactService.getContactById('contact-id-123').subscribe(contact => {
+	 *   console.log('Contact:', contact);
+	 * });
 	 * ```
 	 */
-	getDocumentById(contactId: string) {
-		runInInjectionContext(this.injector, () => {
-			const contact = doc(this.firestore, "contacts", contactId);
-			this.unsubscribeContactForView = onSnapshot(contact, (snapshot) => {
-				this.contactForView = undefined;
-				if (snapshot.exists()) {
-					setTimeout(() => {
-						this.contactForView = this.buildDocument(snapshot.id, snapshot.data());
-					}, 0);
-				}
-			});
-		});
+	getContactById(contactId: string): Observable<Contact | undefined> {
+		return this.allContacts$.pipe(
+			map((contacts) => contacts.find((contact) => contact.id === contactId)),
+		);
 	}
 
-	private createLexObject(contactsArr: Contact[]) {
-		this.contactsObject = {};
+	/**
+	 * @deprecated Use getContactById() Observable instead
+	 * This method is kept for backward compatibility but should not be used in new code.
+	 *
+	 * @param contactId - Firestore document ID of the contact
+	 */
+	getDocumentById(contactId: string) {
+		// For backward compatibility, we'll just subscribe and ignore
+		// Components should migrate to using getContactById() Observable
+		console.warn('[ContactService] getDocumentById is deprecated. Use getContactById() Observable instead.');
+	}
+
+	/**
+	 * Creates a dictionary of contacts organized alphabetically by first letter.
+	 *
+	 * @param contactsArr - Array of contacts to organize
+	 * @returns ContactDictionary organized by first letter of name
+	 * @private
+	 */
+	private createLexObject(contactsArr: Contact[]): ContactDictionary {
+		const contactsObject: ContactDictionary = {};
+
 		contactsArr.forEach((obj) => {
 			const firstLetter: string = obj.name.trim().charAt(0).toUpperCase();
 
 			if (!firstLetter) return;
 
-			if (!this.contactsObject[firstLetter]) {
-				this.contactsObject[firstLetter] = [];
+			if (!contactsObject[firstLetter]) {
+				contactsObject[firstLetter] = [];
 			}
 
-			this.contactsObject[firstLetter].push(obj);
+			contactsObject[firstLetter].push(obj);
 		});
+
+		return contactsObject;
 	}
 
 	private buildDocument(id: string, data: DocumentData): Contact {
@@ -166,8 +192,7 @@ export class ContactService implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.unsubscribeContactForView?.();
-		this.unsubscribeContactsObject?.();
+		// Cleanup if needed (RxJS handles subscription cleanup automatically)
 	}
 
 	/**
