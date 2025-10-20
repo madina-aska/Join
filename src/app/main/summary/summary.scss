@@ -29,6 +29,7 @@
 	animation: fadeOutGreeting 3s forwards;
 	padding: 12px;
 	box-sizing: border-box;
+	background-color: var(--bg-color-gray);
 }
 
 @include mixins.desktop {
@@ -44,6 +45,7 @@
 		width: 40%;
 		height: auto;
 		animation: none;
+		background-color: revert;
 	}
 
 	app-dashboard {
