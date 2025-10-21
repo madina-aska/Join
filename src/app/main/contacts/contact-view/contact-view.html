@@ -17,7 +17,6 @@
 			<div class="contact-info">
 				<h2 class="contact-name">{{ contact.name }}</h2>
 
-				<!-- Desktop Edit/Delete Buttons (Desktop Only) -->
 				<div class="desktop-action-buttons">
 					<app-button
 						variant="edit"
@@ -36,7 +35,6 @@
 				</div>
 			</div>
 
-			<!-- Contact Menu Button (Mobile Only) -->
 			<app-contact-menu
 				class="mobile-only"
 				[contactId]="contact.id"
@@ -57,14 +55,12 @@
 			</p>
 		</div>
 	</div>
-  }
-	<!--Overlay edit -->
-	@if (isEditOverlayOpen()) {
-		<app-edit-contact
-			[contactId]="onEditContactId()"
-			(closed)="onCloseEditOverlay()"
-			(saved)="onEditContactSaved()"
-		>
-		</app-edit-contact>
-
+}
+@if (isEditOverlayOpen()) {
+	<app-edit-contact
+		[contactId]="onEditContactId()"
+		(closed)="onCloseEditOverlay()"
+		(saved)="onEditContactSaved()"
+	>
+	</app-edit-contact>
 }

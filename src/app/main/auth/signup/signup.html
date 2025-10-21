@@ -7,7 +7,6 @@
 		<div class="register-window">
 			<div class="header">
 				<a class="back-arrow" routerLink="/login">
-					<!-- Inline SVG for Back Arrow (replaces /images/assets/arrow_left_line.svg) -->
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -30,20 +29,17 @@
 				</div>
 			</div>
 
-			<!-- FORMULAR-BINDUNG MIT REACTIVE FORMS -->
 			<form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
 				<div class="inputs">
 					<div
 						class="input-wrapper"
 						[class.hide-icon]="(signupForm.get('name')?.value ?? '').length > 2"
 					>
-						<!-- Inline SVG for Person Icon (replaces /images/sign_up_section/person_icon.svg) -->
 						<img
 							src="images/sign_up_section/person_icon.svg"
 							alt="Person Icon"
 							class="input-icon"
 						/>
-						<!-- Bindung zu Reactive Form Control: name -->
 						<input type="text" placeholder="Name" formControlName="name" />
 						@if (
 							signupForm.get("name")?.invalid &&
@@ -57,7 +53,6 @@
 						class="input-wrapper"
 						[class.hide-icon]="(signupForm.get('email')?.value ?? '').length > 4"
 					>
-						<!-- Inline SVG for Mail Icon (replaces /images/login_section/mail_icon.svg) -->
 						<img src="images/sign_up_section/mail_icon.svg" alt="Email Icon" class="input-icon" />
 
 						<input type="text" placeholder="Email" formControlName="email" />
@@ -80,7 +75,6 @@
 						class="input-wrapper"
 						[class.hide-icon]="(signupForm.get('password')?.value ?? '').length > 8"
 					>
-						<!-- Inline SVG for Lock Icon (replaces /images/login_section/lock.svg) -->
 						<img src="images/sign_up_section/lock.svg" alt="Lock Icon" class="input-icon" />
 
 						<input type="password" placeholder="Password" formControlName="password" />
@@ -97,7 +91,6 @@
 						class="input-wrapper"
 						[class.hide-icon]="(signupForm.get('confirmPassword')?.value ?? '').length > 8"
 					>
-						<!-- Inline SVG for Lock Icon (replaces /images/login_section/lock.svg) -->
 						<img src="images/sign_up_section/lock.svg" alt="Lock Icon" class="input-icon" />
 
 						<input
@@ -136,7 +129,6 @@
 						[disabled]="signupForm.invalid || isLoading"
 						[class.inactive-text]="signupForm.invalid"
 					>
-						<!-- Ladezustand anzeigen -->
 						{{ isLoading ? "Registriere..." : "Sign up" }}
 					</button>
 

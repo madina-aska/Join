@@ -15,7 +15,6 @@
 	</header>
 
 	<main class="board-columns">
-		<!-- TO DO COLUMN -->
 		<div
 			class="column-status"
 			cdkDropList
@@ -50,7 +49,6 @@
 			</div>
 		</div>
 
-		<!-- IN PROGRESS COLUMN -->
 		<div
 			class="column-status"
 			cdkDropList
@@ -85,7 +83,6 @@
 			</div>
 		</div>
 
-		<!-- AWAITING FEEDBACK COLUMN -->
 		<div
 			class="column-status"
 			cdkDropList
@@ -120,7 +117,6 @@
 			</div>
 		</div>
 
-		<!-- DONE COLUMN -->
 		<div
 			class="column-status"
 			cdkDropList
@@ -152,7 +148,6 @@
 		</div>
 	</main>
 
-	<!-- Zeigt die TaskView nur an, wenn selectedTaskId einen Wert hat -->
 	@if (selectedTaskId()) {
 		<div class="overlay-wrapper">
 			<div class="overlay-backdrop" (click)="closeTaskDetail()"></div>
