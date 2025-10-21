@@ -51,9 +51,8 @@ export class PopoverDirective implements OnInit, OnDestroy {
 
 	/**
 	 * Closes the pop-over: sets its hidden state and styles accordingly.
-	 * @private
 	 */
-	private close() {
+	close() {
 		this.isOpen = false;
 		this.el.nativeElement.style.opacity = "0";
 		this.el.nativeElement.style.visibility = "hidden";
