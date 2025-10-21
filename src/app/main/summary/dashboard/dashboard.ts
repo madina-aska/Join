@@ -11,12 +11,52 @@ import { TaskService } from "@core/services/task-service";
 	styleUrl: "./dashboard.scss",
 })
 export class Dashboard {
+	/**
+	 * Indicates whether the "To-do" section is currently hovered.
+	 * Used for hover effects in the template.
+	 * @type {boolean}
+	 */
 	isTodoHovered = false;
+
+	/**
+	 * Indicates whether the "Done" section is currently hovered.
+	 * Used for hover effects in the template.
+	 * @type {boolean}
+	 */
 	isDoneHovered = false;
 
+	/**
+	 * Provides task-related data and helper methods.
+	 * Injected via Angular's dependency injection.
+	 * @type {TaskService}
+	 */
 	taskService = inject(TaskService);
+
+	/**
+	 * Angular Router instance for navigating between views.
+	 * @type {Router}
+	 */
 	router = inject(Router);
 
+	/**
+	 * An observable that emits the current task counts and summary statistics.
+	 * Combines multiple task streams and maps them into a single object containing:
+	 *  - `todo`: number of tasks to do
+	 *  - `done`: number of completed tasks
+	 *  - `inProgress`: number of tasks in progress
+	 *  - `awaitingFeedback`: number of tasks awaiting feedback
+	 *  - `inBoard`: total number of tasks
+	 *  - `urgent`: number of urgent tasks
+	 *
+	 * @type {import('rxjs').Observable<{
+	 *   todo: number,
+	 *   done: number,
+	 *   urgent: number,
+	 *   inBoard: number,
+	 *   inProgress: number,
+	 *   awaitingFeedback: number
+	 * }>}
+	 */
 	counts$ = combineLatest([
 		this.taskService.tasksObject$,
 		this.taskService.allTasks$,
@@ -35,6 +75,12 @@ export class Dashboard {
 		}),
 	);
 
+	/**
+	 * An observable that emits the date of the next upcoming task deadline,
+	 * excluding tasks marked as "done". Returns `null` if there are no upcoming tasks.
+	 *
+	 * @type {import('rxjs').Observable<string | null>}
+	 */
 	nextDeadline$ = this.taskService.allTasks$.pipe(
 		map((tasks) => {
 			const upcoming = tasks
