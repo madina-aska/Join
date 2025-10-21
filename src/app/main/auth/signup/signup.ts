@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import {
-	AbstractControl,
-	FormControl,
-	FormGroup,
-	ReactiveFormsModule,
-	ValidatorFn,
-	Validators,
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators,
 } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@core/services/auth-service";
@@ -19,13 +19,26 @@ import { ToastService } from "@shared/services/toast.service";
 	styleUrl: "./signup.scss",
 })
 export class Signup {
+	/** Injected authentication service */
 	private authService = inject(AuthService);
+
+	/** Injected router for navigation */
 	private router = inject(Router);
+
+	/** Injected toast service for notifications */
 	private toastService = inject(ToastService);
 
+	/** Error message displayed on signup failure */
 	errorMessage: string | null = null;
+
+	/** Indicates whether a signup request is in progress */
 	isLoading: boolean = false;
 
+	/**
+	 * Validator to check if password and confirmPassword fields match.
+	 * @param group - The form group containing password fields.
+	 * @returns Validation error object or null.
+	 */
 	passwordMatchValidator: ValidatorFn = (group: AbstractControl): { [key: string]: any } | null => {
 		const password = group.get("password")?.value;
 		const confirmPassword = group.get("confirmPassword")?.value;
@@ -36,6 +49,7 @@ export class Signup {
 		return password === confirmPassword ? null : { passwordMismatch: true };
 	};
 
+	/** Reactive signup form with validation rules */
 	signupForm = new FormGroup(
 		{
 			name: new FormControl("", [Validators.required, Validators.minLength(3)]),
@@ -48,7 +62,8 @@ export class Signup {
 	);
 
 	/**
-	 * Registriert den Benutzer mithilfe des AuthService.
+	 * Handles the signup process using the AuthService.
+	 * Validates the form and triggers registration.
 	 */
 	onSignUp(): void {
 		this.errorMessage = null;
@@ -63,10 +78,17 @@ export class Signup {
 		this.executeSignUp(email as string, password as string, name as string);
 	}
 
+	/**
+	 * Checks if the signup form is invalid.
+	 * @returns True if invalid, false otherwise.
+	 */
 	private isFormInvalid(): boolean {
 		return this.signupForm.invalid;
 	}
 
+	/**
+	 * Displays a toast message for form validation errors.
+	 */
 	private showValidationError(): void {
 		this.toastService.showError(
 			"Validation Error",
@@ -74,6 +96,12 @@ export class Signup {
 		);
 	}
 
+	/**
+	 * Executes the signup request via AuthService.
+	 * @param email - User's email address.
+	 * @param password - User's password.
+	 * @param name - User's display name.
+	 */
 	private executeSignUp(email: string, password: string, name: string): void {
 		this.isLoading = true;
 		this.authService.signUp(email, password, name).subscribe({
@@ -82,6 +110,10 @@ export class Signup {
 		});
 	}
 
+	/**
+	 * Handles signup errors and displays appropriate messages.
+	 * @param error - Error object returned from AuthService.
+	 */
 	private handleSignUpError(error: any): void {
 		this.isLoading = false;
 		const code = error.code;
@@ -94,6 +126,9 @@ export class Signup {
 		this.toastService.showError("Registration error", this.errorMessage);
 	}
 
+	/**
+	 * Handles successful signup and redirects the user.
+	 */
 	private handleSignUpSuccess(): void {
 		this.isLoading = false;
 		this.toastService.showSuccess("Success", "Registration successful. You will be redirected.");
