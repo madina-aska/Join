@@ -10,32 +10,40 @@ import {
 } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
-
-//  Imports für Angular CDK Drag and Drop
 import { CdkDragDrop, DragDropModule, transferArrayItem } from "@angular/cdk/drag-drop";
 
-// Komponenten-Imports
 import { Button } from "@shared/components/button/button";
 import { SearchField } from "@shared/components/search-field/search-field";
 import { SvgButton } from "@shared/components/svg-button/svg-button";
 import { ToastService } from "@shared/services/toast.service";
 
-// Angenommener Import für Task-Datenstruktur und Service
 import { Task } from "@core/interfaces/task";
 import { TaskService } from "@core/services/task-service";
 import { BoardCard } from "@main/board/board-card/board-card";
 import { EditTask } from "@main/board/edit-task/edit-task";
 import { TaskView } from "@main/board/task-view/task-view";
 
-// Definiere die Status-Schlüssel
+/**
+ * Type representing the possible task status keys.
+ */
 type TaskStatusKey = "todo" | "in-progress" | "awaiting-feedback" | "done";
 
-// Konstante, die alle Status-IDs enthält
+/**
+ * Array containing all available task status keys.
+ */
 const ALL_STATUS_KEYS: TaskStatusKey[] = ["todo", "in-progress", "awaiting-feedback", "done"];
 
+/**
+ * The main board component that displays all tasks organized in status columns.
+ *
+ * It supports:
+ * - Task drag & drop between status columns
+ * - Searching tasks by title or description
+ * - Viewing and editing tasks in overlay modals
+ * - Reactive updates via Angular signals and Firestore
+ */
 @Component({
 	selector: "app-board-view",
-	// DragDropModule hinzugefügt, muss installiert werden!!!
 	imports: [
 		CommonModule,
 		Button,
@@ -52,103 +60,126 @@ const ALL_STATUS_KEYS: TaskStatusKey[] = ["todo", "in-progress", "awaiting-feedb
 })
 export class BoardView {
 	// --- DEPENDENCIES ---
+
+	/** Indicates whether the app is currently in mobile view mode. */
 	isMobile = false;
+
+	/** Firestore instance for database operations. */
 	firestore = inject(Firestore);
+
+	/** Angular Router for navigation and route changes. */
 	router = inject(Router);
+
+	/** Toast service for displaying user notifications. */
 	toastService = inject(ToastService);
+
+	/** Task service for retrieving, updating, and managing task data. */
 	taskService = inject(TaskService);
 
 	// --- INPUTS & STATE ---
+
+	/** Optional ID input parameter, used to link to specific data if needed. */
 	id = input<string>("");
+
+	/** Controls whether the "Add Task" overlay is open. */
 	isAddTaskOverlayOpen = signal(false);
+
+	/** Currently selected task ID for detail view. */
 	selectedTaskId = signal<string | null>(null);
+
+	/** Task data of the currently selected task. */
 	selectedTaskData = signal<Task | null>(null);
 
+	/**
+	 * Emits an event when the "Add Task" button is clicked.
+	 * The emitted value represents the column category to which the task should belong.
+	 */
 	@Output() addTaskClicked = new EventEmitter<
 		"todo" | "in-progress" | "awaiting-feedback" | "done"
 	>();
 
-	//Liste der Status-IDs für cdkDropListConnectedTo
+	/** List of all drop zone IDs for drag-and-drop configuration. */
 	dropListIds = ALL_STATUS_KEYS;
 
+	/** Signal array containing all "To Do" tasks. */
 	todoTasks = signal<Task[]>([]);
+
+	/** Signal array containing all "In Progress" tasks. */
 	inProgressTasks = signal<Task[]>([]);
+
+	/** Signal array containing all "Awaiting Feedback" tasks. */
 	feedbackTasks = signal<Task[]>([]);
+
+	/** Signal array containing all "Done" tasks. */
 	doneTasks = signal<Task[]>([]);
 
+	/** Flat list of all tasks from all categories. */
 	allTasks: any = [];
 
+	/** Signal containing currently filtered tasks for search functionality. */
 	private filteredTasks = signal<Task[]>([]);
 
+	/**
+	 * Initializes the component, subscribes to the TaskService observable,
+	 * and assigns tasks to their respective columns.
+	 */
 	constructor() {
 		this.onResize();
-		// Filtere und setze die Spalten-Signals unter Verwendung der korrekten Status-Keys
+
 		this.taskService.tasksObject$.subscribe((tasks) => {
 			this.todoTasks.set(tasks["todo"] || []);
 			this.inProgressTasks.set(tasks["in-progress"] || []);
 			this.feedbackTasks.set(tasks["awaiting-feedback"] || []);
 			this.doneTasks.set(tasks["done"] || []);
 			this.allTasks = tasks;
-			//this.filteredTasks.set(tasks);
 		});
-
-		/*console.log("[BoardView Effect] Tasks updated from Service:", {
-			todo: this.todoTasks().length,
-			inProgress: this.inProgressTasks().length,
-			feedback: this.feedbackTasks().length,
-			done: this.doneTasks().length,
-			totalServiceTasks: allTasksFlat.length,
-		});*/
 	}
 
+	/**
+	 * Listens for window resize events and updates the `isMobile` flag accordingly.
+	 */
 	@HostListener("window:resize")
 	onResize() {
 		const mq = window.matchMedia("(width <= 768px)");
 		this.isMobile = mq.matches;
 	}
 
-	// --- NEUE METHODEN FÜR DRAG & DROP ---
+	// --- DRAG & DROP METHODS ---
 
 	/**
-	 * Wird aufgerufen, wenn ein Element in eine Drop-Zone verschoben wird.
-	 * Aktualisiert das lokale Array und die Datenbank.
+	 * Handles the drag-and-drop event when a task card is moved.
+	 * Updates the local state and triggers a Firestore update.
+	 *
+	 * @param event The drag-and-drop event containing source and target containers.
 	 */
 	drop(event: CdkDragDrop<Task[]>) {
-		// Wenn das Element in der GLEICHEN Liste verschoben wurde
 		if (event.previousContainer === event.container) {
-			// Sortierung nach Priority erfolgt im TaskService
+			// Same list reorder (handled automatically by TaskService if needed)
 		} else {
-			// Element wurde in eine ANDERE Liste verschoben (Status ändern)
-			// 1. Lokales Array aktualisieren (wird sofort im UI sichtbar)
 			transferArrayItem(
 				event.previousContainer.data,
 				event.container.data,
 				event.previousIndex,
 				event.currentIndex,
 			);
-			// 2. Hole die verschobene Task (sie befindet sich jetzt im neuen Array)
-			// das Task-Objekt aus den cdkDragData holen, das als 'Task' getypt ist
+
 			const movedTask = event.item.data as Task;
-
-			// 3. Bestimme den NEUEN Status (die ID der Ziel-Drop-Zone)
 			const newStatus = event.container.id as TaskStatusKey;
-
-			// 4. Datenbank-Aktualisierung auslösen
 			this.updateTaskStatus(movedTask.id!, newStatus);
 		}
 	}
 
 	/**
-	 * Aktualisiert den Status einer Task in der Datenbank (Firestore).
-	 * @param taskId Die ID der Task.
-	 * @param newStatus Der neue Status ('todo', 'in-progress', etc.).
+	 * Updates a task's status in Firestore.
+	 * Displays a toast notification on success or failure.
+	 *
+	 * @param taskId The ID of the task being updated.
+	 * @param newStatus The new status for the task.
 	 */
 	updateTaskStatus(taskId: string, newStatus: TaskStatusKey) {
 		this.taskService
 			.updateTask(taskId, { status: newStatus })
 			.then(() => {
-				// Die TaskService-onSnapshot-Funktion wird automatisch alle Tasks neu laden
-				// und die UI dank Angular Signals/Change Detection aktualisieren.
 				this.toastService.showSuccess(
 					"Task status updated",
 					`The task status was changed to "${this.formatStatus(newStatus)}".`,
@@ -163,7 +194,12 @@ export class BoardView {
 			});
 	}
 
-	/** Hilfsfunktion zum Formatieren des Status für die Toast-Nachricht. */
+	/**
+	 * Helper function for formatting a task status for display in notifications.
+	 *
+	 * @param status The internal status key.
+	 * @returns A human-readable status label.
+	 */
 	private formatStatus(status: TaskStatusKey): string {
 		switch (status) {
 			case "todo":
@@ -179,10 +215,12 @@ export class BoardView {
 		}
 	}
 
-	// --- METHODEN FÜR DIE DETAILANSICHT (Overlay Steuerung) ---
+	// --- DETAIL VIEW METHODS ---
 
 	/**
-	 * Öffnet die Task-Detailansicht (TaskView) für die gegebene Task-ID.
+	 * Opens the task detail view (TaskView) for a given task ID.
+	 *
+	 * @param taskId The ID of the task to display.
 	 */
 	openTaskDetail(taskId: string) {
 		this.selectedTaskId.set(taskId);
@@ -191,26 +229,36 @@ export class BoardView {
 	}
 
 	/**
-	 * Schließt die Task-Detailansicht (TaskView).
+	 * Closes the currently open task detail view (TaskView).
 	 */
 	closeTaskDetail() {
 		this.selectedTaskId.set(null);
 	}
 
+	/** Signal indicating whether the "Edit Task" overlay is open. */
 	isEditTaskOpen = signal(false);
 
+	/**
+	 * Opens the edit task overlay.
+	 */
 	openEditTask() {
 		this.isEditTaskOpen.set(true);
 	}
 
+	/**
+	 * Closes the edit task overlay.
+	 */
 	closeEditTask() {
 		this.isEditTaskOpen.set(false);
 	}
 
-	// --- METHODEN FÜR SUCHE ETC. ---
+	// --- SEARCH & FILTER METHODS ---
 
 	/**
-	 * Filtert Tasks basierend auf dem Suchbegriff in Titel oder Beschreibung.
+	 * Filters tasks based on the given search term.
+	 * Matches titles and descriptions case-insensitively.
+	 *
+	 * @param term The search term entered by the user.
 	 */
 	onSearch(term: string) {
 		const allTasksFlat = Object.values(this.allTasks).flat() as Task[];
@@ -221,19 +269,20 @@ export class BoardView {
 		}
 
 		const lowerTerm = term.toLowerCase();
-
-		// Filtere das flache Array
 		const filtered = allTasksFlat.filter(
 			(task: Task) =>
 				task.title.toLowerCase().includes(lowerTerm) ||
 				task.description?.toLowerCase().includes(lowerTerm),
 		);
 
-		this.filterTasks(filtered); // Wende den Filter an und aktualisiere die Spalten
+		this.filterTasks(filtered);
 	}
 
 	/**
-	 * Filtert Tasks in die entsprechenden Spalten-Signals.
+	 * Filters tasks into their respective column signals
+	 * (To Do, In Progress, Awaiting Feedback, Done).
+	 *
+	 * @param tasks The array of tasks to be distributed.
 	 */
 	filterTasks(tasks: Task[]) {
 		this.todoTasks.set(tasks.filter((t) => t.status === "todo"));
@@ -241,25 +290,29 @@ export class BoardView {
 		this.feedbackTasks.set(tasks.filter((t) => t.status === "awaiting-feedback"));
 		this.doneTasks.set(tasks.filter((t) => t.status === "done"));
 	}
+
+	// --- ADD TASK OVERLAY ---
+
 	/**
-   *   openAddTaskOverlay() {
-    this.isAddTaskOverlayOpen.set(true);
-    this.router.navigate(['/main/add-task']);
-  }
-   */
-	/**
-	 * Öffnet das Add-Task Overlay.
+	 * Opens the "Add Task" overlay for a specific category.
+	 *
+	 * @param category The target task category where the new task should be added.
 	 */
 	openAddTaskOverlay(category: "todo" | "in-progress" | "awaiting-feedback" | "done") {
 		this.addTaskClicked.emit(category);
 	}
 
+	/**
+	 * Handles quick status changes from the mobile popover menu.
+	 *
+	 * @param id The ID of the selected task.
+	 * @param term The target task status to change to.
+	 */
 	onPopoverMobileClicked(
 		id: string | undefined,
 		term: "todo" | "in-progress" | "awaiting-feedback" | "done",
 	) {
 		if (!id) return;
-
 		this.updateTaskStatus(id, term);
 	}
 }
