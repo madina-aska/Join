@@ -1,9 +1,9 @@
+import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
-import { FormControl, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "@core/services/auth-service";
 import { ToastService } from "@shared/services/toast.service";
-import { CommonModule } from "@angular/common";
 
 @Component({
 	selector: "app-login",
@@ -12,18 +12,30 @@ import { CommonModule } from "@angular/common";
 	styleUrls: ["./login.scss"],
 })
 export class Login {
+	/** Injected authentication service */
 	private authService = inject(AuthService);
+
+	/** Injected router for navigation */
 	private router = inject(Router);
+
+	/** Injected toast service for notifications */
 	private toastService = inject(ToastService);
 
+	/** Error message displayed on login failure */
 	errorMessage: string | null = null;
+
+	/** Indicates whether a login request is in progress */
 	isLoading: boolean = false;
 
+	/** Reactive login form with email and password fields */
 	loginForm = new FormGroup({
 		email: new FormControl("", [Validators.required, Validators.email]),
 		password: new FormControl("", [Validators.required, Validators.minLength(6)]),
 	});
 
+	/**
+	 * Initializes the component and redirects if the user is already logged in.
+	 */
 	constructor() {
 		this.authService.isLoggedInOnce().subscribe((isLoggedIn) => {
 			if (isLoggedIn) {
@@ -33,15 +45,17 @@ export class Login {
 	}
 
 	/**
-	 * Meldet den Benutzer mit E-Mail und Passwort an.
+	 * Attempts to log in the user using email and password.
+	 * Displays error messages and handles loading state.
 	 */
 	onLogin(): void {
 		this.errorMessage = null;
 
 		if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+			this.loginForm.markAllAsTouched();
 			this.toastService.showError(
-				"Error", "Please enter a valid email and a password (min. 6 characters).",
+				"Error",
+				"Please enter a valid email and a password (min. 6 characters).",
 			);
 			return;
 		}
@@ -62,10 +76,9 @@ export class Login {
 					) {
 						this.errorMessage = "Invalid login details. Please check email and password.";
 					} else {
-						this.errorMessage =
-							"An unexpected error occurred. Please try again later.";
+						this.errorMessage = "An unexpected error occurred. Please try again later.";
 					}
-					this.toastService.showError("Login-Fehler", this.errorMessage);
+					this.toastService.showError("Login Error", this.errorMessage);
 				},
 				complete: () => {
 					this.isLoading = false;
@@ -75,7 +88,8 @@ export class Login {
 	}
 
 	/**
-	 * Meldet den Benutzer anonym als Gast an.
+	 * Logs in the user anonymously as a guest.
+	 * Displays error messages and handles loading state.
 	 */
 	onGuestLogin(): void {
 		this.errorMessage = null;
