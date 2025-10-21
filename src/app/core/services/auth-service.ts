@@ -20,7 +20,7 @@ import {
 import { Contact } from "@core/interfaces/contact";
 import { AppUser } from "@core/interfaces/user";
 import { ToastService } from "@shared/services/toast.service";
-import { ContactService } from "./contact-service";
+import { ContactService } from "@core/services/contact-service";
 
 @Injectable({
 	providedIn: "root",

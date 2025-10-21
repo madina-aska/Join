@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { Greeting } from "./greeting/greeting";
-import { Dashboard } from "./dashboard/dashboard";
+import { Greeting } from "@main/summary/greeting/greeting";
+import { Dashboard } from "@main/summary/dashboard/dashboard";
 
 @Component({
 	selector: "app-summary",

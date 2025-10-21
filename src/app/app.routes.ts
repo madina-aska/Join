@@ -8,8 +8,8 @@ import { Help } from "@main/info/help/help";
 import { LegalNotice } from "@main/info/legal-notice/legal-notice";
 import { PrivacyPolicy } from "@main/info/privacy-policy/privacy-policy";
 import { Summary } from "@main/summary/summary";
-import { authGuard } from "./core/guards/auth-guard";
-import { BaseLayout } from "./layouts/base-layout/base-layout";
+import { authGuard } from "@core/guards/auth-guard";
+import { BaseLayout } from "@app/layouts/base-layout/base-layout";
 
 export const routes: Routes = [
 	{ path: "login", component: Login },

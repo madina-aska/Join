@@ -374,15 +374,18 @@ export class TaskService implements OnDestroy {
 	}
 
 	/**
-    Toggles the completed status of a subtask within a task
-    @param taskId - The ID of the task containing the subtask
-    @param subtaskId - The ID of the subtask to toggle
-    @returns Promise that resolves when the subtask is updated
-    @throws Error if task or subtask is not found*
-    @example
-    typescriptff
-    await this.taskService.toggleSubtask('task-001', 'subtask-1');
-  */
+	 * Toggles the completed status of a subtask within a task.
+	 *
+	 * @param taskId - The ID of the task containing the subtask
+	 * @param subtaskId - The ID of the subtask to toggle
+	 * @returns Promise that resolves when the subtask is updated
+	 * @throws Error if task or subtask is not found
+	 *
+	 * @example
+	 * ```typescript
+	 * await this.taskService.toggleSubtask('task-001', 'subtask-1');
+	 * ```
+	 */
 	async toggleSubtask(taskId: string, subtaskId: string): Promise<void> {
 		if (!taskId || !subtaskId) return;
 
