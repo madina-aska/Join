@@ -12,6 +12,13 @@ import { ContactService } from "@core/services/contact-service";
 import { TaskService } from "@core/services/task-service";
 import { Toast } from "@shared/components/toast/toast";
 
+/**
+ * The AddTaskForm component provides a full-featured form
+ * for creating new tasks, assigning contacts, setting categories,
+ * managing subtasks, and defining priorities.
+ *
+ * This component is typically used as a child inside the main Add Task view or modal.
+ */
 @Component({
 	selector: "app-add-task-form",
 	imports: [
@@ -27,13 +34,27 @@ import { Toast } from "@shared/components/toast/toast";
 	styleUrl: "./add-task-form.scss",
 })
 export class AddTaskForm {
+	/**
+	 * Category in which the new task will be added.
+	 * Defaults to `"todo"`.
+	 * @type {import('@angular/core').InputSignal<"todo" | "in-progress" | "awaiting-feedback" | "done">}
+	 */
 	categoryToAdd = input<"todo" | "in-progress" | "awaiting-feedback" | "done">("todo");
+
+	/**
+	 * Event emitter that notifies the parent component when a task has been successfully added.
+	 * @type {import('@angular/core').OutputEmitter<void>}
+	 */
 	addedTask = output<void>();
 	title = "";
 	description = "";
 	dueDate = "";
 	category = "";
 	subtask = "";
+
+	/**
+	 * List of subtasks belonging to the current task being created.
+	 */
 	subtasks: {
 		id: string;
 		title: string;
@@ -42,13 +63,24 @@ export class AddTaskForm {
 		isEditing?: boolean;
 	}[] = [];
 
+	/**
+	 * All available contacts fetched from the ContactService.
+	 * @type {Contact[]}
+	 */
 	contacts: Contact[] = [];
+
+	/**
+	 * Contacts currently assigned to this task.
+	 * @type {Contact[]}
+	 */
 	assignedTo: Contact[] = [];
 
 	contactService = inject(ContactService);
 	taskService = inject(TaskService);
 	router = inject(Router);
 	eRef = inject(ElementRef);
+
+	/** Today's date, used as a minimum for the datepicker. */
 	today = new Date();
 
 	titleFocus = false;
@@ -68,21 +100,36 @@ export class AddTaskForm {
 	activeItem: string | null = null;
 	activeCategory: string | null = null;
 
+	/**
+	 * Currently selected priority level for the task.
+	 * Can be `"low"`, `"medium"`, or `"urgent"`.
+	 */
 	selectedPriority: "medium" | "low" | "urgent" = "medium";
+
+	/**
+	 * Sets the task priority.
+	 * @param {"medium" | "low" | "urgent"} priority - The selected priority level.
+	 */
 	setPriority(priority: "medium" | "low" | "urgent") {
 		this.selectedPriority = priority;
 	}
 
+	/** Toggles the assigned contacts dropdown visibility. */
 	onInputClick() {
 		this.assignedDropdownOpen = !this.assignedDropdownOpen;
 		this.categoryDropdownOpen = false;
 	}
 
+	/** Toggles the category selection dropdown visibility. */
 	onCategoryClick() {
 		this.categoryDropdownOpen = !this.categoryDropdownOpen;
 		this.assignedDropdownOpen = false;
 	}
 
+	/**
+	 * Selects a category and closes the dropdown after a short delay.
+	 * @param {string} cat - The chosen category name.
+	 */
 	selectCategory(cat: string) {
 		this.activeCategory = cat;
 		this.category = cat;
@@ -93,16 +140,30 @@ export class AddTaskForm {
 		}, 120);
 	}
 
+	/**
+	 * Retrieves a contact by name, returning a placeholder if not found.
+	 * @param {string} name - Contact's full name.
+	 * @returns {Contact | { initials: string; color: string }}
+	 */
 	getContactByName(name: string) {
 		return (
 			this.contacts.find((contact) => contact.name === name) || { initials: "?", color: "default" }
 		);
 	}
 
+	/**
+	 * Checks if a contact is currently assigned to the task.
+	 * @param {Contact} contact - The contact to check.
+	 * @returns {boolean}
+	 */
 	isAssigned(contact: Contact) {
 		return this.assignedTo.some((c) => c.id === contact.id);
 	}
 
+	/**
+	 * Toggles a contact’s assigned status.
+	 * @param {Contact} contact - The contact to assign or unassign.
+	 */
 	toggleAssigned(contact: Contact) {
 		if (this.isAssigned(contact)) {
 			this.assignedTo = this.assignedTo.filter((c) => c.id !== contact.id);
@@ -111,6 +172,10 @@ export class AddTaskForm {
 		}
 	}
 
+	/**
+	 * Returns whether multiple required fields are missing after user interaction.
+	 * @returns {boolean}
+	 */
 	get showActionError(): boolean {
 		let emptyFields = 0;
 		if ((this.titleTouched || this.formSubmitAttempted) && !this.title) emptyFields++;
@@ -119,16 +184,24 @@ export class AddTaskForm {
 		return emptyFields > 1;
 	}
 
+	/**
+	 * Marks form fields as "touched" when the user leaves them.
+	 * @param {"title" | "dueDate" | "category"} field
+	 */
 	onBlur(field: string) {
 		if (field === "title") this.titleTouched = true;
 		if (field === "dueDate") this.dueDateTouched = true;
 		if (field === "category") this.categoryTouched = true;
 	}
 
+	/** Initializes the component by loading all contacts. */
 	ngOnInit() {
 		this.loadContacts();
 	}
 
+	/**
+	 * Loads all contacts from the ContactService once they are available.
+	 */
 	loadContacts() {
 		const checkInterval = setInterval(() => {
 			if (Object.keys(this.contactService.contactsObject).length > 0) {
@@ -138,6 +211,7 @@ export class AddTaskForm {
 		}, 200);
 	}
 
+	/** Resets all form fields and UI states to their initial values. */
 	clearForm() {
 		this.title = "";
 		this.description = "";
@@ -165,6 +239,10 @@ export class AddTaskForm {
 	}
 	formSubmitAttempted = false;
 
+	/**
+	 * Creates a new task after validating form fields.
+	 * Shows a toast message on success or failure.
+	 */
 	async createTask() {
 		this.formSubmitAttempted = true;
 
@@ -206,10 +284,12 @@ export class AddTaskForm {
 		}
 	}
 
+	/** Returns true if all required fields (title, due date, category) are filled. */
 	get allRequiredFieldsFilled(): boolean {
 		return !!this.title && !!this.dueDate && !!this.category;
 	}
 
+	/** Adds a new subtask to the list. */
 	addSubtask() {
 		if (!this.subtask.trim()) return;
 
@@ -224,15 +304,27 @@ export class AddTaskForm {
 		this.subtask = "";
 	}
 
+	/**
+	 * Deletes a subtask by ID.
+	 * @param {string} id - Subtask ID to remove.
+	 */
 	deleteSubtask(id: string) {
 		if (!this.subtasks) return;
 		this.subtasks = this.subtasks.filter((s) => s.id !== id);
 	}
 
+	/**
+	 * Enables edit mode for a subtask.
+	 * @param {any} subtask - The subtask object being edited.
+	 */
 	editSubtask(subtask: any) {
 		subtask.isEditing = true;
 	}
 
+	/**
+	 * Saves a subtask’s edited title and exits edit mode.
+	 * @param {any} subtask - The subtask object being saved.
+	 */
 	saveSubtask(subtask: any) {
 		if (!subtask.title?.trim()) return;
 		subtask.title = subtask.title.trim();
@@ -243,6 +335,11 @@ export class AddTaskForm {
 	toastMessage = signal("");
 	toastType: "success" | "error" = "success";
 
+	/**
+	 * Displays a temporary toast notification message.
+	 * @param {string} message - The message to display.
+	 * @param {"success" | "error"} [type="success"] - The toast type (affects styling).
+	 */
 	showToast(message: string, type: "success" | "error" = "success") {
 		this.toastMessage.set(message);
 		this.toastType = type;
@@ -253,6 +350,11 @@ export class AddTaskForm {
 		}, 3000);
 	}
 
+	/**
+	 * Detects clicks outside the dropdown elements and closes them when appropriate.
+	 * Prevents dropdowns from staying open when the user clicks elsewhere.
+	 * @param {MouseEvent} event
+	 */
 	@HostListener("document:click", ["$event"])
 	onDocumentClick(event: MouseEvent) {
 		const target = event.target as HTMLElement;
