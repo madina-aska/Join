@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Output, inject } from "@angular/core";
 import {
-	FormBuilder,
-	FormGroup,
-	FormsModule,
-	ReactiveFormsModule,
-	Validators,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
 } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { Contact } from "@core/interfaces/contact";
@@ -180,27 +180,49 @@ export class AddContact {
 		return Math.floor(Math.random() * 10) + 1;
 	}
 
+	/**
+	 * Emits the `closed` event to signal that the overlay should be closed.
+	 */
 	closeOverlay() {
 		this.closed.emit();
 	}
 
+	/**
+	 * Emits the `open` event to signal that the overlay should be opened.
+	 */
 	openOverlay() {
 		this.open.emit();
 	}
 
+	/**
+	 * Handles the action to add a new contact.
+	 * Opens the contact form overlay.
+	 */
 	onAddContact(): void {
 		// Opens the add contact form overlay
 		this.openOverlay();
 	}
 
+	/**
+	 * Handles the action to edit an existing contact.
+	 * Intended to trigger edit mode (implementation pending).
+	 */
 	onEditContact(): void {
 		// Opens edit mode for existing contact
 	}
 
+	/**
+	 * Handles the click event to create a contact.
+	 * Triggers the form submission logic.
+	 */
 	onCreateContactClick() {
 		this.onSubmit();
 	}
 
+	/**
+	 * Handles the cancel action.
+	 * Closes the overlay without saving changes.
+	 */
 	onCancelClick() {
 		this.closeOverlay();
 	}
