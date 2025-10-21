@@ -96,9 +96,11 @@ export class ContactView implements OnChanges, OnDestroy {
 
 		if (this.id()) {
 			// Subscribe to contact Observable and update signal
-			this.contactSubscription = this.contactService.getContactById(this.id()).subscribe((contact) => {
-				this.contactForView.set(contact);
-			});
+			this.contactSubscription = this.contactService
+				.getContactById(this.id())
+				.subscribe((contact) => {
+					this.contactForView.set(contact);
+				});
 		} else {
 			this.contactForView.set(undefined);
 		}

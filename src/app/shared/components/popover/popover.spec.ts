@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Popover } from '@shared/components/popover/popover';
+import { Popover } from "@shared/components/popover/popover";
 
-describe('Popover', () => {
-  let component: Popover;
-  let fixture: ComponentFixture<Popover>;
+describe("Popover", () => {
+	let component: Popover;
+	let fixture: ComponentFixture<Popover>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Popover]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [Popover],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(Popover);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(Popover);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  Renderer2,
-  inject,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	Renderer2,
+	inject,
 } from "@angular/core";
 import { Firestore, doc, updateDoc } from "@angular/fire/firestore";
 import { FormsModule } from "@angular/forms";

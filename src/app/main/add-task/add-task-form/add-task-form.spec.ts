@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AddTaskForm } from '@main/add-task/add-task-form/add-task-form';
+import { AddTaskForm } from "@main/add-task/add-task-form/add-task-form";
 
-describe('AddTaskForm', () => {
-  let component: AddTaskForm;
-  let fixture: ComponentFixture<AddTaskForm>;
+describe("AddTaskForm", () => {
+	let component: AddTaskForm;
+	let fixture: ComponentFixture<AddTaskForm>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AddTaskForm]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [AddTaskForm],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(AddTaskForm);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(AddTaskForm);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

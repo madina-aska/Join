@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 
-import { execSync } from 'child_process';
-import * as fs from 'fs';
-import * as path from 'path';
+import { execSync } from "child_process";
+import * as fs from "fs";
+import * as path from "path";
 
 /**
  * Firebase Contacts Migration Script (TypeScript)
@@ -14,94 +14,98 @@ import * as path from 'path';
  */
 
 interface FirebaseConfig {
-  apiKey: string;
-  authDomain: string;
-  projectId: string;
-  storageBucket: string;
-  messagingSenderId: string;
-  appId: string;
+	apiKey: string;
+	authDomain: string;
+	projectId: string;
+	storageBucket: string;
+	messagingSenderId: string;
+	appId: string;
 }
 
 interface Contact {
-  id: string;
-  name: string;
-  email: string;
-  telephone: string;
-  color: string;
-  initials: string;
+	id: string;
+	name: string;
+	email: string;
+	telephone: string;
+	color: string;
+	initials: string;
 }
 
 const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m'
+	reset: "\x1b[0m",
+	bright: "\x1b[1m",
+	red: "\x1b[31m",
+	green: "\x1b[32m",
+	yellow: "\x1b[33m",
+	blue: "\x1b[34m",
+	cyan: "\x1b[36m",
 };
 
-function log(message: string, color: keyof typeof colors = 'reset'): void {
-  console.log(`${colors[color]}${message}${colors.reset}`);
+function log(message: string, color: keyof typeof colors = "reset"): void {
+	console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
 function readFirebaseConfig(): FirebaseConfig | null {
-  const envPath = path.join(__dirname, '..', 'src', 'environment', 'environment.ts');
+	const envPath = path.join(__dirname, "..", "src", "environment", "environment.ts");
 
-  if (!fs.existsSync(envPath)) {
-    log('[ERROR] Environment file not found', 'red');
-    return null;
-  }
+	if (!fs.existsSync(envPath)) {
+		log("[ERROR] Environment file not found", "red");
+		return null;
+	}
 
-  const envContent = fs.readFileSync(envPath, 'utf8');
+	const envContent = fs.readFileSync(envPath, "utf8");
 
-  if (!envContent.includes('firebaseConfig') || !envContent.includes('projectId')) {
-    log('[ERROR] No valid Firebase config found', 'red');
-    return null;
-  }
+	if (!envContent.includes("firebaseConfig") || !envContent.includes("projectId")) {
+		log("[ERROR] No valid Firebase config found", "red");
+		return null;
+	}
 
-  try {
-    const configMatch = envContent.match(/firebaseConfig\s*=\s*\{([^}]+)\}/s);
-    if (!configMatch) return null;
+	try {
+		const configMatch = envContent.match(/firebaseConfig\s*=\s*\{([^}]+)\}/s);
+		if (!configMatch) return null;
 
-    const configString = '{' + configMatch[1] + '}';
-    const lines = configString.split('\n');
-    const config: Partial<FirebaseConfig> = {};
+		const configString = "{" + configMatch[1] + "}";
+		const lines = configString.split("\n");
+		const config: Partial<FirebaseConfig> = {};
 
-    for (const line of lines) {
-      if (line.trim().startsWith('/*') || line.trim().startsWith('*') ||
-          line.trim().startsWith('//') || !line.includes(':')) {
-        continue;
-      }
-      const keyValueMatch = line.match(/["']?(\w+)["']?\s*:\s*["']([^"']+)["']/);
-      if (keyValueMatch) {
-        config[keyValueMatch[1] as keyof FirebaseConfig] = keyValueMatch[2];
-      }
-    }
+		for (const line of lines) {
+			if (
+				line.trim().startsWith("/*") ||
+				line.trim().startsWith("*") ||
+				line.trim().startsWith("//") ||
+				!line.includes(":")
+			) {
+				continue;
+			}
+			const keyValueMatch = line.match(/["']?(\w+)["']?\s*:\s*["']([^"']+)["']/);
+			if (keyValueMatch) {
+				config[keyValueMatch[1] as keyof FirebaseConfig] = keyValueMatch[2];
+			}
+		}
 
-    if (!config.projectId || !config.apiKey || !config.authDomain) {
-      log('[ERROR] Incomplete Firebase config', 'red');
-      return null;
-    }
+		if (!config.projectId || !config.apiKey || !config.authDomain) {
+			log("[ERROR] Incomplete Firebase config", "red");
+			return null;
+		}
 
-    log(`[INFO] Found Firebase project: ${config.projectId}`, 'cyan');
-    return config as FirebaseConfig;
-  } catch (error) {
-    log(`[ERROR] Could not parse Firebase config: ${error}`, 'red');
-    return null;
-  }
+		log(`[INFO] Found Firebase project: ${config.projectId}`, "cyan");
+		return config as FirebaseConfig;
+	} catch (error) {
+		log(`[ERROR] Could not parse Firebase config: ${error}`, "red");
+		return null;
+	}
 }
 
 function loadSampleContacts(): Contact[] {
-  const contactsPath = path.join(__dirname, 'data', 'sample-contacts.json');
-  const contactsData = fs.readFileSync(contactsPath, 'utf8');
-  return JSON.parse(contactsData) as Contact[];
+	const contactsPath = path.join(__dirname, "data", "sample-contacts.json");
+	const contactsData = fs.readFileSync(contactsPath, "utf8");
+	return JSON.parse(contactsData) as Contact[];
 }
 
 function createMigrationScript(config: FirebaseConfig): string {
-  const sampleContacts = loadSampleContacts();
+	const sampleContacts = loadSampleContacts();
 
-  return `
+	return `
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, doc, setDoc, getDocs } from 'firebase/firestore';
 
@@ -146,32 +150,32 @@ migrateContacts();
 }
 
 async function main(): Promise<void> {
-  log('Firebase Contacts Migration', 'bright');
-  log('===========================', 'blue');
+	log("Firebase Contacts Migration", "bright");
+	log("===========================", "blue");
 
-  const config = readFirebaseConfig();
-  if (!config) {
-    process.exit(1);
-  }
+	const config = readFirebaseConfig();
+	if (!config) {
+		process.exit(1);
+	}
 
-  log('Creating migration script...', 'cyan');
-  const migrationScript = createMigrationScript(config);
+	log("Creating migration script...", "cyan");
+	const migrationScript = createMigrationScript(config);
 
-  const scriptPath = path.join(__dirname, 'temp-migrate-contacts.mjs');
-  fs.writeFileSync(scriptPath, migrationScript);
+	const scriptPath = path.join(__dirname, "temp-migrate-contacts.mjs");
+	fs.writeFileSync(scriptPath, migrationScript);
 
-  try {
-    log('Executing migration...', 'cyan');
-    execSync(`node ${scriptPath}`, { stdio: 'inherit' });
-    log('[SUCCESS] Contacts migration completed', 'green');
-  } catch (error: any) {
-    log(`[ERROR] Migration failed: ${error.message}`, 'red');
-    process.exit(1);
-  } finally {
-    if (fs.existsSync(scriptPath)) {
-      fs.unlinkSync(scriptPath);
-    }
-  }
+	try {
+		log("Executing migration...", "cyan");
+		execSync(`node ${scriptPath}`, { stdio: "inherit" });
+		log("[SUCCESS] Contacts migration completed", "green");
+	} catch (error: any) {
+		log(`[ERROR] Migration failed: ${error.message}`, "red");
+		process.exit(1);
+	} finally {
+		if (fs.existsSync(scriptPath)) {
+			fs.unlinkSync(scriptPath);
+		}
+	}
 }
 
 main();

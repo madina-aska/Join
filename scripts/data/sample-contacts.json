@@ -1,42 +1,42 @@
 [
-  {
-    "id": "contact-001",
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "telephone": "+1-555-0123",
-    "color": 1,
-    "initials": "JD"
-  },
-  {
-    "id": "contact-002",
-    "name": "Sarah Miller",
-    "email": "sarah.miller@example.com",
-    "telephone": "+1-555-0456",
-    "color": 2,
-    "initials": "SM"
-  },
-  {
-    "id": "contact-003",
-    "name": "Michael Johnson",
-    "email": "michael.johnson@example.com",
-    "telephone": "+1-555-0789",
-    "color": 3,
-    "initials": "MJ"
-  },
-  {
-    "id": "contact-004",
-    "name": "Emily Davis",
-    "email": "emily.davis@example.com",
-    "telephone": "+1-555-0321",
-    "color": 4,
-    "initials": "ED"
-  },
-  {
-    "id": "contact-005",
-    "name": "David Wilson",
-    "email": "david.wilson@example.com",
-    "telephone": "+1-555-0654",
-    "color": 5,
-    "initials": "DW"
-  }
+	{
+		"id": "contact-001",
+		"name": "John Doe",
+		"email": "john.doe@example.com",
+		"telephone": "+1-555-0123",
+		"color": 1,
+		"initials": "JD"
+	},
+	{
+		"id": "contact-002",
+		"name": "Sarah Miller",
+		"email": "sarah.miller@example.com",
+		"telephone": "+1-555-0456",
+		"color": 2,
+		"initials": "SM"
+	},
+	{
+		"id": "contact-003",
+		"name": "Michael Johnson",
+		"email": "michael.johnson@example.com",
+		"telephone": "+1-555-0789",
+		"color": 3,
+		"initials": "MJ"
+	},
+	{
+		"id": "contact-004",
+		"name": "Emily Davis",
+		"email": "emily.davis@example.com",
+		"telephone": "+1-555-0321",
+		"color": 4,
+		"initials": "ED"
+	},
+	{
+		"id": "contact-005",
+		"name": "David Wilson",
+		"email": "david.wilson@example.com",
+		"telephone": "+1-555-0654",
+		"color": 5,
+		"initials": "DW"
+	}
 ]

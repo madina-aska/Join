@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SubtasksProgress } from '@main/board/board-card/subtasks-progress/subtasks-progress';
+import { SubtasksProgress } from "@main/board/board-card/subtasks-progress/subtasks-progress";
 
-describe('SubtasksProgress', () => {
-  let component: SubtasksProgress;
-  let fixture: ComponentFixture<SubtasksProgress>;
+describe("SubtasksProgress", () => {
+	let component: SubtasksProgress;
+	let fixture: ComponentFixture<SubtasksProgress>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SubtasksProgress]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [SubtasksProgress],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(SubtasksProgress);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(SubtasksProgress);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Output, inject } from "@angular/core";
 import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
+	FormBuilder,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators,
 } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { Contact } from "@core/interfaces/contact";

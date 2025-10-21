@@ -1,14 +1,14 @@
 import { inject, Injectable, Injector, OnDestroy, runInInjectionContext } from "@angular/core";
 import { DocumentData } from "@angular/fire/compat/firestore";
 import {
-  collection,
-  collectionData,
-  deleteDoc,
-  doc,
-  Firestore,
-  getDocs,
-  setDoc,
-  updateDoc,
+	collection,
+	collectionData,
+	deleteDoc,
+	doc,
+	Firestore,
+	getDocs,
+	setDoc,
+	updateDoc,
 } from "@angular/fire/firestore";
 import { Task } from "@core/interfaces/task";
 import { Observable } from "rxjs";

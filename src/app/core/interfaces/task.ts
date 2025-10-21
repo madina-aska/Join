@@ -11,9 +11,9 @@ export interface Task {
 		id: string;
 		title: string;
 		completed: boolean;
-		createdAt?:  string | undefined;
+		createdAt?: string | undefined;
 	}[];
-	createdAt?:  string | undefined;
-	updatedAt?:  string | undefined;
+	createdAt?: string | undefined;
+	updatedAt?: string | undefined;
 	color?: number;
 }

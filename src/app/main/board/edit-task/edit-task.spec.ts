@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { EditTask } from '@main/board/edit-task/edit-task';
+import { EditTask } from "@main/board/edit-task/edit-task";
 
-describe('EditTask', () => {
-  let component: EditTask;
-  let fixture: ComponentFixture<EditTask>;
+describe("EditTask", () => {
+	let component: EditTask;
+	let fixture: ComponentFixture<EditTask>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [EditTask]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [EditTask],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(EditTask);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(EditTask);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

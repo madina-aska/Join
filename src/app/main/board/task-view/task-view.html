@@ -73,7 +73,11 @@
 				@for (subtask of task?.subtasks; track subtask.id) {
 					<div class="subtask">
 						<div class="checkbox">
-							<input type="checkbox" [checked]="subtask.completed" (change)="toggleSubtask(subtask.id)"/>
+							<input
+								type="checkbox"
+								[checked]="subtask.completed"
+								(change)="toggleSubtask(subtask.id)"
+							/>
 						</div>
 						<div class="task">
 							<span>{{ subtask.title }}</span>
@@ -82,18 +86,17 @@
 				}
 			</div>
 		</div>
-
 	</div>
-  <footer class="task-actions">
-			<app-button variant="edit" icon="images/contacs_section/edit.svg" (click)="onEditClick()">
-				Edit
-			</app-button>
-			<app-button
-				variant="delete"
-				icon="images/contacs_section/trash_icon.svg"
-				(click)="onDeleteClick()"
-			>
-				Delete
-			</app-button>
-		</footer>
+	<footer class="task-actions">
+		<app-button variant="edit" icon="images/contacs_section/edit.svg" (click)="onEditClick()">
+			Edit
+		</app-button>
+		<app-button
+			variant="delete"
+			icon="images/contacs_section/trash_icon.svg"
+			(click)="onDeleteClick()"
+		>
+			Delete
+		</app-button>
+	</footer>
 </div>

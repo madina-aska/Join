@@ -1,85 +1,101 @@
 <div class="dashboard-root">
+	<div class="title-section">
+		<h1>Join 360</h1>
+		<div class="line-text-container">
+			<p>Key Metrics at a Glance</p>
+			<hr class="title-underline" />
+		</div>
+	</div>
 
-    <div class="title-section">
-        <h1>Join 360</h1>
-        <div class="line-text-container">
-            <p>Key Metrics at a Glance</p>
-            <hr class="title-underline" />
-        </div>
-    </div>
+	<div class="row top-row">
+		<button
+			class="stat-card small todo"
+			routerLink="/board"
+			(mouseenter)="isTodoHovered = true"
+			(mouseleave)="isTodoHovered = false"
+		>
+			<div class="stat-icon">
+				<img
+					[src]="
+						isTodoHovered
+							? './images/summary_section/todo-hover.svg'
+							: './images/summary_section/todo-dark-mobile.svg'
+					"
+				/>
+			</div>
+			<div class="stat-left">
+				<div class="stat-count">{{ (counts$ | async)?.todo ?? 0 }}</div>
+				<div class="stat-label">To-do</div>
+			</div>
+		</button>
 
-    <div class="row top-row">
-        <button class="stat-card small todo" routerLink="/board" (mouseenter)="isTodoHovered = true"
-            (mouseleave)="isTodoHovered = false">
-            <div class="stat-icon">
-                <img
-                    [src]="isTodoHovered ? './images/summary_section/todo-hover.svg' : './images/summary_section/todo-dark-mobile.svg'" />
-            </div>
-            <div class="stat-left">
-                <div class="stat-count">{{ (counts$ | async)?.todo ?? 0 }}</div>
-                <div class="stat-label">To-do</div>
-            </div>
-        </button>
+		<button
+			class="stat-card small done"
+			routerLink="/board"
+			(mouseenter)="isDoneHovered = true"
+			(mouseleave)="isDoneHovered = false"
+		>
+			<div class="stat-icon">
+				<img
+					[src]="
+						isDoneHovered
+							? './images/summary_section/check-hover.svg'
+							: './images/summary_section/check-dark-mobile.svg'
+					"
+				/>
+			</div>
+			<div class="stat-left">
+				<div class="stat-count">{{ (counts$ | async)?.done ?? 0 }}</div>
+				<div class="stat-label">Done</div>
+			</div>
+		</button>
+	</div>
 
-        <button class="stat-card small done" routerLink="/board" (mouseenter)="isDoneHovered = true"
-            (mouseleave)="isDoneHovered = false">
-            <div class="stat-icon">
-                <img
-                    [src]="isDoneHovered ? './images/summary_section/check-hover.svg' : './images/summary_section/check-dark-mobile.svg'" />
-            </div>
-            <div class="stat-left">
-                <div class="stat-count">{{ (counts$ | async)?.done ?? 0 }}</div>
-                <div class="stat-label">Done</div>
-            </div>
-        </button>
-    </div>
+	<div class="row middle-row">
+		<button class="stat-card urgent" routerLink="/board">
+			<div class="stat-left">
+				<div class="stat-icon">
+					<img src="./images/summary_section/urgent.svg" />
+				</div>
+				<div class="stat-count-label">
+					<div class="stat-count">{{ (counts$ | async)?.urgent ?? 0 }}</div>
+					<div class="stat-label">Urgent</div>
+				</div>
+			</div>
 
-    <div class="row middle-row">
-        <button class="stat-card urgent" routerLink="/board">
-            <div class="stat-left">
-                <div class="stat-icon">
-                    <img src="./images/summary_section/urgent.svg">
-                </div>
-                <div class="stat-count-label">
-                    <div class="stat-count">{{ (counts$ | async)?.urgent ?? 0 }}</div>
-                    <div class="stat-label">Urgent</div>
-                </div>
-            </div>
+			<div class="vertical-line"></div>
 
-            <div class="vertical-line"></div>
+			<div class="stat-right">
+				@if (nextDeadline$ | async; as nextDeadline) {
+					<div class="deadline-date">{{ nextDeadline | date: "MMMM d, y" }}</div>
+					<div class="deadline-note">Upcoming Deadline</div>
+				} @else {
+					<div class="deadline-empty">—</div>
+				}
+			</div>
+		</button>
+	</div>
 
-            <div class="stat-right">
-                @if (nextDeadline$ | async; as nextDeadline) {
-                <div class="deadline-date">{{ nextDeadline | date:'MMMM d, y' }}</div>
-                <div class="deadline-note">Upcoming Deadline</div>
-                } @else {
-                <div class="deadline-empty">—</div>
-                }
-            </div>
-        </button>
-    </div>
+	<div class="row bottom-row">
+		<button class="stat-card tiny" routerLink="/board">
+			<div class="stat-left">
+				<div class="stat-count">{{ (counts$ | async)?.inBoard ?? 0 }}</div>
+				<div class="stat-label">Tasks in Board</div>
+			</div>
+		</button>
 
-    <div class="row bottom-row">
-        <button class="stat-card tiny" routerLink="/board">
-            <div class="stat-left">
-                <div class="stat-count">{{ (counts$ | async)?.inBoard ?? 0 }}</div>
-                <div class="stat-label">Tasks in Board</div>
-            </div>
-        </button>
+		<button class="stat-card tiny" routerLink="/board">
+			<div class="stat-left">
+				<div class="stat-count">{{ (counts$ | async)?.inProgress ?? 0 }}</div>
+				<div class="stat-label">Tasks in Progress</div>
+			</div>
+		</button>
 
-        <button class="stat-card tiny" routerLink="/board">
-            <div class="stat-left">
-                <div class="stat-count">{{ (counts$ | async)?.inProgress ?? 0 }}</div>
-                <div class="stat-label">Tasks in Progress</div>
-            </div>
-        </button>
-
-        <button class="stat-card tiny" routerLink="/board">
-            <div class="stat-left">
-                <div class="stat-count">{{ (counts$ | async)?.awaitingFeedback ?? 0 }}</div>
-                <div class="stat-label">Awaiting Feedback</div>
-            </div>
-        </button>
-    </div>
-
+		<button class="stat-card tiny" routerLink="/board">
+			<div class="stat-left">
+				<div class="stat-count">{{ (counts$ | async)?.awaitingFeedback ?? 0 }}</div>
+				<div class="stat-label">Awaiting Feedback</div>
+			</div>
+		</button>
+	</div>
 </div>

@@ -1,196 +1,288 @@
 <div class="form-content-boundary">
-    <div class="form-scroll" role="region" aria-label="Add task form">
+	<div class="form-scroll" role="region" aria-label="Add task form">
+		<div class="left-column">
+			<div class="form-row">
+				<label class="label">Title <span class="required">*</span></label>
+				<input
+					class="input text-input"
+					type="text"
+					placeholder="Enter a title"
+					[(ngModel)]="title"
+					name="title"
+					required
+					#titleInput="ngModel"
+					(focus)="titleFocus = true"
+					(blur)="titleFocus = false; titleTouched = true"
+					[ngClass]="{ focus: titleFocus, error: (titleTouched || formSubmitAttempted) && !title }"
+				/>
 
-        <div class="left-column">
-            <div class="form-row">
-                <label class="label">Title <span class="required">*</span></label>
-                <input class="input text-input" type="text" placeholder="Enter a title" [(ngModel)]="title" name="title"
-                    required #titleInput="ngModel" (focus)="titleFocus = true"
-                    (blur)="titleFocus = false; titleTouched = true"
-                    [ngClass]="{'focus': titleFocus, 'error': (titleTouched || formSubmitAttempted) && !title }" />
+				<div class="field-error" *ngIf="titleTouched && !title">This field is required</div>
+			</div>
 
-                <div class="field-error" *ngIf="titleTouched && !title">
-                    This field is required
-                </div>
-            </div>
+			<div class="form-row description-row">
+				<label class="label">Description</label>
+				<div class="textarea-wrap">
+					<textarea
+						class="input textarea-input"
+						placeholder="Enter a Description"
+						[(ngModel)]="description"
+						name="description"
+						(focus)="descriptionFocus = true"
+						(blur)="descriptionFocus = false"
+						[ngClass]="{ focus: descriptionFocus }"
+					></textarea>
+					<img class="recurso-icon" src="images/add_task_section/recurso.svg" alt="Recurso Icon" />
+				</div>
+			</div>
 
-            <div class="form-row description-row">
-                <label class="label">Description</label>
-                <div class="textarea-wrap">
-                    <textarea class="input textarea-input" placeholder="Enter a Description" [(ngModel)]="description"
-                        name="description" (focus)="descriptionFocus = true" (blur)="descriptionFocus = false"
-                        [ngClass]="{'focus': descriptionFocus}"></textarea>
-                    <img class="recurso-icon" src="images/add_task_section/recurso.svg" alt="Recurso Icon">
-                </div>
-            </div>
+			<div class="form-row">
+				<label class="label">Due date <span class="required">*</span></label>
+				<div class="input-with-icon">
+					<input
+						matInput
+						[matDatepicker]="picker"
+						[min]="today"
+						class="input date-input"
+						placeholder="dd/MM/yyyy"
+						[(ngModel)]="dueDate"
+						name="dueDate"
+						(focus)="dueDateFocus = true"
+						(blur)="dueDateFocus = false; dueDateTouched = true"
+						[ngClass]="{
+							focus: dueDateFocus,
+							error: (dueDateTouched || formSubmitAttempted) && !dueDate,
+						}"
+					/>
 
-            <div class="form-row"> <label class="label">Due date <span class="required">*</span></label>
-                <div class="input-with-icon">
-                    <input matInput [matDatepicker]="picker" [min]="today" class="input date-input"
-                        placeholder="dd/MM/yyyy" [(ngModel)]="dueDate" name="dueDate" (focus)="dueDateFocus = true"
-                        (blur)="dueDateFocus = false; dueDateTouched = true"
-                        [ngClass]="{'focus': dueDateFocus, 'error': (dueDateTouched || formSubmitAttempted) && !dueDate}" />
+					<button
+						class="icon-btn date-icon"
+						type="button"
+						(click)="picker.open()"
+						aria-hidden="true"
+					>
+						<img src="images/add_task_section/events_icon.svg" alt="" />
+					</button>
+					<mat-datepicker #picker></mat-datepicker>
+				</div>
+				<div class="field-error" *ngIf="dueDateTouched && !dueDate">This field is required</div>
+			</div>
+		</div>
 
-                    <button class="icon-btn date-icon" type="button" (click)="picker.open()" aria-hidden="true">
-                        <img src="images/add_task_section/events_icon.svg" alt="">
-                    </button>
-                    <mat-datepicker #picker></mat-datepicker>
-                </div>
-                <div class="field-error" *ngIf="dueDateTouched && !dueDate">
-                    This field is required
-                </div>
-            </div>
-        </div>
+		<div class="divider-wrapper">
+			<div class="divider"></div>
+		</div>
 
-        <div class="divider-wrapper">
-            <div class="divider"></div>
-        </div>
+		<div class="right-column">
+			<div class="form-row">
+				<label class="label">Priority</label>
 
+				<div class="priority-row" role="tablist" aria-label="Priority">
+					<button
+						class="prio-btn prio-urgent"
+						[class.active]="selectedPriority === 'urgent'"
+						(click)="setPriority('urgent')"
+					>
+						<span class="prio-text">Urgent</span>
+						<span class="prio-ico" aria-hidden>
+							<img
+								[src]="
+									selectedPriority === 'urgent'
+										? 'images/add_task_section/prio_alta_white.svg'
+										: 'images/add_task_section/prio_alta_red.svg'
+								"
+							/>
+						</span>
+					</button>
 
-        <div class="right-column">
-            <div class="form-row">
-                <label class="label">Priority</label>
+					<button
+						class="prio-btn prio-medium"
+						[class.active]="selectedPriority === 'medium'"
+						(click)="setPriority('medium')"
+					>
+						<span class="prio-text">Medium</span>
+						<span class="prio-ico" aria-hidden>
+							<img
+								[src]="
+									selectedPriority === 'medium'
+										? 'images/add_task_section/priority_symbols_white.svg'
+										: 'images/add_task_section/priority_symbols.svg'
+								"
+							/>
+						</span>
+					</button>
 
-                <div class="priority-row" role="tablist" aria-label="Priority">
-                    <button class="prio-btn prio-urgent" [class.active]="selectedPriority === 'urgent'"
-                        (click)="setPriority('urgent')">
-                        <span class="prio-text">Urgent</span>
-                        <span class="prio-ico" aria-hidden>
-                            <img
-                                [src]="selectedPriority === 'urgent' ? 'images/add_task_section/prio_alta_white.svg' : 'images/add_task_section/prio_alta_red.svg'">
-                        </span>
-                    </button>
+					<button
+						class="prio-btn prio-low"
+						[class.active]="selectedPriority === 'low'"
+						(click)="setPriority('low')"
+					>
+						<span class="prio-text">Low</span>
+						<span class="prio-ico" aria-hidden>
+							<img
+								[src]="
+									selectedPriority === 'low'
+										? 'images/add_task_section/prio_baja_white.svg'
+										: 'images/add_task_section/prio_baja.svg'
+								"
+							/>
+						</span>
+					</button>
+				</div>
+			</div>
 
-                    <button class="prio-btn prio-medium" [class.active]="selectedPriority === 'medium'"
-                        (click)="setPriority('medium')">
-                        <span class="prio-text">Medium</span>
-                        <span class="prio-ico" aria-hidden>
-                            <img
-                                [src]="selectedPriority === 'medium' ? 'images/add_task_section/priority_symbols_white.svg' : 'images/add_task_section/priority_symbols.svg'">
-                        </span>
-                    </button>
+			<div class="form-row">
+				<label class="label">Assigned to</label>
 
-                    <button class="prio-btn prio-low" [class.active]="selectedPriority === 'low'"
-                        (click)="setPriority('low')">
-                        <span class="prio-text">Low</span>
-                        <span class="prio-ico" aria-hidden>
-                            <img
-                                [src]="selectedPriority === 'low' ? 'images/add_task_section/prio_baja_white.svg' : 'images/add_task_section/prio_baja.svg'">
-                        </span>
-                    </button>
-                </div>
-            </div>
+				<div class="select-wrap assigned-wrap" [class.focus]="assignedFocus">
+					<div
+						class="select-input"
+						(click)="onInputClick()"
+						(focus)="assignedFocus = true"
+						(blur)="assignedFocus = false"
+						tabindex="0"
+					>
+						Select contacts to assign
+						<span class="select-arrow" aria-hidden>
+							<img src="images/add_task_section/arrow_drop_downaa.svg" alt="" />
+						</span>
+					</div>
 
-            <div class="form-row">
-                <label class="label">Assigned to</label>
+					<ul class="dropdown-list" *ngIf="assignedDropdownOpen">
+						<li
+							*ngFor="let contact of contacts"
+							(click)="$event.stopPropagation(); toggleAssigned(contact)"
+							[class.selected]="isAssigned(contact)"
+							class="dropdown-item"
+						>
+							<div
+								class="avatar-circle"
+								[style.background-color]="contactService.getAvatarColor(contact)"
+							>
+								{{ contact.initials }}
+							</div>
+							<span class="contact-name">{{ contact.name }}</span>
+							<input type="checkbox" [checked]="isAssigned(contact)" />
+						</li>
+					</ul>
+				</div>
 
-                <div class="select-wrap assigned-wrap" [class.focus]="assignedFocus">
-                    <div class="select-input" (click)="onInputClick()" (focus)="assignedFocus = true"
-                        (blur)="assignedFocus = false" tabindex="0">
-                        Select contacts to assign
-                        <span class="select-arrow" aria-hidden>
-                            <img src="images/add_task_section/arrow_drop_downaa.svg" alt="">
-                        </span>
-                    </div>
+				<div class="selected-list" *ngIf="assignedTo.length">
+					<div
+						class="avatar-circle"
+						*ngFor="let contact of assignedTo"
+						[style.background-color]="contactService.getAvatarColor(contact)"
+					>
+						{{ contact.initials }}
+					</div>
+				</div>
+			</div>
 
-                    <ul class="dropdown-list" *ngIf="assignedDropdownOpen">
-                        <li *ngFor="let contact of contacts" (click)="$event.stopPropagation(); toggleAssigned(contact)"
-                            [class.selected]="isAssigned(contact)" class="dropdown-item">
+			<div class="form-row">
+				<label class="label">Category <span class="required">*</span></label>
+				<div class="select-wrap category-wrap" [class.focus]="categoryFocus">
+					<div
+						class="select-input"
+						(click)="onCategoryClick()"
+						(blur)="categoryTouched = true"
+						tabindex="0"
+						(focus)="categoryFocus = true"
+						(blur)="categoryFocus = false; categoryTouched = true"
+						[ngClass]="{ focus: categoryFocus, error: categoryTouched && !category }"
+					>
+						{{ category || "Select task category" }}
+						<span class="select-arrow" aria-hidden>
+							<img src="images/add_task_section/arrow_drop_downaa.svg" />
+						</span>
+					</div>
 
-                            <div class="avatar-circle"
-                                [style.background-color]="contactService.getAvatarColor(contact)">
-                                {{ contact.initials }}
-                            </div>
-                            <span class="contact-name">{{ contact.name }}</span>
-                            <input type="checkbox" [checked]="isAssigned(contact)" />
-                        </li>
-                    </ul>
-                </div>
+					<ul class="dropdown-list" *ngIf="categoryDropdownOpen">
+						<li
+							*ngFor="let cat of ['User Story', 'Technical Task']"
+							(click)="selectCategory(cat)"
+							[class.active]="activeCategory === cat"
+						>
+							{{ cat }}
+						</li>
+					</ul>
+				</div>
+				<div class="field-error" *ngIf="categoryTouched && !category">This field is required</div>
+			</div>
 
-                <div class="selected-list" *ngIf="assignedTo.length">
-                    <div class="avatar-circle" *ngFor="let contact of assignedTo"
-                        [style.background-color]="contactService.getAvatarColor(contact)">
-                        {{ contact.initials }}
-                    </div>
-                </div>
-            </div>
+			<div class="form-row subtasks-row">
+				<label class="label">Subtasks</label>
+				<div class="subtask-input-wrapper">
+					<input
+						class="input text-input"
+						type="text"
+						placeholder="Add new subtask"
+						[(ngModel)]="subtask"
+						name="subtask"
+						(focus)="subtaskFocus = true"
+						(blur)="subtaskFocus = false"
+						[ngClass]="{ focus: subtaskFocus }"
+					/>
 
-            <div class="form-row">
-                <label class="label">Category <span class="required">*</span></label>
-                <div class="select-wrap category-wrap" [class.focus]="categoryFocus">
-                    <div class="select-input" (click)="onCategoryClick()" (blur)="categoryTouched = true" tabindex="0"
-                        (focus)="categoryFocus = true" (blur)="categoryFocus = false; categoryTouched = true"
-                        [ngClass]="{'focus': categoryFocus, 'error': categoryTouched && !category }">
-                        {{ category || 'Select task category' }}
-                        <span class="select-arrow" aria-hidden>
-                            <img src="images/add_task_section/arrow_drop_downaa.svg">
-                        </span>
-                    </div>
+					<div class="subtask-icons">
+						<button class="icon-btn" (click)="subtask = ''">
+							<img src="images/add_task_section/subtasks-cancel.svg" alt="Clear" />
+						</button>
+						<button class="icon-btn" (click)="addSubtask()">
+							<img src="images/add_task_section/subtasks-check.svg" alt="Add Subtask" />
+						</button>
+					</div>
+				</div>
+				<ul class="subtask-list">
+					<li *ngFor="let s of subtasks" class="subtask-item" [class.editing]="s.isEditing">
+						<div class="subtask-content">
+							<span class="dot">•</span>
+							<input
+								*ngIf="s.isEditing"
+								[(ngModel)]="s.title"
+								class="subtask-edit-input"
+								placeholder="Edit subtask"
+							/>
+							<span *ngIf="!s.isEditing" class="subtask-title">{{ s.title }}</span>
+						</div>
+						<div class="subtask-actions">
+							<button class="icon-btn" *ngIf="!s.isEditing" (click)="editSubtask(s)" title="Edit">
+								<img src="images/assets/edit_icon.svg" alt="Edit" />
+							</button>
+							<button class="icon-btn" *ngIf="s.isEditing" (click)="saveSubtask(s)" title="Save">
+								<img src="images/assets/check.svg" alt="Save" />
+							</button>
+							<button class="icon-btn" (click)="deleteSubtask(s.id)" title="Delete">
+								<img src="images/assets/delete_icon.svg" alt="Delete" />
+							</button>
+						</div>
+					</li>
+				</ul>
+			</div>
 
-                    <ul class="dropdown-list" *ngIf="categoryDropdownOpen">
-                        <li *ngFor="let cat of ['User Story', 'Technical Task']" (click)="selectCategory(cat)"
-                            [class.active]="activeCategory === cat">
-                            {{ cat }}
-                        </li>
-                    </ul>
-                </div>
-                <div class="field-error" *ngIf="categoryTouched && !category">
-                    This field is required
-                </div>
-            </div>
-
-            <div class="form-row subtasks-row">
-                <label class="label">Subtasks</label>
-                <div class="subtask-input-wrapper">
-                    <input class="input text-input" type="text" placeholder="Add new subtask" [(ngModel)]="subtask"
-                        name="subtask" (focus)="subtaskFocus = true" (blur)="subtaskFocus = false"
-                        [ngClass]="{'focus': subtaskFocus}" />
-
-                    <div class="subtask-icons">
-                        <button class="icon-btn" (click)="subtask=''">
-                            <img src="images/add_task_section/subtasks-cancel.svg" alt="Clear" />
-                        </button>
-                        <button class="icon-btn" (click)="addSubtask()">
-                            <img src="images/add_task_section/subtasks-check.svg" alt="Add Subtask" />
-                        </button>
-                    </div>
-                </div>
-                <ul class="subtask-list">
-                    <li *ngFor="let s of subtasks" class="subtask-item" [class.editing]="s.isEditing">
-                        <div class="subtask-content">
-                            <span class="dot">•</span>
-                            <input *ngIf="s.isEditing" [(ngModel)]="s.title" class="subtask-edit-input"
-                                placeholder="Edit subtask" />
-                            <span *ngIf="!s.isEditing" class="subtask-title">{{ s.title }}</span>
-                        </div>
-                        <div class="subtask-actions">
-                            <button class="icon-btn" *ngIf="!s.isEditing" (click)="editSubtask(s)" title="Edit">
-                                <img src="images/assets/edit_icon.svg" alt="Edit" />
-                            </button>
-                            <button class="icon-btn" *ngIf="s.isEditing" (click)="saveSubtask(s)" title="Save">
-                                <img src="images/assets/check.svg" alt="Save" />
-                            </button>
-                            <button class="icon-btn" (click)="deleteSubtask(s.id)" title="Delete">
-                                <img src="images/assets/delete_icon.svg" alt="Delete" />
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bottom-spacer" aria-hidden="true"></div>
-        </div>
-    </div>
-    <div class="form-actions" role="toolbar" aria-label="Form actions">
-        <div class="field-error action-error" *ngIf="showActionError">
-            <span>*</span>Please fill the required fields
-        </div>
-        <button class="btn-clear" type="button" (click)="clearForm()">Clear <img
-                src="images/assets/cancel_icon.svg"></button>
-        <button class="btn-create" type="button" (click)="createTask()" [disabled]="!allRequiredFieldsFilled">Create
-            Task <img src="images/assets/check.svg"></button>
-    </div>
-    <app-toast *ngIf="toastVisible()" [type]="toastType" [message]="toastMessage()"
-        [icon]='"images/sidebar_section/board_icon.svg"' [showCloseButton]="false" [duration]="3000"></app-toast>
-
+			<div class="bottom-spacer" aria-hidden="true"></div>
+		</div>
+	</div>
+	<div class="form-actions" role="toolbar" aria-label="Form actions">
+		<div class="field-error action-error" *ngIf="showActionError">
+			<span>*</span>Please fill the required fields
+		</div>
+		<button class="btn-clear" type="button" (click)="clearForm()">
+			Clear <img src="images/assets/cancel_icon.svg" />
+		</button>
+		<button
+			class="btn-create"
+			type="button"
+			(click)="createTask()"
+			[disabled]="!allRequiredFieldsFilled"
+		>
+			Create Task <img src="images/assets/check.svg" />
+		</button>
+	</div>
+	<app-toast
+		*ngIf="toastVisible()"
+		[type]="toastType"
+		[message]="toastMessage()"
+		[icon]="'images/sidebar_section/board_icon.svg'"
+		[showCloseButton]="false"
+		[duration]="3000"
+	></app-toast>
 </div>

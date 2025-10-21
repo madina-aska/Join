@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SearchField } from '@shared/components/search-field/search-field';
+import { SearchField } from "@shared/components/search-field/search-field";
 
-describe('SearchField', () => {
-  let component: SearchField;
-  let fixture: ComponentFixture<SearchField>;
+describe("SearchField", () => {
+	let component: SearchField;
+	let fixture: ComponentFixture<SearchField>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SearchField]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [SearchField],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(SearchField);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(SearchField);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

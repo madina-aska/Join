@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AssignedList } from '@shared/assigned-list/assigned-list';
+import { AssignedList } from "@shared/assigned-list/assigned-list";
 
-describe('AssignedList', () => {
-  let component: AssignedList;
-  let fixture: ComponentFixture<AssignedList>;
+describe("AssignedList", () => {
+	let component: AssignedList;
+	let fixture: ComponentFixture<AssignedList>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AssignedList]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [AssignedList],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(AssignedList);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(AssignedList);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });
