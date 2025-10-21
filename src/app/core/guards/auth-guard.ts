@@ -4,8 +4,11 @@ import { AuthService } from "@core/services/auth-service";
 import { map, Observable } from "rxjs";
 
 /**
- * Route Guard zum Schutz der Kinderrouten des Main-Moduls.
- * Erlaubt den Zugriff nur, wenn der Benutzer eingeloggt ist.
+ * Determines whether a user can access a child route based on authentication status.
+ *
+ * @param childRoute - The child route being navigated to.
+ * @returns An observable that resolves to a boolean indicating access permission,
+ *          or a `UrlTree` for redirection if the user is not authenticated.
  */
 export const authGuard: CanActivateChildFn = (
 	childRoute,
@@ -13,20 +16,16 @@ export const authGuard: CanActivateChildFn = (
 	const authService = inject(AuthService);
 	const router = inject(Router);
 
-	// 1. Ausnahmen für öffentlich zugängliche Seiten (Impressum, Datenschutz)
 	const path = childRoute.routeConfig?.path;
 	if (path === "legal-notice" || path === "privacy-policy" || path === "help") {
 		return true;
 	}
 
-	// 2. Prüfe den Anmeldestatus mithilfe des dedizierten Once-Observables
 	return authService.isLoggedInOnce().pipe(
 		map((isLoggedIn) => {
 			if (isLoggedIn) {
-				// Angemeldet: Erlaube den Zugriff
 				return true;
 			} else {
-				// Nicht angemeldet: Gib eine UrlTree zum Login zurück
 				return router.createUrlTree(["/login"]);
 			}
 		}),
