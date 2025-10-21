@@ -183,6 +183,20 @@ export class ContactService {
 		return contactsObject;
 	}
 
+	/**
+	 * Builds a Contact object from Firestore document data.
+	 *
+	 * @param id - Firestore document ID
+	 * @param data - Raw document data from Firestore
+	 * @returns Contact object with proper typing and default values
+	 *
+	 * @example
+	 * ```typescript
+	 * const contactData = { name: "Alice", email: "alice@example.com" };
+	 * const contact = this.buildDocument("contact-001", contactData);
+	 * // contact: { id: "contact-001", name: "Alice", email: "alice@example.com", telephone: "", initials: "", color: undefined }
+	 * ```
+	 */
 	private buildDocument(id: string, data: DocumentData): Contact {
 		return {
 			id,
