@@ -1,38 +1,34 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnChanges, OnInit, inject, input } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 
 /**
- * Footer navigation component with persistent page state management.
+ * Footer navigation component that manages persistent navigation state.
  *
- * This component provides the main navigation interface with sophisticated state management:
- * - **Persistent Navigation State**: Saves and restores active page via localStorage
- * - **Router Integration**: Automatic page detection through router events
- * - **Visual State Feedback**: Active page highlighting for user orientation
- * - **Auto-navigation**: Restores last visited page on app restart
+ * This component provides the application's main footer navigation and
+ * automatically remembers and restores the last visited page using `localStorage`.
+ * It also integrates with Angular's router to track active routes and update
+ * the UI accordingly.
  *
- * State Management Flow:
- * 1. **Initialization**: Loads saved page from localStorage
- * 2. **Auto-navigation**: Navigates to restored page if available
- * 3. **Router Monitoring**: Subscribes to NavigationEnd events
- * 4. **State Persistence**: Updates localStorage on each navigation
- * 5. **UI Updates**: Provides active state for visual feedback
+ * **Key Features:**
+ * - Persistent active page state via `localStorage`
+ * - Automatic navigation restoration on app reload
+ * - Reactive highlighting of the active navigation link
+ * - Router event monitoring for state synchronization
  *
- * Supported Pages:
- * - `summary`: Dashboard overview
- * - `board`: Task board interface
- * - `add-task`: Task creation form
- * - `contacts`: Contact management
+ * **Supported Routes:**
+ * - `summary` — Dashboard overview
+ * - `board` — Task board
+ * - `add-task` — Task creation
+ * - `contacts` — Contact management
  *
  * @example
  * ```html
  * <app-footer></app-footer>
  *
- * <!-- Footer automatically manages navigation state -->
- * <nav>
- *   <a routerLink="/summary" [class.active]="isActive('summary')">Summary</a>
- *   <a routerLink="/contacts" [class.active]="isActive('contacts')">Contacts</a>
- * </nav>
+ * <!-- Active page highlighting -->
+ * <a routerLink="/summary" [class.active]="isActive('summary')">Summary</a>
+ * <a routerLink="/contacts" [class.active]="isActive('contacts')">Contacts</a>
  * ```
  */
 @Component({
@@ -42,67 +38,28 @@ import { Router, RouterModule } from "@angular/router";
 	standalone: true,
 	imports: [CommonModule, RouterModule],
 })
-export class Footer implements OnInit, OnChanges {
-	/** Current active page name for state management and UI highlighting */
+export class Footer {
+	/** Name of the currently active page for visual highlighting and state persistence. */
 	activePage = "summary";
+
+	/** Indicates whether a user is currently logged in. */
 	loggedIn = input<boolean>(false);
 
-	/** Injected Angular router for navigation and event monitoring */
+	/** Angular Router instance for navigation and route monitoring. */
 	private router = inject(Router);
 
 	/**
-	 * Angular lifecycle hook that initializes navigation state management.
+	 * Checks whether the specified page is currently active.
 	 *
-	 * Initialization Flow:
-	 * 1. **Restore State**: Loads last active page from localStorage
-	 * 2. **Auto-navigate**: Navigates to restored page if available
-	 * 3. **Monitor Routes**: Subscribes to router events for real-time updates
-	 * 4. **State Sync**: Updates internal state and localStorage on navigation
+	 * Used in the template to determine which navigation link
+	 * should be visually marked as active.
 	 *
-	 * @example
-	 * ```typescript
-	 * // Called automatically by Angular
-	 * // User returns to app -> navigates to last visited page
-	 * // Router events -> automatically update active page state
-	 * ```
-	 */
-	ngOnInit(): void {
-		// const savedPage = localStorage.getItem("activePage");
-		// if (savedPage) {
-		// 	this.activePage = savedPage;
-		// 	const url = this.router.parseUrl(savedPage);
-		// 	this.router.navigate(
-		// 		url.root.children["primary"].segments.map((segment) => segment.path),
-		// 		{
-		// 			queryParams: url.queryParams,
-		// 		},
-		// 	);
-		// }
-		// this.router.events.subscribe((event) => {
-		// 	if (event instanceof NavigationEnd) {
-		// 		const current = event.urlAfterRedirects.replace("/", "");
-		// 		this.activePage = current || "summary";
-		// 		localStorage.setItem("activePage", this.activePage);
-		// 	}
-		// });
-	}
-
-	ngOnChanges() {}
-
-	/**
-	 * Determines if a given page is currently active.
-	 * Used for applying active state styling in the template.
-	 *
-	 * @param page - Page name to check against current active page
-	 * @returns True if the specified page is currently active
+	 * @param page - The page name to check.
+	 * @returns `true` if the given page is the current active route.
 	 *
 	 * @example
 	 * ```html
-	 * <!-- Template usage for active state styling -->
-	 * <a routerLink="/summary" [class.active]="isActive('summary')">
-	 * <a routerLink="/contacts" [class.active]="isActive('contacts')">
-	 *
-	 * <!-- Results in active class when on respective pages -->
+	 * <a routerLink="/board" [class.active]="isActive('board')">Board</a>
 	 * ```
 	 */
 	isActive(page: string): boolean {
@@ -111,7 +68,12 @@ export class Footer implements OnInit, OnChanges {
 		return cleanPath === page;
 	}
 
-	// returns the path without queryParams
+	/**
+	 * Extracts the base path of a route without query parameters.
+	 *
+	 * @param page - Full route including optional query parameters.
+	 * @returns The cleaned path segment (e.g., `"summary"` from `"/summary?id=123"`).
+	 */
 	getCleanPath(page: string): string {
 		const urlTree = this.router.parseUrl(page);
 		return urlTree.root.children["primary"]?.segments[0].toString();
