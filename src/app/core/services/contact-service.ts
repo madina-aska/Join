@@ -1,4 +1,4 @@
-import { inject, Injectable, Injector, OnDestroy, runInInjectionContext } from "@angular/core";
+import { inject, Injectable, Injector, runInInjectionContext } from "@angular/core";
 import { DocumentData } from "@angular/fire/compat/firestore";
 import {
 	collection,
@@ -15,11 +15,10 @@ import { map, Observable, shareReplay } from "rxjs";
 type ContactDictionary = Record<string, Contact[]>;
 
 /**
- * Service for managing contact operations including Firestore CRUD operations,
- * contact organization, and utility functions for contact display.
+ * Service for managing contacts, including CRUD operations, organization, and utility functions.
  *
  * This service handles:
- * - Real-time contact synchronization with Firestore
+ * - Real-time synchronization of contacts with Firestore
  * - Alphabetical organization of contacts
  * - Contact creation, update, and deletion
  * - Avatar color and initials generation
@@ -39,7 +38,7 @@ type ContactDictionary = Record<string, Contact[]>;
 @Injectable({
 	providedIn: "root",
 })
-export class ContactService implements OnDestroy {
+export class ContactService {
 	firestore = inject(Firestore);
 	injector = inject(Injector);
 
@@ -85,7 +84,9 @@ export class ContactService implements OnDestroy {
 			);
 
 			// Derive contactsObject$ from allContacts$
-			this.contactsObject$ = this.allContacts$.pipe(map((contacts) => this.createLexObject(contacts)));
+			this.contactsObject$ = this.allContacts$.pipe(
+				map((contacts) => this.createLexObject(contacts)),
+			);
 		});
 	}
 
@@ -98,13 +99,13 @@ export class ContactService implements OnDestroy {
 	 * @example
 	 * ```typescript
 	 * // Old way (deprecated)
-	 * this.contactService.getContactsAsObject().subscribe(contacts => {
-	 *   console.log('All contacts:', contacts);
+	 * this.contactService.getContactsAsObject().subscribe((contacts) => {
+	 *   console.log("All contacts:", contacts);
 	 * });
 	 *
 	 * // New way (recommended)
-	 * this.contactService.allContacts$.subscribe(contacts => {
-	 *   console.log('All contacts:', contacts);
+	 * this.contactService.allContacts$.subscribe((contacts) => {
+	 *   console.log("All contacts:", contacts);
 	 * });
 	 * ```
 	 */
@@ -132,8 +133,8 @@ export class ContactService implements OnDestroy {
 	 *
 	 * @example
 	 * ```typescript
-	 * this.contactService.getContactById('contact-id-123').subscribe(contact => {
-	 *   console.log('Contact:', contact);
+	 * this.contactService.getContactById("contact-id-123").subscribe((contact) => {
+	 *   console.log("Contact:", contact);
 	 * });
 	 * ```
 	 */
@@ -152,7 +153,9 @@ export class ContactService implements OnDestroy {
 	getDocumentById(contactId: string) {
 		// For backward compatibility, we'll just subscribe and ignore
 		// Components should migrate to using getContactById() Observable
-		console.warn('[ContactService] getDocumentById is deprecated. Use getContactById() Observable instead.');
+		console.warn(
+			"[ContactService] getDocumentById is deprecated. Use getContactById() Observable instead.",
+		);
 	}
 
 	/**
@@ -189,10 +192,6 @@ export class ContactService implements OnDestroy {
 			initials: data["initials"] || "",
 			color: data["color"],
 		};
-	}
-
-	ngOnDestroy() {
-		// Cleanup if needed (RxJS handles subscription cleanup automatically)
 	}
 
 	/**
